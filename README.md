@@ -41,8 +41,8 @@ Statement2-->Statement3;
 Statement3-->End;
 ```
 
-### :small_blue_diamond: Mapeamento de Classes
-Este mapeamento fornece uma representação prática das entidades, atributos e relacionamentos identificados no modelo conceitual do projeto.
+### :small_blue_diamond: Diagrama Entidade Relacionamento
+Este diagrama fornece uma representação prática das entidades, atributos e relacionamentos identificados no modelo conceitual do projeto.
 
 ``` mermaid
 graph TD;
@@ -53,14 +53,5 @@ Statement2-->Statement3;
 Statement3-->End;
 ```
 
-### :small_blue_diamond: Diagrama de Caso de Uso
-Este diagrama escreve a interação entre o usuário e o sistema de reserva de salas.
-
-``` mermaid
-graph TD;
-Start-->Statement1;
-Statement1-->Statement2;
-Statement2-->End;
-Statement2-->Statement3;
-Statement3-->End;
-```
+### :small_blue_diamond: Prototipagem
+Telas contidas na aplicação.
