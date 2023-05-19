@@ -22,11 +22,15 @@ A escolha da linguagem e do framework utilizados neste projeto, dá-se pela abor
 ## 📈  Solução Proposta
 
 - Requisitos:
-    - [ ] 1
-    - [ ] 2
-    - [ ] 3
-    - [ ] 4
-    - [ ] 5
+    - [ ] Administrador cadastra salas
+    - [ ] Administrador cadastra usuários
+    - [ ] Administrador cadastra horários
+    - [ ] Usuário comum terá acesso somente aos próprios agendamentos
+    - [ ] Ambos usuários tem acesso a cadastro, alteração e deleção das reservas
+    - [ ] Horários disponíveis devem estar separados por turnos
+    - [ ] Se turno estiver reservado para higienização, não deve receber agendamento
+    - [ ] Cancelamento não pode ser realizado pelo usuário comum com menos de um turno de antecedência
+    - [ ] Agendamento deve ser realizado, no mínimo, para o dia atual
 
 ### :small_blue_diamond: Modelo Entidade Relacionamento
 
