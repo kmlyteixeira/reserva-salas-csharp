@@ -48,14 +48,7 @@ Statement3-->End;
 ### :small_blue_diamond: Diagrama Entidade Relacionamento
 Este diagrama fornece uma representação prática das entidades, atributos e relacionamentos identificados no modelo conceitual do projeto.
 
-``` mermaid
-graph TD;
-Start-->Statement1;
-Statement1-->Statement2;
-Statement2-->End;
-Statement2-->Statement3;
-Statement3-->End;
-```
+<img src= "img/DER.png"/>
 
 ### :small_blue_diamond: Prototipagem
 Telas contidas na aplicação.
