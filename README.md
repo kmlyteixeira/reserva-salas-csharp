@@ -4,7 +4,7 @@
 
 ## :beginner: Informações do Projeto
 
-- Nome do Projeto:
+- Nome do Projeto: VersaRooms - Reserva de Salas
 - Status: 
     - [x] Em progresso
     - [ ] Em revisão
