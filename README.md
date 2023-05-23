@@ -45,3 +45,32 @@ Este diagrama fornece uma representação prática das entidades, atributos e re
 
 ### :small_blue_diamond: Prototipagem
 Telas contidas na aplicação.
+
+## Tela de Login
+
+<img src= "img/1.png"/>
+
+## Tela de Início
+
+<img src= "img/2.png"/>
+
+## Cadastro de Usuário
+
+<img src= "img/3.png"/>
+
+## Cadastro de Funcionário
+
+<img src= "img/4.png"/>
+
+## Cadastro de Salas
+
+<img src= "img/5.png"/>
+
+## Cadastro de Horários
+
+<img src= "img/6.png"/>
+
+## Cadastro de Turnos
+
+<img src= "img/7.png"/>
+
