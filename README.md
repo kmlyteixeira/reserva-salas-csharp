@@ -4,7 +4,7 @@
 
 ## :beginner: Informações do Projeto
 
-- Nome do Projeto:
+- Nome do Projeto: VersaRooms - Reserva de Salas
 - Status: 
     - [x] Em progresso
     - [ ] Em revisão
@@ -32,30 +32,45 @@ A escolha da linguagem e do framework utilizados neste projeto, dá-se pela abor
     - [ ] Cancelamento não pode ser realizado pelo usuário comum com menos de um turno de antecedência
     - [ ] Agendamento deve ser realizado, no mínimo, para o dia atual
 
-### :small_blue_diamond: Modelo Entidade Relacionamento
+### :small_blue_diamond: Diagrama Entidade Relacionamento
 
 Através desse modelo, é possível compreender as interações entre os diferentes elementos do sistema de reserva de salas, permitindo uma melhor compreensão dos requisitos e auxiliando no desenvolvimento de uma solução eficiente e intuitiva para os usuários.
 
-``` mermaid
-graph TD;
-Start-->Statement1;
-Statement1-->Statement2;
-Statement2-->End;
-Statement2-->Statement3;
-Statement3-->End;
-```
+<img src= "img/MER_1_3.png"/>
 
-### :small_blue_diamond: Diagrama Entidade Relacionamento
+### :small_blue_diamond: Diagrama de classes
 Este diagrama fornece uma representação prática das entidades, atributos e relacionamentos identificados no modelo conceitual do projeto.
 
-``` mermaid
-graph TD;
-Start-->Statement1;
-Statement1-->Statement2;
-Statement2-->End;
-Statement2-->Statement3;
-Statement3-->End;
-```
+<img src= "img/DER.png"/>
 
 ### :small_blue_diamond: Prototipagem
 Telas contidas na aplicação.
+
+## Tela de Login
+
+<img src= "img/1.png"/>
+
+## Tela de Início
+
+<img src= "img/2.png"/>
+
+## Cadastro de Usuário
+
+<img src= "img/3.png"/>
+
+## Cadastro de Funcionário
+
+<img src= "img/4.png"/>
+
+## Cadastro de Salas
+
+<img src= "img/5.png"/>
+
+## Cadastro de Horários
+
+<img src= "img/6.png"/>
+
+## Cadastro de Turnos
+
+<img src= "img/7.png"/>
+
