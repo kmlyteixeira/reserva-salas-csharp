@@ -36,7 +36,7 @@ A escolha da linguagem e do framework utilizados neste projeto, dá-se pela abor
 
 Através desse modelo, é possível compreender as interações entre os diferentes elementos do sistema de reserva de salas, permitindo uma melhor compreensão dos requisitos e auxiliando no desenvolvimento de uma solução eficiente e intuitiva para os usuários.
 
-<img src= "img/MER_1.2.png"/>
+<img src= "img/MER_1_3.png"/>
 
 ### :small_blue_diamond: Diagrama Entidade Relacionamento
 Este diagrama fornece uma representação prática das entidades, atributos e relacionamentos identificados no modelo conceitual do projeto.
