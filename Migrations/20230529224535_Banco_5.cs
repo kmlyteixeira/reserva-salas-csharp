@@ -6,13 +6,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace reserva_salas_csharp.Migrations
 {
     /// <inheritdoc />
-    public partial class Banco_4 : Migration
+    public partial class Banco_5 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
-                name: "produtos",
+                name: "funcionario",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -28,7 +31,7 @@ namespace reserva_salas_csharp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_produtos", x => x.Id);
+                    table.PrimaryKey("PK_funcionario", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
@@ -37,7 +40,7 @@ namespace reserva_salas_csharp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "produtos");
+                name: "funcionario");
         }
     }
 }

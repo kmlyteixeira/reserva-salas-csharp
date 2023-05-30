@@ -37,33 +37,102 @@ namespace Models {
 
 
 
-       public static void alterarFuncionario(int id, string novoNome, float preco)
-        {
-          using var context = new Context();
-            var produto = context.produtos.Find(id);
-            if (produto != null)
+        public static void alterarFuncionario(int id, Dictionary<string, string> novosCampos)
+{
+            using var context = new Database();
+            var funcionario = context.funcionario.Find(id);
+
+            if (funcionario != null)
             {
-                produto.nome = novoNome;
-                produto.preco = preco;
+                foreach (var campo in novosCampos)
+                {
+                    var propertyInfo = funcionario.GetType().GetProperty(campo.Key);
+                    if (propertyInfo != null && campo.Value != "")
+                    {
+                        propertyInfo.SetValue(funcionario, campo.Value);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Campo inválido: {campo.Key}");
+                    }
+                }
+
                 context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Funcionario no encontrado.");
             }
         }
 
 
-        public static void exculirFuncionario(int id, string novoNome, float preco)
+
+       public static void excluirFuncionario(int id)
         {
-        
+            using var context = new Database();
+            var funcionario = context.funcionario.Find(id);
+
+            if (funcionario != null)
+            {
+                context.funcionario.Remove(funcionario);
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Funcionario no encontrado.");
+            }
         }
 
-        public static void getFuncionario(int id)
+
+        public static void GetByIdFunc(int id)
         {
-        
+           using var context = new Database();
+                    var funcionario = context.funcionario.Find(id);
+
+            if (funcionario != null)
+            {
+                Console.WriteLine("Datos del funcionario:");
+                Console.WriteLine($"ID: {funcionario.Id}");
+                Console.WriteLine($"Nombre: {funcionario.Nome}");
+                Console.WriteLine($"Apellido: {funcionario.Sobrenome}");
+                Console.WriteLine($"Cpf: {funcionario.Cpf}");
+                Console.WriteLine($"Fecha de Nacimiento: {funcionario.DataNasc}");
+            }
+            else
+            {
+                Console.WriteLine("Funcionario no encontrado.");
+            }
         }
 
+        
+       
 
         public static void GetAllFuncionario()
         {
         
+
+    using var context = new Database();
+    var funcionarios = context.funcionario.ToList();
+
+    if (funcionarios.Count > 0)
+    {
+        Console.WriteLine("Lista de funcionarios:");
+        foreach (var funcionario in funcionarios)
+        {
+            Console.WriteLine($"ID: {funcionario.Id}");
+            Console.WriteLine($"Nombre: {funcionario.Nome}");
+            Console.WriteLine($"Apellido: {funcionario.Sobrenome}");
+            Console.WriteLine($"Cpf: {funcionario.Cpf}");
+            Console.WriteLine($"Fecha de Nacimiento: {funcionario.DataNasc}");
+            Console.WriteLine();
+        }
+    }
+    else
+    {
+        Console.WriteLine("No se encontraron funcionarios en la base de datos.");
+    }
+
+
         }
         
 

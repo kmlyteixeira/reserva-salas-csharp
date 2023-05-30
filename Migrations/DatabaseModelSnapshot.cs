@@ -42,7 +42,7 @@ namespace reserva_salas_csharp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("produtos");
+                    b.ToTable("funcionario");
                 });
 #pragma warning restore 612, 618
         }

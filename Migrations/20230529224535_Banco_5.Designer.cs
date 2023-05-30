@@ -10,8 +10,8 @@ using reserva_salas_csharp.Repository;
 namespace reserva_salas_csharp.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20230526000704_Banco_4")]
-    partial class Banco_4
+    [Migration("20230529224535_Banco_5")]
+    partial class Banco_5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,7 @@ namespace reserva_salas_csharp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("produtos");
+                    b.ToTable("funcionario");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,16 +14,35 @@ namespace Controllers {
         }
 
 
-        public static void alterarProdutos(int id, string nome, float preco) {
-           
+        public static void alterarFuncionario(int id, string nome, string sobrenome,string cpf,string dataNasc) {
+            var camposParaAtualizar = new Dictionary<string, string>
+            {
+                { "Nome", nome },
+                { "Sobrenome", sobrenome },
+                { "Cpf", cpf },
+                { "DataNasc", dataNasc }
+            };
+
+            Models.Funcionario.alterarFuncionario(id, camposParaAtualizar);
         }
         
         
-        /*
+       public static void excluirFuncionario(int id)
+        {
+            Models.Funcionario.excluirFuncionario(id);
+        }
 
-        public static void excluirProdutos(int id) {
-            Models.Produto.ExcluirProduto(id);
-        }*/
+
+         public static void mostrarFunc(int id)
+        {
+            Models.Funcionario.GetByIdFunc(id);
+        }
+
+         public static void mostrarAllFunc()
+        {
+            Models.Funcionario.GetAllFuncionario();
+        }
+
     }
 
 }
