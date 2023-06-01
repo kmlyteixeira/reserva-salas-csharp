@@ -31,10 +31,9 @@ namespace Models
             db.Turnos.Remove(turno);
             db.SaveChanges();
         }
-        public static List<Turno> GetTurnos(int id){
+        public static Turno GetTurnos(int id){
             Database db = new Database();
-            List<Turno> turnos = db.Turnos.ToList();
-            return turnos;
+            return db.Turnos.Find(id);
         }
         public static List<Turno> GetAllTurnos()
         {

@@ -36,10 +36,9 @@ namespace Models
             db.Salas.Remove(sala);
             db.SaveChanges();
         }
-        public static List<Sala> GetSalas(int id){
+        public static Sala GetSalas(int id){
             Database db = new Database();
-            List<Sala> salas = db.Salas.ToList();
-            return salas;
+            return db.Salas.Find(id);
         }
         public static List<Sala> GetAllSalas()
         {

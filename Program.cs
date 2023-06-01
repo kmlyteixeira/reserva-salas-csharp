@@ -1,7 +1,14 @@
-public static class Program
+using System;
+using Views;
+
+namespace Views
 {
-    public static void Main()
+    public class Program
     {
-        // Create a new instance of the class
+        public static void Main(string[] args)
+        {
+           //new Sala();
+           new Turno();
+        }
     }
 }
