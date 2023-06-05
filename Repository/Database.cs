@@ -6,7 +6,11 @@ namespace reserva_salas_csharp.Repository
     {
         public Database(){}
         public Database(DbContextOptions<Database> options) : base(options) { }
-         public DbSet<Models.Funcionario> funcionario { get; set; }
+        
+        public DbSet<Models.Funcionario> funcionario { get; set; }
+        public DbSet<Models.Sala> Salas { get; set; }
+        public DbSet<Models.Turno> Turnos { get; set; }
+
         private IConfiguration Configuration { get; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
