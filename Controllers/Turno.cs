@@ -1,7 +1,7 @@
 using System;
-using Models;
+using reserva_salas_csharp.Models;
 
-namespace Controllers
+namespace reserva_salas_csharp.Controllers
 {
 
     public class Turno
