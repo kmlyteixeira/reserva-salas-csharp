@@ -1,7 +1,6 @@
 using System;
-using Views;
 
-namespace Views
+namespace reserva_salas_csharp
 {
     public class Program
     {

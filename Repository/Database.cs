@@ -6,8 +6,8 @@ namespace reserva_salas_csharp.Repository
     {
         public Database(){}
         public Database(DbContextOptions<Database> options) : base(options) { }
-        //adicione aqui seus DBSets
-
+        
+        public DbSet<Models.Funcionario> funcionario { get; set; }
         public DbSet<Models.Sala> Salas { get; set; }
         public DbSet<Models.Turno> Turnos { get; set; }
 
