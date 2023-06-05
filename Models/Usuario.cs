@@ -69,12 +69,14 @@ namespace reserva_salas_csharp.Models
             return usuario;
         }
 
-        public static void UpdateSenha(int id, string senha)
+        public static Usuario UpdateSenha(int id, string senha)
         {
             Database db = new Database();
             Usuario usuario = GetUsuarioById(id);
             usuario.Senha = senha;
             db.SaveChanges();
+
+            return usuario;
         }
         
     }
