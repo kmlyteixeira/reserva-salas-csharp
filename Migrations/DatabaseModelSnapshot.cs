@@ -82,6 +82,32 @@ namespace reserva_salas_csharp.Migrations
 
                     b.Navigation("TipoUsuario");
                 });
+                
+            modelBuilder.Entity("Models.Funcionario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("DataNasc")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Sobrenome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("funcionario");
+                });
 
             modelBuilder.Entity("Models.Sala", b =>
                 {

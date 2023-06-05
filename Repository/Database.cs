@@ -10,6 +10,7 @@ namespace reserva_salas_csharp.Repository
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<TipoUsuario> TiposUsuario { get; set; }
+        public DbSet<Models.Funcionario> funcionario { get; set; }
         public DbSet<Models.Sala> Salas { get; set; }
         public DbSet<Models.Turno> Turnos { get; set; }
         
