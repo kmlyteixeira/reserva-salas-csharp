@@ -1,6 +1,8 @@
-public static class Program
+using System;
+
+namespace reserva_salas_csharp
 {
-    public static void Main()
+    public class Program
     {
         //Application.Run(new Views.Home());
     }
