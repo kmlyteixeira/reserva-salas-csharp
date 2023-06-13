@@ -15,8 +15,8 @@ namespace reserva_salas_csharp.Models {
         public int idFuncionario { get; set; }
         public virtual Funcionario funcionario { get; set; }
 
-        /*public int idUsusario { get; set; }
-        public virtual Ususario usuario { get; set; }*/
+        public int idUsusario { get; set; }
+        public virtual Usuario usuario { get; set; }
    
 
          public Higienizacao() {
@@ -24,10 +24,11 @@ namespace reserva_salas_csharp.Models {
         }
 
 
-        public Higienizacao(Sala Salaid, Funcionario Funcionarioid, string observacao) {
+        public Higienizacao(Sala Salaid, Funcionario Funcionarioid,Usuario Usuarioid, string observacao) {
            this.Id = Id;
            this.idSala = Salaid.id;
            this.idFuncionario = Funcionarioid.Id;
+           this.idUsusario = Usuarioid.Id;
            this.Observacao = observacao;
    
         }
@@ -43,27 +44,21 @@ namespace reserva_salas_csharp.Models {
 
 
 
-        public static void alterarHigienizacao(int id, Dictionary<string, string> novosCampos)
+        public static void alterarHigienizacao(int id, int salaId,int  funcId, int userId)
 {
             using var context = new Database();
             var higienizacao = context.Higienizacao.Find(id);
 
             if (higienizacao != null)
             {
-                foreach (var campo in novosCampos)
-                {
-                    var propertyInfo = higienizacao.GetType().GetProperty(campo.Key);
-                    if (propertyInfo != null && campo.Value != "")
-                    {
-                        propertyInfo.SetValue(higienizacao, campo.Value);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Campo inválido: {campo.Key}");
-                    }
-                }
-
-                context.SaveChanges();
+                  Database db = new Database();
+                  Usuario usuario = GetUsuarioById(id);
+                  usuario.Nome = nome;
+                  usuario.Sobrenome = sobrenome;
+                  usuario.CPF = cpf;
+                  usuario.DataNascimento = dataNascimento;
+                  usuario.TipoUsuario = tipoUsuario;
+                  db.SaveChanges();
             }
             else
             {
