@@ -73,5 +73,27 @@ namespace reserva_salas_csharp.Controllers
                 }
             }
         }
+
+        public static Boolean Login (string userName, string senha)
+        {
+            string hashSenha = GenerateHashCode(senha.GetHashCode()).ToString();
+            
+            Models.Usuario usuario = Models.Usuario.GetUsuarioByUserName(userName);
+            if (usuario == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (usuario.Senha == hashSenha)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }
