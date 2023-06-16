@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using reserva_salas_csharp.Controllers;
 
 namespace reserva_salas_csharp.Views
 {
@@ -65,7 +66,7 @@ namespace reserva_salas_csharp.Views
             this.loginButton.TabIndex = 4;
             this.loginButton.Text = "Entrar";
             this.loginButton.UseVisualStyleBackColor = true;
-            this.loginButton.Click += new System.EventHandler(this.handleLoginClick);
+            this.loginButton.Click += new System.EventHandler((sender, e) => this.handleLoginClick(this.userTextBox.Text, this.passwordTextBox.Text));
 
             // Login
             this.Size = new Size(750, 600);
@@ -88,9 +89,17 @@ namespace reserva_salas_csharp.Views
             MessageBox.Show("UPDATE PASS IS RUNNING!!!!");
         }
 
-        private void handleLoginClick(object? sender, EventArgs e)
+        private void handleLoginClick(string user, string password)
         {
-            MessageBox.Show("LOGIN IS RUNNING!!!!");
+           if (Controllers.Usuario.Login(user, password) == true)
+           {
+                this.Hide();
+                //new Home();
+           }
+           else
+           {
+                MessageBox.Show("Usuário ou senha incorretos");
+           }
         }
     }
 }
