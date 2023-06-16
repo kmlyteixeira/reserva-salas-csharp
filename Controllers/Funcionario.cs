@@ -1,7 +1,7 @@
-using Models;
+using reserva_salas_csharp.Models;
 using reserva_salas_csharp.Repository;
 
-namespace Controllers {
+namespace reserva_salas_csharp.Controllers {
 
 
     public class Funcionario {

@@ -2,7 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;    
 using reserva_salas_csharp.Repository;
 
-namespace Models {
+namespace reserva_salas_csharp.Models {
 
 
     public class Funcionario {
