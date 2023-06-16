@@ -230,11 +230,13 @@ namespace reserva_salas_csharp.Views
             // 
             this.textBox2.Location = new System.Drawing.Point(71, 19);
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '●';
             this.textBox2.Size = new System.Drawing.Size(351, 22);
             this.textBox2.TabIndex = 11;
             // 
             // button1
             // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(103)))), ((int)(((byte)(186)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -245,10 +247,11 @@ namespace reserva_salas_csharp.Views
             this.button1.TabIndex = 10;
             this.button1.Text = "LOGIN";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.login_Click);
+            this.button1.Click += new System.EventHandler((sender, e) => this.login_Click(this.textBox1.Text, this.textBox2.Text));
             // 
             // button2
             // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.BackColor = System.Drawing.SystemColors.Control;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -261,7 +264,7 @@ namespace reserva_salas_csharp.Views
             this.button2.Text = "Esqueceu sua senha?";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.forgetPass_Click);
+            this.button2.Click += new System.EventHandler((sender, e) => this.forgotPassword_Click(this.textBox1.Text));
             // 
             // Login
             // 
@@ -294,17 +297,18 @@ namespace reserva_salas_csharp.Views
             Application.Exit();
         }
 
-        private void forgetPass_Click(object sender, EventArgs e)
+        private void forgotPassword_Click(string username)
         {
-            Controllers.Usuario.ForgetPass(textBox1.Text);
+            Controllers.Usuario.ResetSenha(textBox1.Text);
         }
 
-        private void login_Click(object sender, EventArgs e)
+        private void login_Click(string username, string senha)
         {
-            Controllers.Usuario.Login(textBox1.Text, textBox2.Text);
+            Controllers.Usuario.Login(username, senha);
 
             this.Hide();
-            new Home();
+            //new Home();
+            MessageBox.Show("LOGIN EFETUADO COM SUCESSO! REDIRECIONAR PARA HOME");
         }
     }
 }
