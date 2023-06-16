@@ -4,6 +4,9 @@ namespace reserva_salas_csharp
 {
     public class Program
     {
-        //Application.Run(new Views.Home());
+        static void Main(string[] args)
+        {
+            Application.Run(new Views.Login());
+        }
     }
 }
