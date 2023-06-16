@@ -5,11 +5,11 @@ namespace reserva_salas_csharp.Controllers
 {
     public class Usuario
     {
-        public static Models.Usuario CadastrarUsuario(string nome, string sobrenome, string cpf, string dataNascimento, Models.TipoUsuario tipoUsuario, string userName, string senha)
+        public static Models.Usuario CadastrarUsuario(string nome, string sobrenome, string cpf, string dataNascimento, Models.TipoUsuario tipoUsuario, string email, string userName, string senha)
         {
             UsuarioValidations.ValidaAtributos(cpf, dataNascimento, nome, sobrenome);
             string hashSenha = GenerateHashCode(senha.GetHashCode()).ToString();
-            Models.Usuario usuario = new Models.Usuario(nome, sobrenome, cpf, dataNascimento, tipoUsuario, userName, hashSenha);
+            Models.Usuario usuario = new Models.Usuario(nome, sobrenome, cpf, dataNascimento, tipoUsuario, email, userName, hashSenha);
             return usuario;
         }
 
@@ -74,26 +74,29 @@ namespace reserva_salas_csharp.Controllers
             }
         }
 
-        public static Boolean Login (string userName, string senha)
+        public static void Login (string userName, string senha)
         {
             string hashSenha = GenerateHashCode(senha.GetHashCode()).ToString();
             
             Models.Usuario usuario = Models.Usuario.GetUsuarioByUserName(userName);
             if (usuario == null)
-            {
-                return false;
-            }
-            else
-            {
-                if (usuario.Senha == hashSenha)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
+                throw new Exception("Usuário não encontrado");
+            
+            if (usuario.Senha == hashSenha)
+                throw new Exception("Senha incorreta");
+        }
+
+        public static void ResetSenha (string userName)
+        {
+            Models.Usuario usuario = Models.Usuario.GetUsuarioByUserName(userName);
+            if (usuario == null)
+                throw new Exception("Usuário não encontrado");
+            
+            Random random = new Random();
+            string novaSenha = GenerateHashCode(random.Next(10000000, 1000000000)).ToString();
+            string hashSenha = GenerateHashCode(novaSenha.GetHashCode()).ToString();
+            Models.Usuario.UpdateSenha(usuario.Id, hashSenha);
+            Email.EnviarEmail(usuario.Email, "Reset de senha", $"Sua nova senha é: {novaSenha}");
         }
     }
 }

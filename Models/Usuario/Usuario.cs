@@ -10,18 +10,20 @@ namespace reserva_salas_csharp.Models
         public string CPF { get; set; }
         public string DataNascimento { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
+        public string Email { get; set; }
         public string UserName { get; set; }
         public string Senha { get; set; }
 
         public Usuario() { }
 
-        public Usuario(string nome, string sobrenome, string cpf, string dataNascimento, TipoUsuario tipoUsuario, string userName, string senha)
+        public Usuario(string nome, string sobrenome, string cpf, string dataNascimento, TipoUsuario tipoUsuario, string Email, string userName, string senha)
         {
             this.Nome = nome;
             this.Sobrenome = sobrenome;
             this.CPF = cpf;
             this.DataNascimento = dataNascimento;
             this.TipoUsuario = tipoUsuario;
+            this.Email = Email;
             this.UserName = userName;
             this.Senha = senha;
 
