@@ -82,7 +82,7 @@ namespace reserva_salas_csharp.Controllers
             if (usuario == null)
                 throw new Exception("Usuário não encontrado");
             
-            if (usuario.Senha == hashSenha)
+            if (usuario.Senha != hashSenha)
                 throw new Exception("Senha incorreta");
         }
 
