@@ -25,5 +25,17 @@ namespace reserva_salas_csharp.Models
             db.TiposUsuario.Add(this);
             db.SaveChanges();
         }
+
+        public static TipoUsuario GetTipoUsuarioById(int id)
+        {
+            Database db = new Database();
+            return db.TiposUsuario.Find(id);
+        }
+
+        public static IEnumerable<TipoUsuario> GetTiposUsuario()
+        {
+            Database db = new Database();
+            return db.TiposUsuario.ToList();
+        }
     }
 }

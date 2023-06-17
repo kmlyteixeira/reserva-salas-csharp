@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using reserva_salas_csharp.Models;
 
 namespace reserva_salas_csharp.Controllers
 {
@@ -7,9 +8,9 @@ namespace reserva_salas_csharp.Controllers
     {
         public static Models.Usuario CadastrarUsuario(string nome, string sobrenome, string cpf, string dataNascimento, Models.TipoUsuario tipoUsuario, string email, string userName, string senha)
         {
-            UsuarioValidations.ValidaAtributos(cpf, dataNascimento, nome, sobrenome);
+            UsuarioValidations.ValidaAtributos(cpf, dataNascimento, userName, senha);
             string hashSenha = GenerateHashCode(senha.GetHashCode()).ToString();
-            Models.Usuario usuario = new Models.Usuario(nome, sobrenome, cpf, dataNascimento, tipoUsuario, email, userName, hashSenha);
+            Models.Usuario usuario = new Models.Usuario(nome, sobrenome, cpf, dataNascimento, tipoUsuario.Id, email, userName, hashSenha);
             return usuario;
         }
 
@@ -39,6 +40,16 @@ namespace reserva_salas_csharp.Controllers
         public static IEnumerable<Models.Usuario> GetAllUsuarios()
         {
             return Models.Usuario.GetUsuarios();
+        }
+
+        public static TipoUsuario GetTipoUsuario(string id)
+        {
+            return Models.TipoUsuario.GetTipoUsuarioById(int.Parse(id));
+        }
+
+        public static IEnumerable<TipoUsuario> GetAllTiposUsuario()
+        {
+            return Models.TipoUsuario.GetTiposUsuario();
         }
 
         public static int GenerateHashCode(int hashValue)
