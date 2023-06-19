@@ -84,24 +84,10 @@ namespace reserva_salas_csharp.Models {
         }
 
 
-        public static void GetByIdFunc(int id)
+        public static GetByIdFunc(int id)
         {
-           using var context = new Database();
-                    var funcionario = context.funcionario.Find(id);
-
-            if (funcionario != null)
-            {
-                Console.WriteLine("Datos del funcionario:");
-                Console.WriteLine($"ID: {funcionario.Id}");
-                Console.WriteLine($"Nombre: {funcionario.Nome}");
-                Console.WriteLine($"Apellido: {funcionario.Sobrenome}");
-                Console.WriteLine($"Cpf: {funcionario.Cpf}");
-                Console.WriteLine($"Fecha de Nacimiento: {funcionario.DataNasc}");
-            }
-            else
-            {
-                Console.WriteLine("Funcionario no encontrado.");
-            }
+           u sing var context = new Database();
+            return context.funcionario.Find(id);
         }
 
         

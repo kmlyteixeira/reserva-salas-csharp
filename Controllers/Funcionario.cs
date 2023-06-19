@@ -33,9 +33,8 @@ namespace reserva_salas_csharp.Controllers {
         }
 
 
-         public static void mostrarFunc(int id)
-        {
-            Models.Funcionario.GetByIdFunc(id);
+          public static Models.Funcionario m(int id){
+            return Models.Funcionario.GetByIdFunc(id);
         }
 
          public static void mostrarAllFunc()

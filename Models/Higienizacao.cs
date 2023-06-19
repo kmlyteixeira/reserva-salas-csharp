@@ -44,25 +44,31 @@ namespace reserva_salas_csharp.Models {
 
 
 
-        public static void alterarHigienizacao(int id, int salaId,int  funcId, int userId)
+        public static void alterarHigienizacao(int id, Dictionary<string, string> novosCampos)
 {
             using var context = new Database();
             var higienizacao = context.Higienizacao.Find(id);
 
             if (higienizacao != null)
             {
-                  Database db = new Database();
-                  Usuario usuario = GetUsuarioById(id);
-                  usuario.Nome = nome;
-                  usuario.Sobrenome = sobrenome;
-                  usuario.CPF = cpf;
-                  usuario.DataNascimento = dataNascimento;
-                  usuario.TipoUsuario = tipoUsuario;
-                  db.SaveChanges();
+                foreach (var campo in novosCampos)
+                {
+                    var propertyInfo = higienizacao.GetType().GetProperty(campo.Key);
+                    if (propertyInfo != null && campo.Value != "")
+                    {
+                        propertyInfo.SetValue(higienizacao, campo.Value);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Campo inválido: {campo.Key}");
+                    }
+                }
+
+                context.SaveChanges();
             }
             else
             {
-                Console.WriteLine("Higienização no encontrada.");
+                Console.WriteLine("Hiienização no encontrada.");
             }
         }
 
