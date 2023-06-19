@@ -304,11 +304,10 @@ namespace reserva_salas_csharp.Views
 
         private void login_Click(string username, string senha)
         {
-            Controllers.Usuario.Login(username, senha);
+            Models.Usuario usuario = Controllers.Usuario.Login(username, senha);
 
             this.Hide();
-            //new Home();
-            MessageBox.Show("LOGIN EFETUADO COM SUCESSO! REDIRECIONAR PARA HOME");
+            new Home(usuario).Show();
         }
     }
 }
