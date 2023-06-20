@@ -84,11 +84,20 @@ namespace reserva_salas_csharp.Models {
         }
 
 
-        public static GetByIdFunc(int id)
+        public static int GetByIdfunc(int id)
         {
-           u sing var context = new Database();
-            return context.funcionario.Find(id);
+            using (var context = new Database())
+            {
+                var funcionario = context.funcionario.Find(id);
+                if (funcionario != null)
+                {
+                    return funcionario.Id;
+                }
+            }
+        
+            return -1; // Retorna um valor indicando que o funcionário não foi encontrado
         }
+
 
         
        

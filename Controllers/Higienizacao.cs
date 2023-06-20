@@ -16,33 +16,34 @@ namespace reserva_salas_csharp.Controllers {
         }
 
 
-        public static void alterarHigienizacao(int id, string nome, string sobrenome,string cpf,string dataNasc) {
+        public static void alterarHigienizacao(int id, string observacao, string idhorario,string idSala,string idUsusario, string idFunc) {
             var camposParaAtualizar = new Dictionary<string, string>
             {
-                { "Nome", nome },
-                { "Sobrenome", sobrenome },
-                { "Cpf", cpf },
-                { "DataNasc", dataNasc }
+                { "Observacao", observacao },
+                { "Idhorario", idhorario },
+                { "IdSala", idSala },
+                { "IdUsusario", idUsusario },
+                { "IdFunc", idFunc }
             };
 
-            Models.Funcionario.alterarFuncionario(id, camposParaAtualizar);
+            Models.Higienizacao.alterarHigienizacao(id, camposParaAtualizar);
         }
         
         
-       public static void excluirFuncionario(int id)
+       public static void excluirHigienizacao(int id)
         {
-            Models.Funcionario.excluirFuncionario(id);
+            Models.Higienizacao.excluirHigienizacao(id);
         }
 
 
-         public static void mostrarFunc(int id)
+         public static void mostrarHigien(int id)
         {
-            Models.Funcionario.GetByIdFunc(id);
+            Models.Higienizacao.GetByIdHigi(id);
         }
 
-         public static void mostrarAllFunc()
+         public static void mostrarAllHigien()
         {
-            Models.Funcionario.GetAllFuncionario();
+            Models.Higienizacao.GetAllHigienizacao();
         }
 
     }

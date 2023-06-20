@@ -62,9 +62,7 @@ namespace reserva_salas_csharp.Views
 
             if (id != 0)
             {
-                Models.Funcionario sala = Controllers.Funcionario.mostrarFunc(id);
-                this.txtNomeSala.Text =  sala.numeroSala.ToString();
-                this.txtNomeAndar.Text = sala.numeroAndar.ToString();
+                
 
             }
 
