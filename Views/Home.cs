@@ -135,7 +135,7 @@ namespace reserva_salas_csharp.Views
             labelCalendar.Name = "labelCalendar";
             labelCalendar.Size = new Size(126, 19);
             labelCalendar.TabIndex = 5;
-            labelCalendar.Text = "junho de 2023";
+            getLabelCalendar(this.monthConst);
             // 
             // dataGridViewCalendar
             // 
@@ -176,6 +176,7 @@ namespace reserva_salas_csharp.Views
             buttonCalendar.TabIndex = 7;
             buttonCalendar.Text = "<";
             buttonCalendar.UseVisualStyleBackColor = false;
+            buttonCalendar.Click += new System.EventHandler((sender, e) => this.buttonCalendar_Click());
             // 
             // buttonCalendar2
             // 
@@ -421,7 +422,7 @@ namespace reserva_salas_csharp.Views
             labelBemVindo.Name = "labelBemVindo";
             labelBemVindo.Size = new Size(369, 27);
             labelBemVindo.TabIndex = 0;
-            labelBemVindo.Text = "Seja bem vindo, " + usuario.Nome + "!";
+            labelBemVindo.Text = "Seja bem vindo, "/* + usuario.Nome + "!"*/;
             // 
             // menuStrip1
             // 
@@ -594,17 +595,58 @@ namespace reserva_salas_csharp.Views
 
         }
 
+        private void buttonCalendar_Click()
+        {
+            monthConst -= 1;
+            dataGridViewCalendar.Rows.Clear();
+            CarregaDadosGrid(monthConst);
+            dataGridViewCalendar.Refresh();
+            getLabelCalendar(monthConst);
+        }
+
         private void buttonCalendar2_Click()
         {
             monthConst += 1;
             dataGridViewCalendar.Rows.Clear();
             CarregaDadosGrid(monthConst);
             dataGridViewCalendar.Refresh();
+            getLabelCalendar(monthConst);
+        }
+
+        private void getLabelCalendar(int monthConst)
+        {
+            switch (monthConst)
+            {
+                case 6:
+                {
+                    labelCalendar.Text = "junho de 2023";
+                    labelCalendar.Refresh();
+                    break;
+                }
+
+                case 7:
+                {
+                    labelCalendar.Text = "julho de 2023";
+                    labelCalendar.Refresh();
+                    break;
+                }
+
+                case 8:
+                {
+                    labelCalendar.Text = "agosto de 2023";
+                    labelCalendar.Refresh();
+                    break;
+                }
+            }
         }
 
         private void dataGridViewCalendar_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            throw new NotImplementedException();
+            if (comboBoxSala.SelectedIndex == -1) 
+            {
+                MessageBox.Show("Selecione uma sala para agendar", "Retorno", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
         }
 
         private void pictureBox1_Click_1(object? sender, EventArgs e)
