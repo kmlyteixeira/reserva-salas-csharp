@@ -299,7 +299,10 @@ namespace reserva_salas_csharp.Views
 
         private void forgotPassword_Click(string username)
         {
-            Controllers.Usuario.ResetSenha(textBox1.Text);
+            DialogResult dialogResult = MessageBox.Show("Deseja resetar a senha?", "Resetar senha", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) Controllers.Usuario.ResetSenha(textBox1.Text);
+
+            MessageBox.Show("Um email com a nova senha foi enviado para o email cadastrado");
         }
 
         private void login_Click(string username, string senha)

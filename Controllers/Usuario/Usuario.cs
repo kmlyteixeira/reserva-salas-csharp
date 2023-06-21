@@ -24,7 +24,7 @@ namespace reserva_salas_csharp.Controllers
         public static Models.Usuario AlterarSenha(string id, string senha)
         {
             string hashSenha = GenerateHashCode(senha.GetHashCode()).ToString();
-            return Models.Usuario.UpdateSenha(int.Parse(id), hashSenha);;
+            return Models.Usuario.UpdateSenha(GetUsuario(id), hashSenha);
         }
 
         public static void DeletarUsuario(string id)
@@ -94,8 +94,8 @@ namespace reserva_salas_csharp.Controllers
             
             Random random = new Random();
             string novaSenha = GenerateHashCode(random.Next(10000000, 1000000000)).ToString();
-            string hashSenha = GenerateHashCode(novaSenha.GetHashCode()).ToString();
-            Models.Usuario.UpdateSenha(usuario.Id, hashSenha);
+            string hashSenha = GenerateHashCode(StringToInt(novaSenha)).ToString();
+            Models.Usuario.UpdateSenha(usuario, hashSenha);
             Email.EnviarEmail(usuario.Email, "Reset de senha", $"Sua nova senha é: {novaSenha}");
         }
     }
