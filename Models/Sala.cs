@@ -27,6 +27,7 @@ namespace reserva_salas_csharp.Models
             Sala sala = db.Salas.Find(id);
             sala.numeroSala = numeroSala;
             sala.numeroAndar = numeroAndar;
+            db.Salas.Update(sala);
             db.SaveChanges();
         }
 

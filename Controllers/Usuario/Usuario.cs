@@ -23,7 +23,7 @@ namespace reserva_salas_csharp.Controllers
 
         public static Models.Usuario AlterarSenha(string id, string senha)
         {
-            string hashSenha = GenerateHashCode(senha.GetHashCode()).ToString();
+            string hashSenha = GenerateHashCode(StringToInt(senha)).ToString();
             return Models.Usuario.UpdateSenha(GetUsuario(id), hashSenha);
         }
 

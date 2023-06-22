@@ -56,7 +56,7 @@ namespace reserva_salas_csharp.Models {
                         Console.WriteLine($"Campo inválido: {campo.Key}");
                     }
                 }
-
+                context.funcionario.Update(funcionario);
                 context.SaveChanges();
             }
             else

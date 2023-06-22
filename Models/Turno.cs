@@ -22,6 +22,7 @@ namespace reserva_salas_csharp.Models
             Database db = new Database();
             Turno turno = db.Turnos.Find(id);
             turno.descricao = descricao;
+            db.Turnos.Update(turno);
             db.SaveChanges();
         }
         

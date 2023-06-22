@@ -67,6 +67,7 @@ namespace reserva_salas_csharp.Models
             usuario.CPF = cpf;
             usuario.DataNascimento = dataNascimento;
             usuario.TipoUsuario = tipoUsuario;
+            db.Usuarios.Update(usuario);
             db.SaveChanges();
 
             return usuario;
@@ -76,6 +77,7 @@ namespace reserva_salas_csharp.Models
         {
             Database db = new Database();
             usuario.Senha = senha;
+            db.Usuarios.Update(usuario);
             db.SaveChanges();
 
             return usuario;
