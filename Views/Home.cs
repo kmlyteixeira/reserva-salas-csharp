@@ -40,6 +40,7 @@ namespace reserva_salas_csharp.Views
         private PictureBox pictureBoxSair;
         private ComboBox comboBoxSala;
         private Label labelSala;
+        private Label toolTipLabel;
         private int monthConst;
 
         public Home(Models.Usuario usuario)
@@ -87,6 +88,7 @@ namespace reserva_salas_csharp.Views
             pictureBoxSair = new PictureBox();
             labelSala = new Label();
             comboBoxSala = new ComboBox();
+            toolTipLabel = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCalendar).BeginInit();
@@ -106,6 +108,7 @@ namespace reserva_salas_csharp.Views
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(comboBoxSala);
+            panel1.Controls.Add(toolTipLabel);
             panel1.Controls.Add(labelSala);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(panel12);
@@ -125,6 +128,7 @@ namespace reserva_salas_csharp.Views
             panel2.Name = "panel2";
             panel2.Size = new Size(425, 386);
             panel2.TabIndex = 0;
+            panel2.Enabled = false;
             // 
             // labelCalendar
             // 
@@ -139,6 +143,11 @@ namespace reserva_salas_csharp.Views
             // 
             // dataGridViewCalendar
             // 
+            dataGridViewCalendar.AllowUserToAddRows = false;
+            dataGridViewCalendar.AllowUserToDeleteRows = false;
+            dataGridViewCalendar.AllowUserToResizeColumns = false;
+            dataGridViewCalendar.AllowUserToResizeRows = false;
+            dataGridViewCalendar.Enabled = false;
             dataGridViewCalendar.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCalendar.Location = new Point(3, 46);
             dataGridViewCalendar.Name = "dataGridViewCalendar";
@@ -177,6 +186,7 @@ namespace reserva_salas_csharp.Views
             buttonCalendar.Text = "<";
             buttonCalendar.UseVisualStyleBackColor = false;
             buttonCalendar.Click += new System.EventHandler((sender, e) => this.buttonCalendar_Click());
+            buttonCalendar.Enabled = false;
             // 
             // buttonCalendar2
             // 
@@ -193,6 +203,7 @@ namespace reserva_salas_csharp.Views
             buttonCalendar2.Text = ">";
             buttonCalendar2.UseVisualStyleBackColor = false;
             buttonCalendar2.Click += new System.EventHandler((sender, e) => this.buttonCalendar2_Click());
+            buttonCalendar2.Enabled = false;
             // 
             // panel12
             // 
@@ -203,6 +214,7 @@ namespace reserva_salas_csharp.Views
             panel12.Name = "panel12";
             panel12.Size = new Size(386, 386);
             panel12.TabIndex = 4;
+            panel12.Enabled = false;
             // 
             // panel5
             // 
@@ -526,6 +538,17 @@ namespace reserva_salas_csharp.Views
             comboBoxSala.Items.AddRange(Controllers.Sala.GetAllSalas()
                             .Select(s => $"Sala {s.numeroSala} - Andar {s.numeroAndar}")
                             .ToArray());
+            comboBoxSala.SelectedIndexChanged += comboBoxSala_SelectedIndexChanged;
+            // tooltip labelSala
+
+            toolTipLabel.AutoSize = true;
+            toolTipLabel.Visible = true;
+            toolTipLabel.BackColor = SystemColors.Info;
+            toolTipLabel.ForeColor = SystemColors.InfoText;
+            toolTipLabel.Font = new Font("Segoe UI", 9);
+            toolTipLabel.Padding = new Padding(5);
+            toolTipLabel.Text = "Selecione uma sala para começar!";
+            toolTipLabel.Location = new Point(comboBoxSala.Height + comboBoxSala.Width, comboBoxSala.Top);
             // 
             // Form1
             // 
@@ -566,6 +589,15 @@ namespace reserva_salas_csharp.Views
             ((System.ComponentModel.ISupportInitialize)pictureBoxSair).EndInit();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void comboBoxSala_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            this.toolTipLabel.Visible = false;
+            this.buttonCalendar.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
+            this.buttonCalendar2.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
+            this.panel12.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
+            this.panel2.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
         }
 
         private void CarregaDadosGrid(int monthConst)
