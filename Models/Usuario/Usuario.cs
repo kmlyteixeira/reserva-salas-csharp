@@ -9,6 +9,7 @@ namespace reserva_salas_csharp.Models
         public string Sobrenome { get; set; }
         public string CPF { get; set; }
         public string DataNascimento { get; set; }
+        public int TipoUsuarioId { get; set; }
         public TipoUsuario TipoUsuario { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
@@ -16,13 +17,13 @@ namespace reserva_salas_csharp.Models
 
         public Usuario() { }
 
-        public Usuario(string nome, string sobrenome, string cpf, string dataNascimento, TipoUsuario tipoUsuario, string Email, string userName, string senha)
+        public Usuario(string nome, string sobrenome, string cpf, string dataNascimento, int tipoUsuarioId, string Email, string userName, string senha)
         {
             this.Nome = nome;
             this.Sobrenome = sobrenome;
             this.CPF = cpf;
             this.DataNascimento = dataNascimento;
-            this.TipoUsuario = tipoUsuario;
+            this.TipoUsuarioId = tipoUsuarioId;
             this.Email = Email;
             this.UserName = userName;
             this.Senha = senha;
@@ -66,16 +67,17 @@ namespace reserva_salas_csharp.Models
             usuario.CPF = cpf;
             usuario.DataNascimento = dataNascimento;
             usuario.TipoUsuario = tipoUsuario;
+            db.Usuarios.Update(usuario);
             db.SaveChanges();
 
             return usuario;
         }
 
-        public static Usuario UpdateSenha(int id, string senha)
+        public static Usuario UpdateSenha(Usuario usuario, string senha)
         {
             Database db = new Database();
-            Usuario usuario = GetUsuarioById(id);
             usuario.Senha = senha;
+            db.Usuarios.Update(usuario);
             db.SaveChanges();
 
             return usuario;

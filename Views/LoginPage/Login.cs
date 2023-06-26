@@ -27,6 +27,8 @@ namespace reserva_salas_csharp.Views
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private Label tooltipLabel;
 
         public Login()
         {
@@ -61,6 +63,7 @@ namespace reserva_salas_csharp.Views
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -225,6 +228,7 @@ namespace reserva_salas_csharp.Views
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(351, 22);
             this.textBox1.TabIndex = 10;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBox2
             // 
@@ -233,6 +237,7 @@ namespace reserva_salas_csharp.Views
             this.textBox2.PasswordChar = '●';
             this.textBox2.Size = new System.Drawing.Size(351, 22);
             this.textBox2.TabIndex = 11;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // button1
             // 
@@ -265,6 +270,7 @@ namespace reserva_salas_csharp.Views
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler((sender, e) => this.forgotPassword_Click(this.textBox1.Text));
+            if (this.textBox1.Text == "") this.button2.Enabled = false;
             // 
             // Login
             // 
@@ -292,6 +298,12 @@ namespace reserva_salas_csharp.Views
 
         }
 
+        private void textBox_TextChanged(object? sender, EventArgs e)
+        {
+            this.button1.Enabled = !string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrEmpty(textBox2.Text);
+            this.button2.Enabled = !string.IsNullOrEmpty(textBox1.Text);
+        }
+
         private void closebtn_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -299,16 +311,18 @@ namespace reserva_salas_csharp.Views
 
         private void forgotPassword_Click(string username)
         {
-            Controllers.Usuario.ResetSenha(textBox1.Text);
+            DialogResult dialogResult = MessageBox.Show("Deseja resetar a senha?", "Resetar senha", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes) Controllers.Usuario.ResetSenha(textBox1.Text);
+
+            MessageBox.Show("Um email com a nova senha foi enviado para o email cadastrado!");
         }
 
         private void login_Click(string username, string senha)
         {
-            Controllers.Usuario.Login(username, senha);
+            Models.Usuario usuario = Controllers.Usuario.Login(username, senha);
 
             this.Hide();
-            //new Home();
-            MessageBox.Show("LOGIN EFETUADO COM SUCESSO! REDIRECIONAR PARA HOME");
+            new Home(usuario).Show();
         }
     }
 }
