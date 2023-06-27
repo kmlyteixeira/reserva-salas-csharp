@@ -56,7 +56,7 @@ namespace reserva_salas_csharp.Models {
                         Console.WriteLine($"Campo inválido: {campo.Key}");
                     }
                 }
-                context.funcionario.Update(funcionario);
+
                 context.SaveChanges();
             }
             else
@@ -99,36 +99,13 @@ namespace reserva_salas_csharp.Models {
         }
 
 
-        
-       
-
-        public static void GetAllFuncionario()
+        public static IEnumerable<Funcionario> GetAllFuncionario()
         {
-        
-
-    using var context = new Database();
-    var funcionarios = context.funcionario.ToList();
-
-    if (funcionarios.Count > 0)
-    {
-        Console.WriteLine("Lista de funcionarios:");
-        foreach (var funcionario in funcionarios)
-        {
-            Console.WriteLine($"ID: {funcionario.Id}");
-            Console.WriteLine($"Nombre: {funcionario.Nome}");
-            Console.WriteLine($"Apellido: {funcionario.Sobrenome}");
-            Console.WriteLine($"Cpf: {funcionario.Cpf}");
-            Console.WriteLine($"Fecha de Nacimiento: {funcionario.DataNasc}");
-            Console.WriteLine();
+            Database db = new Database();
+            return from fucionarios in db.funcionario select fucionarios;
         }
-    }
-    else
-    {
-        Console.WriteLine("No se encontraron funcionarios en la base de datos.");
-    }
 
-
-        }
+   
         
 
         

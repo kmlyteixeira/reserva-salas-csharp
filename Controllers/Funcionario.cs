@@ -7,10 +7,10 @@ namespace reserva_salas_csharp.Controllers {
     public class Funcionario {
        
 
-        public static void cadastraFuncionario(Models.Funcionario funcionario) {
+        public static void cadastraFuncionario(string nome,string sobrenome, string cpf,string dataNasc) {
             using var context = new Database();
-            var funcionarios = new Models.Funcionario(funcionario.Nome,funcionario.Sobrenome,funcionario.Cpf,funcionario.DataNasc);
-            funcionarios.cadastrarFuncionario(funcionario.Nome,funcionario.Sobrenome,funcionario.Cpf,funcionario.DataNasc);
+            var funcionarios = new Models.Funcionario(nome,sobrenome,cpf,dataNasc);
+            funcionarios.cadastrarFuncionario(nome,sobrenome,cpf,dataNasc);
         }
 
 
@@ -39,11 +39,12 @@ namespace reserva_salas_csharp.Controllers {
     }
 
 
-         public static void mostrarAllFunc()
+        
+        public static IEnumerable<Models.Usuario> mostrarAllFunc()
         {
-            Models.Funcionario.GetAllFuncionario();
+            return (IEnumerable<Models.Usuario>)Models.Funcionario.GetAllFuncionario();
         }
-
+         
     }
 
 }
