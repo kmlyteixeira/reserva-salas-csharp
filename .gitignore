@@ -1,2 +1,9 @@
 \obj
 \bin
+credentials.json
+*.sln
+appsettings.json
+appsettings.Development.json
+\token.json
+.vscode
+client_secret_google.json

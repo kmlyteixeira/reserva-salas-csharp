@@ -13,7 +13,12 @@ namespace reserva_salas_csharp.Repository
         public DbSet<Models.Funcionario> funcionario { get; set; }
         public DbSet<Models.Sala> Salas { get; set; }
         public DbSet<Models.Turno> Turnos { get; set; }
+
         public DbSet<Models.Higienizacao> Higienizacao { get; set; }
+
+        public DbSet<Models.Agendamento> Agendamentos { get; set; }
+        public DbSet<Models.SalaHasTurno> SalaHasTurnos { get; set; }
+
         
         private IConfiguration Configuration { get; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
