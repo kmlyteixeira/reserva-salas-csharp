@@ -1,49 +1,147 @@
 using System;
-using System.Drawing;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic.ApplicationServices;
+using reserva_salas_csharp.Models;
 
-namespace reserva_salas_csharp.Views 
+namespace reserva_salas_csharp.Views
 {
     public class CadastroTurno : Form
     {
-      private Label titulo;
-      private Label lblNomeTurno;
-      private TextBox txtNomeTurno;
+        private Label titulo;
+        private Label lblNomeTurno;
+        private Panel panel1;
 
-      private TextBox txtMensagem;
-
-      private Button btnSalvar;
-      private Button btnCancelar;
-
-      public CadastroTurno(int id)
-      {
-          InitializeComponent(id);
-      }
-
-      public void InitializeComponent(int id)
-      {
-          
-          this.titulo = new Label();
-          this.lblNomeTurno = new Label();
-          this.txtNomeTurno = new TextBox();
-          this.btnSalvar = new Button();
-          this.btnCancelar = new Button();
+        private TextBox txtNomeTurno;
+        private TextBox txtMensagem;
 
 
-          this.titulo.Text = "Cadastro de Turno";
-          this.titulo.Location = new Point(0, 10);
-          this.titulo.Size = new Size(170, 20);
-          this.titulo.TextAlign = ContentAlignment.MiddleCenter;
-          this.titulo.Font = new Font("Arial", 12, FontStyle.Bold);
+        private Button btnCancelar;
+        private Button btnSalvar;
+        
+        public CadastroTurno(int id)
+        {
+            InitializeComponent(id);
+        }
 
-          this.lblNomeTurno.Text = "Turno";
-          this.lblNomeTurno.Location = new Point(10, 70);
-          this.lblNomeTurno.Size = new Size(170, 20);
-          this.lblNomeTurno.Font = new Font("Arial", 10, FontStyle.Bold);
+        private void InitializeComponent(int id)
+        {
+            panel1 = new Panel();
 
-          this.txtNomeTurno.Location = new Point(10, 90);
-          this.txtNomeTurno.Size = new Size(150, 20);
-          this.txtNomeTurno.Font = new Font("Arial", 11, FontStyle.Bold);
+            titulo = new Label();
+            lblNomeTurno = new Label();
+            txtNomeTurno = new TextBox();
+           
+            btnCancelar = new Button();
+            btnSalvar = new Button();
+
+
+
+            panel1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            titulo.AutoSize = true;
+            titulo.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            titulo.Location = new Point(12, 20);
+            titulo.Name = "titulo";
+            titulo.Size = new Size(50, 20);
+            titulo.TabIndex = 0;
+            titulo.Text = "Cadastro de Turnos";
+
+            // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            
+            panel1.Controls.Add(txtNomeTurno);
+
+            panel1.Controls.Add(titulo);
+            panel1.Controls.Add(lblNomeTurno);
+ 
+
+            panel1.ForeColor = Color.FromArgb(127, 103, 186);
+            panel1.Location = new Point(12, 23);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(550, 420);
+            panel1.TabIndex = 1;
+            // 
+            // label2
+            // 
+            lblNomeTurno.AutoSize = true;
+            lblNomeTurno.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNomeTurno.ForeColor = Color.Black;
+            lblNomeTurno.Location = new Point(10, 70);
+            lblNomeTurno.Name = "lblNomeTurno";
+            lblNomeTurno.Size = new Size(170, 20);
+            lblNomeTurno.TabIndex = 2;
+            lblNomeTurno.Text = "Turno";
+
+            // 
+            // textBox1
+            // 
+            txtNomeTurno.Location = new Point(10, 90);
+            txtNomeTurno.Name = "txtNomeTurno";
+            txtNomeTurno.Size = new Size(90, 20);
+            txtNomeTurno.TabIndex = 10;
+
+
+            // 
+            // button1
+            // 
+            btnSalvar.BackColor = Color.FromArgb(193, 167, 255);
+            btnSalvar.Cursor = Cursors.Hand;
+            btnSalvar.FlatAppearance.BorderSize = 0;
+            btnSalvar.FlatStyle = FlatStyle.Flat;
+            btnSalvar.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSalvar.Location = new Point(531, 545);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(119, 42);
+            btnSalvar.TabIndex = 2;
+            btnSalvar.Text = "Salvar";
+            btnSalvar.UseVisualStyleBackColor = false;
+            btnSalvar.Click += new EventHandler((sender, e) => 
+            {
+
+                if (id == 0)
+                {
+                  Controllers.Turno.CadastrarTurno(this.txtNomeTurno.Text);
+                   MessageBox.Show("Andar Cadastrado com sucesso");
+                   this.Close();
+        
+                } else {
+                  Controllers.Turno.Alterarturno(id, this.txtNomeTurno.Text);
+                   MessageBox.Show("Alterado registro do andar com sucesso");
+                   this.Close();
+                }
+               
+                
+            }
+            );
+        
+           
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(400, 400);
+            ControlBox = false;
+            Controls.Add(btnSalvar);
+            Controls.Add(btnCancelar);
+            Controls.Add(titulo);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "Form1";
+            Text = "Form1";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+
 
             if (id != 0)
             {
@@ -52,11 +150,11 @@ namespace reserva_salas_csharp.Views
 
             }
 
-          this.btnSalvar.Text = "Salvar";
-          this.btnSalvar.Location = new Point(200, 270);
-          this.btnSalvar.Size = new Size(100, 25);
-          this.btnSalvar.Font = new Font("Arial", 11, FontStyle.Bold);
-          this.btnSalvar.Click += (sender, e) =>
+            this.btnSalvar.Text = "Salvar";
+            this.btnSalvar.Location = new Point(200, 270);
+            this.btnSalvar.Size = new Size(100, 25);
+            this.btnSalvar.Font = new Font("Arial", 11, FontStyle.Bold);
+            this.btnSalvar.Click += (sender, e) =>
             {
                 if (id == 0)
                 {
@@ -76,18 +174,16 @@ namespace reserva_salas_csharp.Views
             this.btnCancelar.Location = new Point(320, 270);
             this.btnCancelar.Size = new Size(100, 25);
             this.btnCancelar.Font = new Font("Arial", 11, FontStyle.Bold);
-            this.btnCancelar.Click += (sender, e) => {
+            this.btnCancelar.Click += (sender, e) => 
+            {
+                DialogResult dialogResult = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
                 this.Close();
-                // new Almoxarifado();
+
             };
 
-            this.Controls.Add(this.titulo);
-            this.Controls.Add(this.lblNomeTurno);
-            this.Controls.Add(this.txtNomeTurno);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnCancelar);
 
-            this.Text = "Cadastro de Turno";
+            this.Text = "Cadastro de Turnos";
             this.Size = new Size(500, 350);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -98,7 +194,7 @@ namespace reserva_salas_csharp.Views
             this.TopMost = true;
             this.Visible = false;
             this.ShowDialog();
-
         }
+     
     }
 }
