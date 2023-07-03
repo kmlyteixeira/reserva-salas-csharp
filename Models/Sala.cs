@@ -46,6 +46,6 @@ namespace reserva_salas_csharp.Models
             Database db = new Database();
             List<Sala> salas = db.Salas.ToList();
             return salas;
-        }    
+        }   
     }
 }

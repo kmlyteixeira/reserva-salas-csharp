@@ -15,12 +15,12 @@ namespace reserva_salas_csharp.Views
       private Button btnSalvar;
       private Button btnCancelar;
 
-      public CadastroTurno(int id)
+      public CadastroTurno(int id, Form formularioAnterior)
       {
-          InitializeComponent(id);
+          InitializeComponent(id, formularioAnterior);
       }
 
-      public void InitializeComponent(int id)
+      public void InitializeComponent(int id, Form formularioAnterior)
       {
           
           this.titulo = new Label();
@@ -60,14 +60,16 @@ namespace reserva_salas_csharp.Views
             {
                 if (id == 0)
                 {
-                Controllers.Turno.CadastrarTurno(this.txtNomeTurno.Text);
-                MessageBox.Show("Item cadastrado com sucesso");
-                this.Close();
+                    Controllers.Turno.CadastrarTurno(this.txtNomeTurno.Text);
+                    MessageBox.Show("Item cadastrado com sucesso");
+                    this.Close();
+                    formularioAnterior.Activate();
                 }
                 else {
                     Controllers.Turno.Alterarturno(id, this.txtNomeTurno.Text);
                     MessageBox.Show("Item alterado com sucesso");
                     this.Close();
+                    formularioAnterior.Activate();
                 }
                 
             };
@@ -78,7 +80,7 @@ namespace reserva_salas_csharp.Views
             this.btnCancelar.Font = new Font("Arial", 11, FontStyle.Bold);
             this.btnCancelar.Click += (sender, e) => {
                 this.Close();
-                // new Almoxarifado();
+                formularioAnterior.Activate();
             };
 
             this.Controls.Add(this.titulo);

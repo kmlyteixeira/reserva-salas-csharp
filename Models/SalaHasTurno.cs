@@ -53,6 +53,10 @@ namespace reserva_salas_csharp.Models
             db.SaveChanges();
         }
 
-
+        public static Models.SalaHasTurno GetSalaHasTurnoById(int id)
+        {
+            Database db = new Database();
+            return (from sht in db.SalaHasTurnos where sht.Id == id select sht).First();
+        }
     }
 }

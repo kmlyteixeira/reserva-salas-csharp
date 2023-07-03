@@ -33,12 +33,12 @@ namespace reserva_salas_csharp.Views
         private ToolTip toolTip1;
         private ToolTip toolTip2;
 
-        public CadastroUsuario()
+        public CadastroUsuario(Form formularioAnterior)
         {
-            InitializeComponent();
+            InitializeComponent(formularioAnterior);
         }
 
-        private void InitializeComponent()
+        private void InitializeComponent(Form formularioAnterior)
         {
             label1 = new Label();
             panel1 = new Panel();
@@ -247,7 +247,7 @@ namespace reserva_salas_csharp.Views
             button1.TabIndex = 2;
             button1.Text = "Salvar";
             button1.UseVisualStyleBackColor = false;
-            button1.Click += new EventHandler((sender, e) => this.CadastrarButtonClick(textBox1.Text, textBox2.Text, maskedTextBox1.Text, dateTimePicker1.Value, comboBox1.Text ,textBox4.Text, textBox5.Text, textBox3.Text));
+            button1.Click += new EventHandler((sender, e) => this.CadastrarButtonClick(formularioAnterior, textBox1.Text, textBox2.Text, maskedTextBox1.Text, dateTimePicker1.Value, comboBox1.Text ,textBox4.Text, textBox5.Text, textBox3.Text));
             // 
             // button2
             // 
@@ -263,7 +263,7 @@ namespace reserva_salas_csharp.Views
             button2.TabIndex = 3;
             button2.Text = "Cancelar";
             button2.UseVisualStyleBackColor = false;
-            button2.Click += new EventHandler((sender, e) => this.CancelarButtonClick());
+            button2.Click += new EventHandler((sender, e) => this.CancelarButtonClick(formularioAnterior));
             // 
             // dateTimePicker1
             // 
@@ -322,19 +322,21 @@ namespace reserva_salas_csharp.Views
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             Text = "Form1";
+            this.StartPosition = FormStartPosition.CenterScreen;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
-        private void CancelarButtonClick()
+        private void CancelarButtonClick(Form formularioAnterior)
         {
             DialogResult dialogResult = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes) this.Close();
+            formularioAnterior.Activate();
         }
 
-        private void CadastrarButtonClick(string nome, string sobrenome, string cpf, DateTime dataNascimento, string tipoUsuarioInput, string email, string userName, string senha)
+        private void CadastrarButtonClick(Form formularioAnterior, string nome, string sobrenome, string cpf, DateTime dataNascimento, string tipoUsuarioInput, string email, string userName, string senha)
         {
             Models.TipoUsuario tipoUsuario = Controllers.Usuario.GetAllTiposUsuario().FirstOrDefault(tipo => tipo.Descricao.Equals(tipoUsuarioInput));
 
@@ -351,6 +353,7 @@ namespace reserva_salas_csharp.Views
 
             MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
+            formularioAnterior.Activate();
         }
 
         private void ShowPassClick()

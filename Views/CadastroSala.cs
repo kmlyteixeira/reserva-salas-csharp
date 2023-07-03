@@ -17,12 +17,12 @@ namespace reserva_salas_csharp.Views
         private Button btnEditar;
         private Button btnExcluir;
 
-        public CadastroSala(int id)
+        public CadastroSala(int id, Form formularioAnterior)
         {
-        InitializeComponent(id);
+        InitializeComponent(id, formularioAnterior);
         }
 
-        public void InitializeComponent(int id)
+        public void InitializeComponent(int id, Form formularioAnterior)
         {
             
             this.titulo = new Label();
@@ -75,14 +75,15 @@ namespace reserva_salas_csharp.Views
             {
                 if (id == 0)
                 {
-                  Controllers.Sala.CadastrarSala(this.txtNomeSala.Text, this.txtNomeAndar.Text);
-                   MessageBox.Show("Sala Cadastrada com sucesso");
-                   this.Close();
-        
+                    Controllers.Sala.CadastrarSala(this.txtNomeSala.Text, this.txtNomeAndar.Text);
+                    MessageBox.Show("Sala Cadastrada com sucesso");
+                    this.Close();
+                    formularioAnterior.Activate();
                 } else {
-                  Controllers.Sala.AlterarSala(id, this.txtNomeSala.Text, this.txtNomeAndar.Text);
-                   MessageBox.Show("Alterado registro da sala com sucesso");
-                   this.Close();
+                    Controllers.Sala.AlterarSala(id, this.txtNomeSala.Text, this.txtNomeAndar.Text);
+                    MessageBox.Show("Alterado registro da sala com sucesso");
+                    this.Close();
+                    formularioAnterior.Activate();
                 }
                
                 
@@ -94,7 +95,7 @@ namespace reserva_salas_csharp.Views
             this.btnCancelar.Font = new Font("Arial", 11, FontStyle.Bold);
             this.btnCancelar.Click += (sender, e) => {
                 this.Close();
-                // new Almoxarifado();
+                formularioAnterior.Activate();
             };
 
             this.Controls.Add(this.titulo);

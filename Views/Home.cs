@@ -1,3 +1,5 @@
+using reserva_salas_csharp.Controllers;
+
 namespace reserva_salas_csharp.Views
 {
     public class Home : Form
@@ -7,7 +9,7 @@ namespace reserva_salas_csharp.Views
         private Label labelBemVindo;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem usuáriosToolStripMenuItem;
+        private ToolStripMenuItem usuariosToolStripMenuItem;
         private Panel panel2;
         private DataGridView dataGridViewCalendar;
         private ToolStripMenuItem funcionárioToolStripMenuItem;
@@ -42,6 +44,16 @@ namespace reserva_salas_csharp.Views
         private Label labelSala;
         private Label toolTipLabel;
         private int monthConst;
+        private Label labelNameTurno1;
+        private Label labelTurno1;
+        private Label labelVerMais1;
+        private Label labelVerMais2;
+        private Label labelTurnoDesc2;
+        private Label labelNameTurno2;
+        private Label labelNameTurno;
+        private Label labelVerMais3;
+        private Label labelNameTurno3;
+        private Form formularioAnterior;
 
         public Home(Models.Usuario usuario)
         {
@@ -78,7 +90,7 @@ namespace reserva_salas_csharp.Views
             labelBemVindo = new Label();
             menuStrip1 = new MenuStrip();
             toolStripMenuItem1 = new ToolStripMenuItem();
-            usuáriosToolStripMenuItem = new ToolStripMenuItem();
+            usuariosToolStripMenuItem = new ToolStripMenuItem();
             funcionárioToolStripMenuItem = new ToolStripMenuItem();
             salaToolStripMenuItem = new ToolStripMenuItem();
             turnoToolStripMenuItem = new ToolStripMenuItem();
@@ -89,6 +101,15 @@ namespace reserva_salas_csharp.Views
             labelSala = new Label();
             comboBoxSala = new ComboBox();
             toolTipLabel = new Label();
+            labelNameTurno1 = new Label();
+            labelNameTurno = new Label();
+            labelTurno1 = new Label();
+            labelVerMais1 = new Label();
+            labelVerMais2 = new Label();
+            labelTurnoDesc2 = new Label();
+            labelNameTurno2 = new Label();
+            labelVerMais3 = new Label();
+            labelNameTurno3 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCalendar).BeginInit();
@@ -103,6 +124,7 @@ namespace reserva_salas_csharp.Views
             ((System.ComponentModel.ISupportInitialize)pictureBoxSair).BeginInit();
             SuspendLayout();
             this.monthConst = 6;
+            formularioAnterior = this;
             // 
             // panel1
             // 
@@ -158,6 +180,7 @@ namespace reserva_salas_csharp.Views
             dataGridViewCalendar.CellContentClick += new DataGridViewCellEventHandler(dataGridViewCalendar_CellContentClick);
             dataGridViewCalendar.AutoGenerateColumns = false;
             dataGridViewCalendar.RowHeadersVisible = false;
+            dataGridViewCalendar.ReadOnly = true;
             dataGridViewCalendar.ScrollBars = ScrollBars.None;
             dataGridViewCalendar.DefaultCellStyle.WrapMode = DataGridViewTriState.False; 
             dataGridViewCalendar.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
@@ -240,22 +263,50 @@ namespace reserva_salas_csharp.Views
             // 
             // panel11
             // 
+            panel11.Controls.Add(labelVerMais3);
+            panel11.Controls.Add(labelNameTurno3);
             panel11.Controls.Add(labelTurnoDesc3);
             panel11.Location = new Point(109, 3);
             panel11.Name = "panel11";
             panel11.Size = new Size(155, 65);
             panel11.TabIndex = 8;
             // 
+            // labelVerMais3
+            // 
+            labelVerMais3.AutoSize = true;
+            labelVerMais3.Cursor = Cursors.Hand;
+            labelVerMais3.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            labelVerMais3.ForeColor = Color.DimGray;
+            labelVerMais3.Location = new Point(84, 33);
+            labelVerMais3.Name = "labelVerMais3";
+            labelVerMais3.Size = new Size(47, 12);
+            labelVerMais3.TabIndex = 13;
+            labelVerMais3.Text = "Ver mais...";
+            labelVerMais3.Click += label9_Click;
+            labelVerMais3.Visible = false;
+            // 
             // labelTurnoDesc3
             // 
             labelTurnoDesc3.AutoSize = true;
-            labelTurnoDesc3.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            labelTurnoDesc3.ForeColor = Color.DimGray;
-            labelTurnoDesc3.Location = new Point(3, 24);
+            labelTurnoDesc3.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTurnoDesc3.ForeColor = Color.Black;
+            labelTurnoDesc3.Location = new Point(7, 17);
             labelTurnoDesc3.Name = "labelTurnoDesc3";
-            labelTurnoDesc3.Size = new Size(140, 18);
-            labelTurnoDesc3.TabIndex = 7;
-            labelTurnoDesc3.Text = "Horário disponível";
+            labelTurnoDesc3.Size = new Size(109, 16);
+            labelTurnoDesc3.TabIndex = 11;
+            labelTurnoDesc3.Text = "Turno disponível";
+            // 
+            // labelNameTurno3
+            // 
+            labelNameTurno3.AutoSize = true;
+            labelNameTurno3.Font = new Font("Century Gothic", 7.8F, FontStyle.Bold, GraphicsUnit.Point);
+            labelNameTurno3.ForeColor = Color.FromArgb(127, 103, 186);
+            labelNameTurno3.Location = new Point(6, 3);
+            labelNameTurno3.Name = "labelNameTurno3";
+            labelNameTurno3.Size = new Size(44, 15);
+            labelNameTurno3.TabIndex = 11;
+            labelNameTurno3.Text = "Fulano";
+            labelNameTurno3.Visible = false;
             // 
             // buttonTurnoAgendar3
             // 
@@ -296,22 +347,51 @@ namespace reserva_salas_csharp.Views
             // 
             // panel9
             // 
-            panel9.Controls.Add(labelTurnoDesc);
+            panel9.Controls.Add(labelVerMais1);
+            panel9.Controls.Add(labelTurno1);
+            panel9.Controls.Add(labelNameTurno1);
+            panel9.Controls.Add(labelTurnoDesc); // excluir
             panel9.Location = new Point(109, 3);
             panel9.Name = "panel9";
             panel9.Size = new Size(155, 65);
             panel9.TabIndex = 6;
             // 
-            // labelTurnoDesc
+            // labelVerMais1
             // 
-            labelTurnoDesc.AutoSize = true;
-            labelTurnoDesc.Font = new Font("Century Gothic", 9F, FontStyle.Italic, GraphicsUnit.Point);
-            labelTurnoDesc.ForeColor = Color.DimGray;
-            labelTurnoDesc.Location = new Point(3, 23);
-            labelTurnoDesc.Name = "labelTurnoDesc";
-            labelTurnoDesc.Size = new Size(140, 18);
-            labelTurnoDesc.TabIndex = 6;
-            labelTurnoDesc.Text = "Horário disponível";
+            labelVerMais1.AutoSize = true;
+            labelVerMais1.Cursor = Cursors.Hand;
+            labelVerMais1.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            labelVerMais1.ForeColor = Color.DimGray;
+            labelVerMais1.Location = new Point(84, 33);
+            labelVerMais1.Name = "labelVerMais1";
+            labelVerMais1.Size = new Size(47, 12);
+            labelVerMais1.TabIndex = 13;
+            labelVerMais1.Text = "Ver mais...";
+            labelVerMais1.Click += label9_Click;
+            labelVerMais1.Visible = false;
+            // 
+            // labelTurno1
+            // 
+            labelTurno1.AutoSize = true;
+            labelTurno1.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTurno1.ForeColor = Color.Black;
+            labelTurno1.Location = new Point(7, 17);
+            labelTurno1.Name = "labelTurno1";
+            labelTurno1.Size = new Size(109, 16);
+            labelTurno1.TabIndex = 11;
+            labelTurno1.Text = "Turno disponível";
+            // 
+            // labelNameTurno1
+            // 
+            labelNameTurno1.AutoSize = true;
+            labelNameTurno1.Font = new Font("Century Gothic", 7.8F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
+            labelNameTurno1.ForeColor = Color.FromArgb(127, 103, 186);
+            labelNameTurno1.Location = new Point(6, 3);
+            labelNameTurno1.Name = "labelNameTurno1";
+            labelNameTurno1.Size = new Size(44, 15);
+            labelNameTurno1.TabIndex = 11;
+            labelNameTurno1.Text = "Fulano";
+            labelNameTurno1.Visible = false;
             // 
             // buttonTurnoAgendar
             // 
@@ -350,8 +430,11 @@ namespace reserva_salas_csharp.Views
             labelTurno2.TabIndex = 7;
             labelTurno2.Text = "13:00 - 17:00";
             // 
-            // panel10
+            // panel10 - TURNO 2
             // 
+            panel10.Controls.Add(labelVerMais2);
+            panel10.Controls.Add(labelTurnoDesc2);
+            panel10.Controls.Add(labelNameTurno2);
             panel10.Controls.Add(labelVerMais);
             panel10.Controls.Add(labelDescAgenda2);
             panel10.Controls.Add(labelDescAgenda);
@@ -360,44 +443,46 @@ namespace reserva_salas_csharp.Views
             panel10.Size = new Size(155, 65);
             panel10.TabIndex = 7;
             // 
-            // labelVerMais
+            // labelVerMais2
             // 
-            labelVerMais.AutoSize = true;
-            labelVerMais.Cursor = Cursors.Hand;
-            labelVerMais.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
-            labelVerMais.ForeColor = Color.DimGray;
-            labelVerMais.Location = new Point(91, 46);
-            labelVerMais.Name = "labelVerMais";
-            labelVerMais.Size = new Size(59, 15);
-            labelVerMais.TabIndex = 10;
-            labelVerMais.Text = "Ver mais...";
-            labelVerMais.Click += label9_Click;
+            labelVerMais2.AutoSize = true;
+            labelVerMais2.Cursor = Cursors.Hand;
+            labelVerMais2.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            labelVerMais2.ForeColor = Color.DimGray;
+            labelVerMais2.Location = new Point(80, 34);
+            labelVerMais2.Name = "labelVerMais2";
+            labelVerMais2.Size = new Size(47, 12);
+            labelVerMais2.TabIndex = 10;
+            labelVerMais2.Text = "Ver mais...";
+            labelVerMais2.Click += label9_Click;
+            labelVerMais2.Visible = false;
             // 
-            // labelDescAgenda2
+            // labelTurnoDesc2
             // 
-            labelDescAgenda2.AutoSize = true;
-            labelDescAgenda2.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
-            labelDescAgenda2.ForeColor = Color.Black;
-            labelDescAgenda2.Location = new Point(3, 24);
-            labelDescAgenda2.Name = "labelDescAgenda2";
-            labelDescAgenda2.Size = new Size(128, 17);
-            labelDescAgenda2.TabIndex = 9;
-            labelDescAgenda2.Text = "Descrição bacana";
+            labelTurnoDesc2.AutoSize = true;
+            labelTurnoDesc2.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            labelTurnoDesc2.ForeColor = Color.Black;
+            labelTurnoDesc2.Location = new Point(3, 18);
+            labelTurnoDesc2.Name = "labelTurnoDesc2";
+            labelTurnoDesc2.Size = new Size(109, 16);
+            labelTurnoDesc2.TabIndex = 9;
+            labelTurnoDesc2.Text = "Turno disponível";
             // 
-            // labelDescAgenda
+            // labelNameTurno2
             // 
-            labelDescAgenda.AutoSize = true;
-            labelDescAgenda.Font = new Font("Century Gothic", 7.8F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
-            labelDescAgenda.ForeColor = Color.FromArgb(127, 103, 186);
-            labelDescAgenda.Location = new Point(2, 5);
-            labelDescAgenda.Name = "labelDescAgenda";
-            labelDescAgenda.Size = new Size(50, 16);
-            labelDescAgenda.TabIndex = 8;
-            labelDescAgenda.Text = "Fulano";
+            labelNameTurno2.AutoSize = true;
+            labelNameTurno2.Font = new Font("Century Gothic", 7.8F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point);
+            labelNameTurno2.ForeColor = Color.FromArgb(127, 103, 186);
+            labelNameTurno2.Location = new Point(2, 4);
+            labelNameTurno2.Name = "labelNameTurno2";
+            labelNameTurno2.Size = new Size(44, 15);
+            labelNameTurno2.TabIndex = 11;
+            labelNameTurno2.Text = "Fulano";
+            labelNameTurno2.Visible = false;
             // 
             // buttonTurnoAgendar2
             // 
-            buttonTurnoAgendar2.BackColor = Color.FromArgb(255, 242, 130);
+            buttonTurnoAgendar2.BackColor = Color.FromArgb(167, 228, 141);
             buttonTurnoAgendar2.Cursor = Cursors.Hand;
             buttonTurnoAgendar2.FlatAppearance.BorderSize = 0;
             buttonTurnoAgendar2.FlatStyle = FlatStyle.Flat;
@@ -407,7 +492,7 @@ namespace reserva_salas_csharp.Views
             buttonTurnoAgendar2.Name = "buttonTurnoAgendar2";
             buttonTurnoAgendar2.Size = new Size(84, 42);
             buttonTurnoAgendar2.TabIndex = 6;
-            buttonTurnoAgendar2.Text = "Cancelar";
+            buttonTurnoAgendar2.Text = "Agendar";
             buttonTurnoAgendar2.UseVisualStyleBackColor = false;
             // 
             // buttonAddAgendamento
@@ -434,7 +519,7 @@ namespace reserva_salas_csharp.Views
             labelBemVindo.Name = "labelBemVindo";
             labelBemVindo.Size = new Size(369, 27);
             labelBemVindo.TabIndex = 0;
-            labelBemVindo.Text = "Seja bem vindo, "/* + usuario.Nome + "!"*/;
+            labelBemVindo.Text = "Seja bem vindo, " + usuario.Nome + "!";
             // 
             // menuStrip1
             // 
@@ -448,19 +533,19 @@ namespace reserva_salas_csharp.Views
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { usuáriosToolStripMenuItem, funcionárioToolStripMenuItem, salaToolStripMenuItem, turnoToolStripMenuItem, agendamentoToolStripMenuItem });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, funcionárioToolStripMenuItem, salaToolStripMenuItem, turnoToolStripMenuItem, agendamentoToolStripMenuItem });
             toolStripMenuItem1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
             toolStripMenuItem1.Image = Image.FromFile("Views/Resources/menu.png");
             toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(34, 24);
             // 
-            // usuáriosToolStripMenuItem
+            // usuariosToolStripMenuItem
             // 
-            usuáriosToolStripMenuItem.Name = "usuáriosToolStripMenuItem";
-            usuáriosToolStripMenuItem.Size = new Size(224, 26);
-            usuáriosToolStripMenuItem.Text = "Usuário";
-            usuáriosToolStripMenuItem.Click += usuáriosToolStripMenuItem_Click;
+            usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
+            usuariosToolStripMenuItem.Size = new Size(224, 26);
+            usuariosToolStripMenuItem.Text = "Usuário";
+            usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
             // 
             // funcionárioToolStripMenuItem
             // 
@@ -535,9 +620,9 @@ namespace reserva_salas_csharp.Views
             comboBoxSala.Name = "comboBoxSala";
             comboBoxSala.Size = new Size(196, 28);
             comboBoxSala.TabIndex = 11;
-            comboBoxSala.Items.AddRange(Controllers.Sala.GetAllSalas()
-                            .Select(s => $"Sala {s.numeroSala} - Andar {s.numeroAndar}")
-                            .ToArray());
+            comboBoxSala.DataSource = Controllers.Sala.GetAllSalas().ToArray();
+            comboBoxSala.DisplayMember = "NumeroSala";
+            comboBoxSala.ValueMember = "Id";
             comboBoxSala.SelectedIndexChanged += comboBoxSala_SelectedIndexChanged;
             // tooltip labelSala
 
@@ -586,9 +671,24 @@ namespace reserva_salas_csharp.Views
             panel10.PerformLayout();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            this.Deactivate += Form1_Deactivate;
+            this.Activated += Form1_Activated;
+            this.StartPosition = FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)pictureBoxSair).EndInit();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void Form1_Activated(object? sender, EventArgs e)
+        {
+            this.Enabled = true;
+            this.Opacity = 1;
+        }
+
+        private void Form1_Deactivate(object? sender, EventArgs e)
+        {
+            this.Enabled = false;
+            this.Opacity = 0.75;
         }
 
         private void comboBoxSala_SelectedIndexChanged(object? sender, EventArgs e)
@@ -598,6 +698,7 @@ namespace reserva_salas_csharp.Views
             this.buttonCalendar2.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
             this.panel12.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
             this.panel2.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
+            this.dataGridViewCalendar.Enabled = !string.IsNullOrEmpty(comboBoxSala.Text);
         }
 
         private void CarregaDadosGrid(int monthConst)
@@ -674,10 +775,63 @@ namespace reserva_salas_csharp.Views
 
         private void dataGridViewCalendar_CellContentClick(object? sender, DataGridViewCellEventArgs e)
         {
-            if (comboBoxSala.SelectedIndex == -1) 
+            int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+
+            var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+            DateTime data = new DateTime(2023, monthConst, Convert.ToInt32(cell));
+
+            IEnumerable<Models.Agendamento> agendamentos = Agendamento.GetAgendamentosBySalaData(sala.ToString(), data);
+
+            var agendamentoTurno1 = agendamentos.Where(x => x.SalaHasTurno.TurnoId == 1).FirstOrDefault();
+            var agendamentoTurno2 = agendamentos.Where(x => x.SalaHasTurno.TurnoId == 2).FirstOrDefault();
+            var agendamentoTurno3 = agendamentos.Where(x => x.SalaHasTurno.TurnoId == 3).FirstOrDefault();
+
+            if (agendamentoTurno1 != null)
             {
-                MessageBox.Show("Selecione uma sala para agendar", "Retorno", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                labelVerMais1.Visible = true;
+                labelTurno1.Visible = true;
+                labelNameTurno1.Visible = true;
+
+                labelNameTurno1.Text = agendamentoTurno1.Usuario.Nome;
+                labelNameTurno1.Refresh();
+
+                labelTurno1.Text = agendamentoTurno1.Observacao;
+                labelTurno1.Refresh();
+
+                buttonTurnoAgendar.Text = "Cancelar";
+                buttonTurnoAgendar.Refresh();
+            }
+
+            if (agendamentoTurno2 != null)
+            {
+                labelVerMais1.Visible = true;
+                labelTurno1.Visible = true;
+                labelNameTurno1.Visible = true;
+
+                labelNameTurno1.Text = agendamentoTurno2.Usuario.Nome;
+                labelNameTurno1.Refresh();
+
+                labelTurno1.Text = agendamentoTurno2.Observacao;
+                labelTurno1.Refresh();
+
+                buttonTurnoAgendar.Text = "Cancelar";
+                buttonTurnoAgendar.Refresh();
+            }
+
+            if (agendamentoTurno3 != null)
+            {
+                labelVerMais1.Visible = true;
+                labelTurno1.Visible = true;
+                labelNameTurno1.Visible = true;
+
+                labelNameTurno1.Text = agendamentoTurno3.Usuario.Nome;
+                labelNameTurno1.Refresh();
+
+                labelTurno1.Text = agendamentoTurno3.Observacao;
+                labelTurno1.Refresh();
+
+                buttonTurnoAgendar.Text = "Cancelar";
+                buttonTurnoAgendar.Refresh();
             }
         }
 
@@ -703,12 +857,12 @@ namespace reserva_salas_csharp.Views
 
         private void turnoToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            new Turno(formularioAnterior).Show();
         }
 
         private void salaToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            new Sala(formularioAnterior).Show();
         }
 
         private void funcionárioToolStripMenuItem_Click(object? sender, EventArgs e)
@@ -716,14 +870,14 @@ namespace reserva_salas_csharp.Views
             throw new NotImplementedException();
         }
 
-        private void usuáriosToolStripMenuItem_Click(object? sender, EventArgs e)
+        private void usuariosToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            new CadastroUsuario(formularioAnterior).Show();
         }
 
         private void button2_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            new CadastroAgendamento(formularioAnterior).Show();
         }
 
         private void label9_Click(object? sender, EventArgs e)
