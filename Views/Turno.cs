@@ -17,12 +17,12 @@ namespace reserva_salas_csharp.Views
     private Button btnExcluir;
 
 
-    public Turno()
+    public Turno(Form formularioAnterior)
     {
-      InitializeComponent();
+      InitializeComponent(formularioAnterior);
     }
 
-    public void InitializeComponent()
+    public void InitializeComponent(Form formularioAnterior)
     {
       this.titulo = new Label();
       this.lista = new ListView();
@@ -53,7 +53,7 @@ namespace reserva_salas_csharp.Views
       this.btnSalvar.Font = new Font("Arial", 12, FontStyle.Bold);
       this.btnSalvar.Click += (sender, e) =>
       {
-        new CadastroTurno(0);
+        new CadastroTurno(0, formularioAnterior);
         this.LoadList();
       };
 
@@ -64,7 +64,7 @@ namespace reserva_salas_csharp.Views
       this.btnEditar.Click += (sender, e) =>
       {
         new CadastroTurno(
-          int.Parse(this.lista.SelectedItems[0].Text)
+          int.Parse(this.lista.SelectedItems[0].Text), formularioAnterior
         );
         this.LoadList();
       };
