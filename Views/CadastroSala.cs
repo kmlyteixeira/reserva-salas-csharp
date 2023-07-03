@@ -1,65 +1,161 @@
 using System;
-using System.Drawing;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic.ApplicationServices;
+using reserva_salas_csharp.Models;
 
-namespace reserva_salas_csharp.Views 
+namespace reserva_salas_csharp.Views
 {
     public class CadastroSala : Form
     {
         private Label titulo;
-        private Label lblNomeAndar;
         private Label lblNomeSala;
+        private Label lblNomeAndar; 
+        private Panel panel1;
         private TextBox txtNomeSala;
         private TextBox txtNomeAndar;
-        private Button btnSalvar;
         private Button btnCancelar;
-        private ListView lista;
-        private Button btnEditar;
-        private Button btnExcluir;
-
+        private Button btnSalvar;
+        
         public CadastroSala(int id, Form formularioAnterior)
         {
-        InitializeComponent(id, formularioAnterior);
+            InitializeComponent(id, formularioAnterior);
         }
 
         public void InitializeComponent(int id, Form formularioAnterior)
         {
+            panel1 = new Panel();
+            titulo = new Label();
+            lblNomeSala = new Label();
+            lblNomeAndar = new Label();
+            txtNomeSala = new TextBox();
+            txtNomeAndar = new TextBox();
+            btnCancelar = new Button();
+            btnSalvar = new Button();
+            panel1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            titulo.AutoSize = true;
+            titulo.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            titulo.Location = new Point(12, 20);
+            titulo.Name = "titulo";
+            titulo.Size = new Size(50, 20);
+            titulo.TabIndex = 0;
+            titulo.Text = "Cadastro de Salas";
+
+            // 
+            // panel1
+            // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
             
-            this.titulo = new Label();
-            this.lblNomeSala = new Label();
-            this.txtNomeSala = new TextBox();
-            this.lblNomeAndar = new Label();
-            this.txtNomeAndar = new TextBox();
-            this.btnSalvar = new Button();
-            this.btnCancelar = new Button();
+            panel1.Controls.Add(txtNomeSala);
+            panel1.Controls.Add(txtNomeAndar);
+
+            panel1.Controls.Add(titulo);
+            panel1.Controls.Add(lblNomeAndar);
+            panel1.Controls.Add(lblNomeSala);
+
+            panel1.ForeColor = Color.FromArgb(127, 103, 186);
+            panel1.Location = new Point(12, 23);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(550, 420);
+            panel1.TabIndex = 1;
+            // 
+            // label2
+            // 
+            lblNomeSala.AutoSize = true;
+            lblNomeSala.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNomeSala.ForeColor = Color.Black;
+            lblNomeSala.Location = new Point(10, 70);
+            lblNomeSala.Name = "lblNomeSala";
+            lblNomeSala.Size = new Size(170, 20);
+            lblNomeSala.TabIndex = 2;
+            lblNomeSala.Text = "N° Salas";
+            // 
+            // label3
+            // 
+            lblNomeAndar.AutoSize = true;
+            lblNomeAndar.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            lblNomeAndar.ForeColor = Color.Black;
+            lblNomeAndar.Location = new Point(180, 70);
+            lblNomeAndar.Name = "lblNomeAndar";
+            lblNomeAndar.Size = new Size(90, 20);
+            lblNomeAndar.TabIndex = 3;
+            lblNomeAndar.Text = "N° Andar";
+
+            // 
+            // textBox1
+            // 
+            txtNomeSala.Location = new Point(10, 90);
+            txtNomeSala.Name = "txtNomeSala";
+            txtNomeSala.Size = new Size(90, 20);
+            txtNomeSala.TabIndex = 10;
+
+            // 
+            // textBox2
+            // 
+            txtNomeAndar.Location = new Point(180, 90);
+            txtNomeAndar.Name = "txtNomeAndar";
+            txtNomeAndar.Size = new Size(90, 20);
+            txtNomeAndar.TabIndex = 10;
 
 
-            this.titulo.Text = "Cadastro de Salas";
-            this.titulo.Location = new Point(0, 10);
-            this.titulo.Size = new Size(150, 20);
-            this.titulo.TextAlign = ContentAlignment.MiddleCenter;
-            this.titulo.Font = new Font("Arial", 12, FontStyle.Bold);
+            // 
+            // button1
+            // 
+            btnSalvar.BackColor = Color.FromArgb(193, 167, 255);
+            btnSalvar.Cursor = Cursors.Hand;
+            btnSalvar.FlatAppearance.BorderSize = 0;
+            btnSalvar.FlatStyle = FlatStyle.Flat;
+            btnSalvar.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            btnSalvar.Location = new Point(531, 545);
+            btnSalvar.Name = "btnSalvar";
+            btnSalvar.Size = new Size(119, 42);
+            btnSalvar.TabIndex = 2;
+            btnSalvar.Text = "Salvar";
+            btnSalvar.UseVisualStyleBackColor = false;
+            btnSalvar.Click += new EventHandler((sender, e) => 
+            {
 
-            this.lblNomeSala.Text = "N° Sala";
-            this.lblNomeSala.Location = new Point(10, 70);
-            this.lblNomeSala.Size = new Size(170, 20);
-            this.lblNomeSala.Font = new Font("Arial", 10, FontStyle.Bold);
+                if (id == 0)
+                {
+                  Controllers.Sala.CadastrarSala(this.txtNomeSala.Text, this.txtNomeAndar.Text);
+                   MessageBox.Show("Sala Cadastrada com sucesso");
+                   this.Close();
+        
+                } else {
+                  Controllers.Sala.AlterarSala(id, this.txtNomeSala.Text, this.txtNomeAndar.Text);
+                   MessageBox.Show("Alterado registro da sala com sucesso");
+                   this.Close();
+                }
+            }
+            );
+           
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(400, 400);
+            ControlBox = false;
+            Controls.Add(btnSalvar);
+            Controls.Add(btnCancelar);
+            Controls.Add(titulo);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "Form1";
+            Text = "Form1";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
 
-            this.txtNomeSala.Location = new Point(10, 90);
-            this.txtNomeSala.Size = new Size(90, 20);
-            this.txtNomeSala.Font = new Font("Arial", 11, FontStyle.Bold);
 
-
-            this.lblNomeAndar.Text = "N° Andar";
-            this.lblNomeAndar.Location = new Point(180, 70);
-            this.lblNomeAndar.Size = new Size(90, 20);
-            this.lblNomeAndar.Font = new Font("Arial", 10, FontStyle.Bold);
-
-            this.txtNomeAndar.Location = new Point(180, 90);
-            this.txtNomeAndar.Size = new Size(90, 20);
-            this.txtNomeAndar.Font = new Font("Arial", 11, FontStyle.Bold);
-
-            if (id != 0)
+             if (id != 0)
             {
                 Models.Sala sala = Controllers.Sala.GetSalas(id);
                 this.txtNomeSala.Text =  sala.numeroSala.ToString();
@@ -85,26 +181,19 @@ namespace reserva_salas_csharp.Views
                     this.Close();
                     formularioAnterior.Activate();
                 }
-               
-                
             };
 
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.Location = new Point(320, 270);
             this.btnCancelar.Size = new Size(100, 25);
             this.btnCancelar.Font = new Font("Arial", 11, FontStyle.Bold);
-            this.btnCancelar.Click += (sender, e) => {
+            this.btnCancelar.Click += (sender, e) => 
+            {
+                DialogResult dialogResult = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
                 this.Close();
                 formularioAnterior.Activate();
             };
-
-            this.Controls.Add(this.titulo);
-            this.Controls.Add(this.lblNomeSala);
-            this.Controls.Add(this.txtNomeSala);
-            this.Controls.Add(this.lblNomeAndar);
-            this.Controls.Add(this.txtNomeAndar);
-            this.Controls.Add(this.btnSalvar);
-            this.Controls.Add(this.btnCancelar);
 
             this.Text = "Cadastro de Salas";
             this.Size = new Size(500, 350);
@@ -117,7 +206,7 @@ namespace reserva_salas_csharp.Views
             this.TopMost = true;
             this.Visible = false;
             this.ShowDialog();
-
         }
+     
     }
 }
