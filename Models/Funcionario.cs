@@ -56,7 +56,7 @@ namespace reserva_salas_csharp.Models {
                         Console.WriteLine($"Campo inválido: {campo.Key}");
                     }
                 }
-                context.funcionario.Update(funcionario);
+
                 context.SaveChanges();
             }
             else
@@ -84,56 +84,28 @@ namespace reserva_salas_csharp.Models {
         }
 
 
-        public static void GetByIdFunc(int id)
+        public static int GetByIdfunc(int id)
         {
-           using var context = new Database();
-                    var funcionario = context.funcionario.Find(id);
-
-            if (funcionario != null)
+            using (var context = new Database())
             {
-                Console.WriteLine("Datos del funcionario:");
-                Console.WriteLine($"ID: {funcionario.Id}");
-                Console.WriteLine($"Nombre: {funcionario.Nome}");
-                Console.WriteLine($"Apellido: {funcionario.Sobrenome}");
-                Console.WriteLine($"Cpf: {funcionario.Cpf}");
-                Console.WriteLine($"Fecha de Nacimiento: {funcionario.DataNasc}");
+                var funcionario = context.funcionario.Find(id);
+                if (funcionario != null)
+                {
+                    return funcionario.Id;
+                }
             }
-            else
-            {
-                Console.WriteLine("Funcionario no encontrado.");
-            }
-        }
-
         
-       
-
-        public static void GetAllFuncionario()
-        {
-        
-
-    using var context = new Database();
-    var funcionarios = context.funcionario.ToList();
-
-    if (funcionarios.Count > 0)
-    {
-        Console.WriteLine("Lista de funcionarios:");
-        foreach (var funcionario in funcionarios)
-        {
-            Console.WriteLine($"ID: {funcionario.Id}");
-            Console.WriteLine($"Nombre: {funcionario.Nome}");
-            Console.WriteLine($"Apellido: {funcionario.Sobrenome}");
-            Console.WriteLine($"Cpf: {funcionario.Cpf}");
-            Console.WriteLine($"Fecha de Nacimiento: {funcionario.DataNasc}");
-            Console.WriteLine();
+            return -1; // Retorna um valor indicando que o funcionário não foi encontrado
         }
-    }
-    else
-    {
-        Console.WriteLine("No se encontraron funcionarios en la base de datos.");
-    }
 
 
+        public static IEnumerable<Funcionario> GetAllFuncionario()
+        {
+            Database db = new Database();
+            return from fucionarios in db.funcionario select fucionarios;
         }
+
+   
         
 
         

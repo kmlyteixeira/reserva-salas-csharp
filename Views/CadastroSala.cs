@@ -12,37 +12,27 @@ namespace reserva_salas_csharp.Views
         private Label titulo;
         private Label lblNomeSala;
         private Label lblNomeAndar; 
-
         private Panel panel1;
-
         private TextBox txtNomeSala;
         private TextBox txtNomeAndar;
-
-
         private Button btnCancelar;
         private Button btnSalvar;
         
-        public CadastroSala(int id)
+        public CadastroSala(int id, Form formularioAnterior)
         {
-            InitializeComponent(id);
+            InitializeComponent(id, formularioAnterior);
         }
 
-        private void InitializeComponent(int id)
+        public void InitializeComponent(int id, Form formularioAnterior)
         {
             panel1 = new Panel();
-
             titulo = new Label();
             lblNomeSala = new Label();
             lblNomeAndar = new Label();
-        
             txtNomeSala = new TextBox();
             txtNomeAndar = new TextBox();
-           
             btnCancelar = new Button();
             btnSalvar = new Button();
-
-
-
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -141,11 +131,8 @@ namespace reserva_salas_csharp.Views
                    MessageBox.Show("Alterado registro da sala com sucesso");
                    this.Close();
                 }
-               
-                
             }
             );
-        
            
             // 
             // Form1
@@ -184,17 +171,16 @@ namespace reserva_salas_csharp.Views
             {
                 if (id == 0)
                 {
-                  Controllers.Sala.CadastrarSala(this.txtNomeSala.Text, this.txtNomeAndar.Text);
-                   MessageBox.Show("Sala Cadastrada com sucesso");
-                   this.Close();
-        
+                    Controllers.Sala.CadastrarSala(this.txtNomeSala.Text, this.txtNomeAndar.Text);
+                    MessageBox.Show("Sala Cadastrada com sucesso");
+                    this.Close();
+                    formularioAnterior.Activate();
                 } else {
-                  Controllers.Sala.AlterarSala(id, this.txtNomeSala.Text, this.txtNomeAndar.Text);
-                   MessageBox.Show("Alterado registro da sala com sucesso");
-                   this.Close();
+                    Controllers.Sala.AlterarSala(id, this.txtNomeSala.Text, this.txtNomeAndar.Text);
+                    MessageBox.Show("Alterado registro da sala com sucesso");
+                    this.Close();
+                    formularioAnterior.Activate();
                 }
-               
-                
             };
 
             this.btnCancelar.Text = "Cancelar";
@@ -206,9 +192,8 @@ namespace reserva_salas_csharp.Views
                 DialogResult dialogResult = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 this.Close();
-
+                formularioAnterior.Activate();
             };
-
 
             this.Text = "Cadastro de Salas";
             this.Size = new Size(500, 350);

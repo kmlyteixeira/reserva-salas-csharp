@@ -14,12 +14,13 @@ namespace reserva_salas_csharp.Models
 
         public Agendamento() { }
 
-        public Agendamento(string observacao, DateTime date, int usuarioId, int salaHasTurnoId)
+        public Agendamento(string observacao, DateTime date, int usuarioId, SalaHasTurno salaHasTurno)
         {
             this.Observacao = observacao;
             this.Data = date;
             this.UsuarioId = usuarioId;
-            this.SalaHasTurnoId = salaHasTurnoId;
+            this.SalaHasTurnoId = salaHasTurno.Id;
+            this.SalaHasTurno = salaHasTurno;
 
             Database db = new Database();
             db.Agendamentos.Add(this);

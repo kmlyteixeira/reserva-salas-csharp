@@ -1,17 +1,10 @@
 using System;
 using reserva_salas_csharp.Models;
 
-
-
-
 namespace reserva_salas_csharp.Controllers
 {
-
     public class Sala {
 
-        // FAZER AS VALIDAÇÕES, PODE SER ANTES OU DEPOIS VER A MELHOR FORMA
-
-        
         public static Models.Sala CadastrarSala(
             string numeroSala, 
             string numeroAndar

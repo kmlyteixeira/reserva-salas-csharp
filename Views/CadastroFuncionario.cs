@@ -7,19 +7,16 @@ using reserva_salas_csharp.Models;
 
 namespace reserva_salas_csharp.Views
 {
-    public class CadastroUsuario : Form
+    public class CadatroFunc : Form
     {
         private Label label1;
         private Panel panel1;
         private Label label3;
         private Label label2;
-        private Label label9;
+
         private ComboBox comboBox1;
         private DateTimePicker dateTimePicker1;
-        private TextBox textBox4;
         private MaskedTextBox maskedTextBox1;
-        private TextBox textBox3;
-        private TextBox textBox5;
         private TextBox textBox2;
         private TextBox textBox1;
         private Label label8;
@@ -33,12 +30,12 @@ namespace reserva_salas_csharp.Views
         private ToolTip toolTip1;
         private ToolTip toolTip2;
 
-        public CadastroUsuario(Form formularioAnterior)
+        public CadatroFunc()
         {
-            InitializeComponent(formularioAnterior);
+            InitializeComponent();
         }
 
-        private void InitializeComponent(Form formularioAnterior)
+        private void InitializeComponent()
         {
             label1 = new Label();
             panel1 = new Panel();
@@ -51,15 +48,12 @@ namespace reserva_salas_csharp.Views
             label8 = new Label();
             textBox1 = new TextBox();
             textBox2 = new TextBox();
-            textBox5 = new TextBox();
-            textBox3 = new TextBox();
             maskedTextBox1 = new MaskedTextBox();
-            textBox4 = new TextBox();
             button1 = new Button();
             button2 = new Button();
             dateTimePicker1 = new DateTimePicker();
             comboBox1 = new ComboBox();
-            label9 = new Label();
+      
             showPass = new PictureBox();
             toolTip1 = new ToolTip();
             toolTip2 = new ToolTip();
@@ -74,18 +68,16 @@ namespace reserva_salas_csharp.Views
             label1.Name = "label1";
             label1.Size = new Size(244, 27);
             label1.TabIndex = 0;
-            label1.Text = "Cadastro de Usuário";
+            label1.Text = "Cadastro de Funcionario";
             // 
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(label9);
-            panel1.Controls.Add(comboBox1);
+          
+ 
             panel1.Controls.Add(dateTimePicker1);
-            panel1.Controls.Add(textBox4);
             panel1.Controls.Add(maskedTextBox1);
-            panel1.Controls.Add(textBox3);
-            panel1.Controls.Add(textBox5);
+       
             panel1.Controls.Add(textBox2);
             panel1.Controls.Add(textBox1);
             panel1.Controls.Add(label8);
@@ -147,38 +139,7 @@ namespace reserva_salas_csharp.Views
             label5.Text = "Data de Nascimento";
             // 
             // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.ForeColor = Color.Black;
-            label6.Location = new Point(18, 329);
-            label6.Name = "label6";
-            label6.Size = new Size(63, 20);
-            label6.TabIndex = 6;
-            label6.Text = "Usuário";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label7.ForeColor = Color.Black;
-            label7.Location = new Point(18, 401);
-            label7.Name = "label7";
-            label7.Size = new Size(46, 20);
-            label7.TabIndex = 7;
-            label7.Text = "Email";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.ForeColor = Color.Black;
-            label8.Location = new Point(233, 329);
-            label8.Name = "label8";
-            label8.Size = new Size(54, 20);
-            label8.TabIndex = 8;
-            label8.Text = "Senha";
-            // 
+       
             // textBox1
             // 
             textBox1.Location = new Point(18, 120);
@@ -195,24 +156,11 @@ namespace reserva_salas_csharp.Views
             // 
             // textBox5
             // 
-            textBox5.Cursor = Cursors.IBeam;
-            textBox5.Location = new Point(18, 352);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(142, 27);
-            textBox5.TabIndex = 13;
-
-            // ToolType
-            toolTip1.SetToolTip(textBox5, "Use somente letras e números");
+        
 
             // 
             // textBox3
-            // 
-            textBox3.Cursor = Cursors.IBeam;
-            textBox3.Location = new Point(233, 352);
-            textBox3.Name = "textBox3";
-            textBox3.UseSystemPasswordChar = true;
-            textBox3.Size = new Size(142, 27);
-            textBox3.TabIndex = 14;
+          
             // 
             // maskedTextBox1
             // 
@@ -228,11 +176,7 @@ namespace reserva_salas_csharp.Views
             // 
             // textBox4
             // 
-            textBox4.Cursor = Cursors.IBeam;
-            textBox4.Location = new Point(18, 424);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(357, 27);
-            textBox4.TabIndex = 17;
+            
             // 
             // button1
             // 
@@ -247,7 +191,7 @@ namespace reserva_salas_csharp.Views
             button1.TabIndex = 2;
             button1.Text = "Salvar";
             button1.UseVisualStyleBackColor = false;
-            button1.Click += new EventHandler((sender, e) => this.CadastrarButtonClick(formularioAnterior, textBox1.Text, textBox2.Text, maskedTextBox1.Text, dateTimePicker1.Value, comboBox1.Text ,textBox4.Text, textBox5.Text, textBox3.Text));
+            button1.Click += new EventHandler((sender, e) => this.CadastrarButtonClick(textBox1.Text, textBox2.Text, maskedTextBox1.Text, dateTimePicker1.Value));
             // 
             // button2
             // 
@@ -263,7 +207,7 @@ namespace reserva_salas_csharp.Views
             button2.TabIndex = 3;
             button2.Text = "Cancelar";
             button2.UseVisualStyleBackColor = false;
-            button2.Click += new EventHandler((sender, e) => this.CancelarButtonClick(formularioAnterior));
+            button2.Click += new EventHandler((sender, e) => this.CancelarButtonClick());
             // 
             // dateTimePicker1
             // 
@@ -276,38 +220,11 @@ namespace reserva_salas_csharp.Views
             // 
             // comboBox1
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(455, 351);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 19;
-            comboBox1.Text = "Selecione";
-            comboBox1.Items.AddRange(Controllers.Usuario.GetAllTiposUsuario().Select(tipo => tipo.Descricao).ToArray());
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label9.ForeColor = Color.Black;
-            label9.Location = new Point(455, 329);
-            label9.Name = "label9";
-            label9.Size = new Size(95, 20);
-            label9.TabIndex = 20;
-            label9.Text = "Tipo Usuário";
-
+           
             //
             // pictureBox1
             //
-            showPass.Image = Image.FromFile("Views/Resources/olho.png");
-            showPass.Location = new Point(377, 352);
-            showPass.Name = "showPass";
-            showPass.Size = new Size(25, 25);
-            showPass.SizeMode = PictureBoxSizeMode.StretchImage;
-            showPass.TabIndex = 21;
-            showPass.TabStop = false;
-            showPass.Click += new EventHandler((sender, e) => this.ShowPassClick());
-            // 
+        
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -322,43 +239,33 @@ namespace reserva_salas_csharp.Views
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             Text = "Form1";
-            this.StartPosition = FormStartPosition.CenterScreen;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
-        private void CancelarButtonClick(Form formularioAnterior)
+        private void CancelarButtonClick()
         {
             DialogResult dialogResult = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes) this.Close();
-            formularioAnterior.Activate();
         }
 
-        private void CadastrarButtonClick(Form formularioAnterior, string nome, string sobrenome, string cpf, DateTime dataNascimento, string tipoUsuarioInput, string email, string userName, string senha)
+        private void CadastrarButtonClick(string nome, string sobrenome, string cpf, DateTime dataNascimento)
         {
-            Models.TipoUsuario tipoUsuario = Controllers.Usuario.GetAllTiposUsuario().FirstOrDefault(tipo => tipo.Descricao.Equals(tipoUsuarioInput));
-
-            Controllers.Usuario.CadastrarUsuario(
+        
+            Controllers.Funcionario.cadastraFuncionario(
                 nome, 
                 sobrenome, 
                 cpf, 
-                dataNascimento.ToString("dd/MM/yyyy"), 
-                tipoUsuario, 
-                email, 
-                userName, 
-                senha
+                dataNascimento.ToString("dd/MM/yyyy")
+                
             );
 
-            MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Funcionario cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
-            formularioAnterior.Activate();
         }
 
-        private void ShowPassClick()
-        {
-            this.textBox3.UseSystemPasswordChar = !this.textBox3.UseSystemPasswordChar;
-        }
+       
     }
 }

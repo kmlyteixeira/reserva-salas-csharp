@@ -16,28 +16,22 @@ namespace reserva_salas_csharp.Views
         private TextBox txtNomeTurno;
         private TextBox txtMensagem;
 
-
         private Button btnCancelar;
         private Button btnSalvar;
         
-        public CadastroTurno(int id)
-        {
-            InitializeComponent(id);
-        }
+         public CadastroTurno(int id, Form formularioAnterior)
+          {
+              InitializeComponent(id, formularioAnterior);
+          }
 
-        private void InitializeComponent(int id)
-        {
-            panel1 = new Panel();
-
-            titulo = new Label();
-            lblNomeTurno = new Label();
-            txtNomeTurno = new TextBox();
-           
-            btnCancelar = new Button();
-            btnSalvar = new Button();
-
-
-
+      public void InitializeComponent(int id, Form formularioAnterior)
+      {
+          
+          this.titulo = new Label();
+          this.lblNomeTurno = new Label();
+          this.txtNomeTurno = new TextBox();
+          this.btnSalvar = new Button();
+          this.btnCancelar = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -158,14 +152,16 @@ namespace reserva_salas_csharp.Views
             {
                 if (id == 0)
                 {
-                Controllers.Turno.CadastrarTurno(this.txtNomeTurno.Text);
-                MessageBox.Show("Item cadastrado com sucesso");
-                this.Close();
+                    Controllers.Turno.CadastrarTurno(this.txtNomeTurno.Text);
+                    MessageBox.Show("Item cadastrado com sucesso");
+                    this.Close();
+                    formularioAnterior.Activate();
                 }
                 else {
                     Controllers.Turno.Alterarturno(id, this.txtNomeTurno.Text);
                     MessageBox.Show("Item alterado com sucesso");
                     this.Close();
+                    formularioAnterior.Activate();
                 }
                 
             };
@@ -179,9 +175,8 @@ namespace reserva_salas_csharp.Views
                 DialogResult dialogResult = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 this.Close();
-
+                formularioAnterior.Activate();
             };
-
 
             this.Text = "Cadastro de Turnos";
             this.Size = new Size(500, 350);
