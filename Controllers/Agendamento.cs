@@ -41,14 +41,11 @@ namespace reserva_salas_csharp.Controllers
                 .Where(a => a.SalaHasTurno.SalaId == int.Parse(salaId) && a.Data == data);
         }
 
-        public static IEnumerable<Models.Agendamento> GetAgendamentosBySalaTurnoData(string salaId, string turnoId, DateTime data)
+        public static Models.Agendamento GetAgendamentosBySalaTurnoData(string salaId, string turnoId, DateTime data)
         {
-            DateTime date = data.Date;
-            var result = Models.Agendamento.GetAllAgendamentos()
-                .Where(a => a.SalaHasTurno.SalaId == int.Parse(salaId) && a.SalaHasTurno.TurnoId == int.Parse(turnoId) && a.Data.Date == date);
-
             return Models.Agendamento.GetAllAgendamentos()
-                .Where(a => a.SalaHasTurno.SalaId == int.Parse(salaId) && a.SalaHasTurno.TurnoId == int.Parse(turnoId) && a.Data.Date == date);
+                .Where(a => a.SalaHasTurno.SalaId == int.Parse(salaId) && a.SalaHasTurno.TurnoId == int.Parse(turnoId) && a.Data.Date == data.Date)
+                .FirstOrDefault();
         }
     }
 }

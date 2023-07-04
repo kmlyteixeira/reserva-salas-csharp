@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using reserva_salas_csharp.Repository;
 
 namespace reserva_salas_csharp.Models
@@ -8,9 +9,9 @@ namespace reserva_salas_csharp.Models
         public string Observacao { get; set; }
         public DateTime Data { get; set; }
         public int UsuarioId { get; set; }
-        public Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public int SalaHasTurnoId { get; set; }
-        public SalaHasTurno SalaHasTurno { get; set; }
+        public virtual SalaHasTurno SalaHasTurno { get; set; }
 
         public Agendamento() { }
 
@@ -20,11 +21,12 @@ namespace reserva_salas_csharp.Models
             this.Data = date;
             this.UsuarioId = usuarioId;
             this.SalaHasTurnoId = salaHasTurno.Id;
-            this.SalaHasTurno = salaHasTurno;
 
             Database db = new Database();
             db.Agendamentos.Add(this);
             db.SaveChanges();
+            
+            this.SalaHasTurno = salaHasTurno;
         }
 
         public static Agendamento GetAgendamentoById(int id)
@@ -36,7 +38,7 @@ namespace reserva_salas_csharp.Models
         public static IEnumerable<Agendamento> GetAllAgendamentos()
         {
             Database db = new Database();
-            return from agendamento in db.Agendamentos select agendamento;
+            return from agendamento in db.Agendamentos.Include(a => a.SalaHasTurno) select agendamento;
         }
 
         public static void DeleteAgendamento(int id)
