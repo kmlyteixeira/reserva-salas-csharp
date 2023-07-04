@@ -49,7 +49,7 @@ namespace reserva_salas_csharp.Views
             panel1.Controls.Add(labelObs);
             panel1.Controls.Add(comboBoxSala);
             panel1.Controls.Add(labelSala);
-            panel1.Controls.Add(labelSala);
+            panel1.Controls.Add(labelSalaIndisponivel);
             panel1.Controls.Add(dateTimePickerData);
             panel1.Controls.Add(labelData);
             panel1.Controls.Add(buttonCancel);
@@ -234,8 +234,15 @@ namespace reserva_salas_csharp.Views
             {
                 labelSalaIndisponivel.Visible = true;
                 labelSalaIndisponivel.Refresh();
-                // buttonSave.Enabled = false;
-                // buttonSave.Refresh();
+                buttonSave.Enabled = false;
+                buttonSave.Refresh();
+            } 
+            else 
+            {
+                labelSalaIndisponivel.Visible = false;
+                labelSalaIndisponivel.Refresh();
+                buttonSave.Enabled = true;
+                buttonSave.Refresh();
             }
         }
 
