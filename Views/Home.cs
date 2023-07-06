@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using reserva_salas_csharp.Controllers;
 
 namespace reserva_salas_csharp.Views
@@ -177,7 +178,7 @@ namespace reserva_salas_csharp.Views
             dataGridViewCalendar.RowTemplate.Height = 29;
             dataGridViewCalendar.Size = new Size(419, 337);
             dataGridViewCalendar.TabIndex = 0;
-            dataGridViewCalendar.CellContentClick += new DataGridViewCellEventHandler(dataGridViewCalendar_CellContentClick);
+            dataGridViewCalendar.CellContentClick += new DataGridViewCellEventHandler(dataGridViewCalendar_CellContentClickAsync);
             dataGridViewCalendar.AutoGenerateColumns = false;
             dataGridViewCalendar.RowHeadersVisible = false;
             dataGridViewCalendar.ReadOnly = true;
@@ -350,7 +351,6 @@ namespace reserva_salas_csharp.Views
             panel9.Controls.Add(labelVerMais1);
             panel9.Controls.Add(labelTurno1);
             panel9.Controls.Add(labelNameTurno1);
-            panel9.Controls.Add(labelTurnoDesc); // excluir
             panel9.Location = new Point(109, 3);
             panel9.Name = "panel9";
             panel9.Size = new Size(155, 65);
@@ -362,7 +362,7 @@ namespace reserva_salas_csharp.Views
             labelVerMais1.Cursor = Cursors.Hand;
             labelVerMais1.Font = new Font("Century Gothic", 6F, FontStyle.Regular, GraphicsUnit.Point);
             labelVerMais1.ForeColor = Color.DimGray;
-            labelVerMais1.Location = new Point(84, 33);
+            labelVerMais1.Location = new Point(84, 34);
             labelVerMais1.Name = "labelVerMais1";
             labelVerMais1.Size = new Size(47, 12);
             labelVerMais1.TabIndex = 13;
@@ -773,21 +773,21 @@ namespace reserva_salas_csharp.Views
             }
         }
 
-        private void dataGridViewCalendar_CellContentClick(object? sender, DataGridViewCellEventArgs e)
+        private void dataGridViewCalendar_CellContentClickAsync(object? sender, DataGridViewCellEventArgs e)
         {
             int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
 
             var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
             DateTime data = new DateTime(2023, monthConst, Convert.ToInt32(cell));
 
-            IEnumerable<Models.Agendamento> agendamentos = Agendamento.GetAgendamentosBySalaData(sala.ToString(), data);
-
-            var agendamentoTurno1 = agendamentos.Where(x => x.SalaHasTurno.TurnoId == 1).FirstOrDefault();
-            var agendamentoTurno2 = agendamentos.Where(x => x.SalaHasTurno.TurnoId == 2).FirstOrDefault();
-            var agendamentoTurno3 = agendamentos.Where(x => x.SalaHasTurno.TurnoId == 3).FirstOrDefault();
+            var agendamentoTurno1 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "1", data);
+            var agendamentoTurno2 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "2", data);
+            var agendamentoTurno3 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "3", data);
 
             if (agendamentoTurno1 != null)
             {
+                agendamentoTurno1.Usuario = Usuario.GetUsuario(agendamentoTurno1.UsuarioId.ToString());
+
                 labelVerMais1.Visible = true;
                 labelTurno1.Visible = true;
                 labelNameTurno1.Visible = true;
@@ -799,39 +799,79 @@ namespace reserva_salas_csharp.Views
                 labelTurno1.Refresh();
 
                 buttonTurnoAgendar.Text = "Cancelar";
+                buttonTurnoAgendar.BackColor = Color.FromArgb(255,242,130);
                 buttonTurnoAgendar.Refresh();
+
+            } else 
+            {
+                labelVerMais1.Visible = false;
+                labelTurno1.Visible = true;
+                labelNameTurno1.Visible = false;
+
+                labelTurno1.Text = "Turno disponível";
+                labelTurno1.Refresh();
+
+                buttonTurnoAgendar.Text = "Agendar";
+                buttonTurnoAgendar.BackColor = Color.FromArgb(167, 228, 141);
+                buttonTurnoAgendar.Refresh();
+
             }
 
             if (agendamentoTurno2 != null)
             {
-                labelVerMais1.Visible = true;
-                labelTurno1.Visible = true;
-                labelNameTurno1.Visible = true;
+                labelVerMais2.Visible = true;
+                labelNameTurno2.Visible = true;
 
-                labelNameTurno1.Text = agendamentoTurno2.Usuario.Nome;
-                labelNameTurno1.Refresh();
+                labelVerMais2.Refresh();
 
-                labelTurno1.Text = agendamentoTurno2.Observacao;
-                labelTurno1.Refresh();
+                labelNameTurno2.Text = agendamentoTurno2.Usuario.Nome;
+                labelNameTurno2.Refresh();
 
-                buttonTurnoAgendar.Text = "Cancelar";
-                buttonTurnoAgendar.Refresh();
+                labelTurno2.Text = agendamentoTurno2.Observacao;
+                labelTurno2.Refresh();
+
+                buttonTurnoAgendar2.Text = "Cancelar";
+                buttonTurnoAgendar2.BackColor = Color.FromArgb(255,242,130);
+                buttonTurnoAgendar2.Refresh();
+            } else 
+            {
+                labelVerMais2.Visible = false;
+                labelNameTurno2.Visible = false;
+
+                labelNameTurno2.Text = "Turno disponível";
+                labelNameTurno2.Refresh();
+
+                buttonTurnoAgendar2.Text = "Agendar";
+                buttonTurnoAgendar2.BackColor = Color.FromArgb(167, 228, 141);
+                buttonTurnoAgendar2.Refresh();
             }
 
             if (agendamentoTurno3 != null)
             {
-                labelVerMais1.Visible = true;
-                labelTurno1.Visible = true;
-                labelNameTurno1.Visible = true;
+                labelVerMais3.Visible = true;
+                labelTurno3.Visible = true;
+                labelNameTurno3.Visible = true;
 
-                labelNameTurno1.Text = agendamentoTurno3.Usuario.Nome;
-                labelNameTurno1.Refresh();
+                labelNameTurno3.Text = agendamentoTurno3.Usuario.Nome;
+                labelNameTurno3.Refresh();
 
-                labelTurno1.Text = agendamentoTurno3.Observacao;
-                labelTurno1.Refresh();
+                labelTurno3.Text = agendamentoTurno3.Observacao;
+                labelTurno3.Refresh();
 
-                buttonTurnoAgendar.Text = "Cancelar";
-                buttonTurnoAgendar.Refresh();
+                buttonTurnoAgendar3.Text = "Cancelar";
+                buttonTurnoAgendar3.BackColor = Color.FromArgb(255, 242, 130);
+                buttonTurnoAgendar3.Refresh();
+            } else 
+            {
+                labelVerMais3.Visible = false;
+                labelNameTurno3.Visible = false;
+
+                labelNameTurno3.Text = "Turno disponível";
+                labelNameTurno3.Refresh();
+
+                buttonTurnoAgendar3.Text = "Agendar";
+                buttonTurnoAgendar3.BackColor = Color.FromArgb(167, 228, 141);
+                buttonTurnoAgendar3.Refresh();
             }
         }
 
@@ -852,7 +892,7 @@ namespace reserva_salas_csharp.Views
 
         private void novoAgendamentoToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            new CadastroAgendamento(formularioAnterior).Show();
         }
 
         private void turnoToolStripMenuItem_Click(object? sender, EventArgs e)
@@ -867,7 +907,7 @@ namespace reserva_salas_csharp.Views
 
         private void funcionárioToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            new CadatroFunc(formularioAnterior).Show();
         }
 
         private void usuariosToolStripMenuItem_Click(object? sender, EventArgs e)

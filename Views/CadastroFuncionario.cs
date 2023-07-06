@@ -30,12 +30,12 @@ namespace reserva_salas_csharp.Views
         private ToolTip toolTip1;
         private ToolTip toolTip2;
 
-        public CadatroFunc()
+        public CadatroFunc(Form formularioAnterior)
         {
-            InitializeComponent();
+            InitializeComponent(formularioAnterior);
         }
 
-        private void InitializeComponent()
+        private void InitializeComponent(Form formularioAnterior)
         {
             label1 = new Label();
             panel1 = new Panel();
@@ -154,14 +154,6 @@ namespace reserva_salas_csharp.Views
             textBox2.Size = new Size(314, 27);
             textBox2.TabIndex = 10;
             // 
-            // textBox5
-            // 
-        
-
-            // 
-            // textBox3
-          
-            // 
             // maskedTextBox1
             // 
             maskedTextBox1.Cursor = Cursors.IBeam;
@@ -191,7 +183,7 @@ namespace reserva_salas_csharp.Views
             button1.TabIndex = 2;
             button1.Text = "Salvar";
             button1.UseVisualStyleBackColor = false;
-            button1.Click += new EventHandler((sender, e) => this.CadastrarButtonClick(textBox1.Text, textBox2.Text, maskedTextBox1.Text, dateTimePicker1.Value));
+            button1.Click += new EventHandler((sender, e) => this.CadastrarButtonClick(formularioAnterior, textBox1.Text, textBox2.Text, maskedTextBox1.Text, dateTimePicker1.Value));
             // 
             // button2
             // 
@@ -207,7 +199,7 @@ namespace reserva_salas_csharp.Views
             button2.TabIndex = 3;
             button2.Text = "Cancelar";
             button2.UseVisualStyleBackColor = false;
-            button2.Click += new EventHandler((sender, e) => this.CancelarButtonClick());
+            button2.Click += new EventHandler((sender, e) => this.CancelarButtonClick(formularioAnterior));
             // 
             // dateTimePicker1
             // 
@@ -217,14 +209,8 @@ namespace reserva_salas_csharp.Views
             dateTimePicker1.Size = new Size(314, 27);
             dateTimePicker1.TabIndex = 18;
             dateTimePicker1.Value = new DateTime(2023, 6, 17, 0, 0, 0, 0);
-            // 
-            // comboBox1
-            // 
            
             //
-            // pictureBox1
-            //
-        
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -237,6 +223,7 @@ namespace reserva_salas_csharp.Views
             Controls.Add(label1);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            this.StartPosition = FormStartPosition.CenterScreen;
             Name = "Form1";
             Text = "Form1";
             panel1.ResumeLayout(false);
@@ -245,13 +232,15 @@ namespace reserva_salas_csharp.Views
             PerformLayout();
         }
 
-        private void CancelarButtonClick()
+        private void CancelarButtonClick(Form formularioAnterior)
         {
             DialogResult dialogResult = MessageBox.Show("Deseja cancelar o cadastro?", "Cancelar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes) this.Close();
+
+            formularioAnterior.Activate();
         }
 
-        private void CadastrarButtonClick(string nome, string sobrenome, string cpf, DateTime dataNascimento)
+        private void CadastrarButtonClick(Form formularioAnterior, string nome, string sobrenome, string cpf, DateTime dataNascimento)
         {
         
             Controllers.Funcionario.cadastraFuncionario(
@@ -264,6 +253,7 @@ namespace reserva_salas_csharp.Views
 
             MessageBox.Show("Funcionario cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
+            formularioAnterior.Activate();
         }
 
        
