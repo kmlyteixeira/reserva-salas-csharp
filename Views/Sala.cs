@@ -11,7 +11,7 @@ namespace reserva_salas_csharp.Views
     private Label lblNome;
     private TextBox txtNome;
     private Button btnSalvar;
-    private Button btnCancelar;
+    private Button btnVoltar;
     private ListView lista;
     private Button btnEditar;
     private Button btnExcluir;
@@ -29,7 +29,7 @@ namespace reserva_salas_csharp.Views
       this.btnSalvar = new Button();
       this.btnEditar = new Button();
       this.btnExcluir = new Button();
-      this.btnCancelar = new Button();
+      this.btnVoltar = new Button();
 
       this.titulo.Text = "Lista de Salas";
       this.titulo.Location = new Point(10, 10);
@@ -48,20 +48,36 @@ namespace reserva_salas_csharp.Views
 
       this.LoadList();
 
-      this.btnSalvar.Text = "Incluir";
-      this.btnSalvar.Location = new Point(10, 450);
-      this.btnSalvar.Size = new Size(90, 30);
-      this.btnSalvar.Font = new Font("Arial", 12, FontStyle.Bold);
+      btnSalvar.BackColor = Color.FromArgb(167, 228, 141);
+      btnSalvar.Cursor = Cursors.Hand;
+      btnSalvar.FlatAppearance.BorderSize = 0;
+      btnSalvar.FlatStyle = FlatStyle.Flat;
+      btnSalvar.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+      btnSalvar.Location = new Point(10, 450);
+      btnSalvar.Name = "btnIncluir";
+      btnSalvar.Size = new Size(90, 30);
+      btnSalvar.TabIndex = 2;
+      btnSalvar.Text = "incluir";
+      btnSalvar.UseVisualStyleBackColor = false;
+
       this.btnSalvar.Click += (sender, e) =>
       {
         new CadastroSala(0, formularioAnterior);
         this.LoadList();
       };
-
-      this.btnEditar.Text = "Editar";
-      this.btnEditar.Location = new Point(110, 450);
-      this.btnEditar.Size = new Size(90, 30);
-      this.btnEditar.Font = new Font("Arial", 12, FontStyle.Bold);
+       
+      btnEditar.BackColor = Color.FromArgb(255,242,130);
+      btnEditar.Cursor = Cursors.Hand;
+      btnEditar.FlatAppearance.BorderSize = 0;
+      btnEditar.FlatStyle = FlatStyle.Flat;
+      btnEditar.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+      btnEditar.Location = new Point(110, 450);
+      btnEditar.Name = "btnEditar";
+      btnEditar.Size = new Size(90, 30);
+      btnEditar.TabIndex = 2;
+      btnEditar.Text = "Editar";
+      btnEditar.UseVisualStyleBackColor = false;
+      
       this.btnEditar.Click += (sender, e) =>
       {
         new CadastroSala(
@@ -70,10 +86,18 @@ namespace reserva_salas_csharp.Views
         this.LoadList();
       };
 
-      this.btnExcluir.Text = "Excluir";
-      this.btnExcluir.Location = new Point(210, 450);
-      this.btnExcluir.Size = new Size(90, 30);
-      this.btnExcluir.Font = new Font("Arial", 12, FontStyle.Bold);
+      btnExcluir.BackColor = Color.FromArgb(255, 105, 97);
+      btnExcluir.Cursor = Cursors.Hand;
+      btnExcluir.FlatAppearance.BorderSize = 0;
+      btnExcluir.FlatStyle = FlatStyle.Flat;
+      btnExcluir.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+      btnExcluir.Location = new Point(210, 450);
+      btnExcluir.Name = "btnExcluir";
+      btnExcluir.Size = new Size(90, 30);
+      btnExcluir.TabIndex = 2;
+      btnExcluir.Text = "Excluir";
+      btnExcluir.UseVisualStyleBackColor = false;
+
       this.btnExcluir.Click += (sender, e) =>
       {
         DialogResult result = MessageBox.Show(
@@ -92,30 +116,36 @@ namespace reserva_salas_csharp.Views
 
       };
 
-        this.btnCancelar.Text = "Voltar";
-        this.btnCancelar.Location = new Point(310, 450);
-        this.btnCancelar.Size = new Size(90, 30);
-        this.btnCancelar.Font = new Font("Arial", 12, FontStyle.Bold);
-        this.btnCancelar.Click += (sender, e) => this.Close();
+        btnVoltar.BackColor = Color.FromArgb(190,190,190);
+        btnVoltar.Cursor = Cursors.Hand;
+        btnVoltar.FlatAppearance.BorderSize = 0;
+        btnVoltar.FlatStyle = FlatStyle.Flat;
+        btnVoltar.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+        btnVoltar.Location = new Point(310, 450);
+        btnVoltar.Name = "btnVoltar";
+        btnVoltar.Size = new Size(90, 30);
+        btnVoltar.TabIndex = 2;
+        btnVoltar.Text = "Voltar";
+        btnVoltar.UseVisualStyleBackColor = false;
+        btnVoltar.Click += new EventHandler((sender, e) => this.VoltarButtonClick(formularioAnterior));
 
         this.Controls.Add(this.titulo);
         this.Controls.Add(this.lista);
         this.Controls.Add(this.btnSalvar);
         this.Controls.Add(this.btnEditar);
         this.Controls.Add(this.btnExcluir);
-        this.Controls.Add(this.btnCancelar);
+        this.Controls.Add(this.btnVoltar);
 
         this.Text = "Salas";
         this.Size = new Size(750, 600);
         this.StartPosition = FormStartPosition.CenterScreen;
-        this.FormBorderStyle = FormBorderStyle.FixedSingle;
+        this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+
         this.MaximizeBox = false;
         this.MinimizeBox = false;
         this.ShowIcon = false;
         this.ShowInTaskbar = false;
         this.TopMost = true;
-
-        this.ShowDialog();
 
     }
 
@@ -130,6 +160,12 @@ namespace reserva_salas_csharp.Views
         item.SubItems.Add(sala.numeroAndar.ToString());
         this.lista.Items.Add(item);
       }
+    }
+
+    private void VoltarButtonClick(Form formularioAnterior)
+    {
+      this.Close();
+      formularioAnterior.Activate();
     }
   }
 }

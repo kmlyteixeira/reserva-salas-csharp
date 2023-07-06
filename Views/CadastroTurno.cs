@@ -32,7 +32,7 @@ namespace reserva_salas_csharp.Views
           this.txtNomeTurno = new TextBox();
           this.btnSalvar = new Button();
           this.btnCancelar = new Button();
-            panel1.SuspendLayout();
+        panel1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -188,7 +188,6 @@ namespace reserva_salas_csharp.Views
             this.ShowInTaskbar = false;
             this.TopMost = true;
             this.Visible = false;
-            this.ShowDialog();
         }
      
     }

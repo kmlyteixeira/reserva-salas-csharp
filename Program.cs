@@ -6,7 +6,7 @@ namespace reserva_salas_csharp
     {
         static void Main(string[] args)
         {
-            Application.Run(new Views.Home(Models.Usuario.GetUsuarioById(1)));
+            Application.Run(new Views.Login());
         }
     }
 }
