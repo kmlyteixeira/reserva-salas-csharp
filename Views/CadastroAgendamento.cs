@@ -17,6 +17,7 @@ namespace reserva_salas_csharp.Views
         private Button buttonCancel;
         private Label titulo;
         private Label labelSalaIndisponivel;
+        private CheckBox checkBoxHigienizacao;
         
         public CadastroAgendamento(Form formularioAnterior)
         {
@@ -38,6 +39,7 @@ namespace reserva_salas_csharp.Views
             labelObs = new Label();
             richTextBoxObs = new RichTextBox();
             labelSalaIndisponivel = new Label();
+            checkBoxHigienizacao = new CheckBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -51,6 +53,7 @@ namespace reserva_salas_csharp.Views
             panel1.Controls.Add(labelSala);
             panel1.Controls.Add(labelSalaIndisponivel);
             panel1.Controls.Add(dateTimePickerData);
+            panel1.Controls.Add(checkBoxHigienizacao);
             panel1.Controls.Add(labelData);
             panel1.Controls.Add(buttonCancel);
             panel1.Controls.Add(buttonSave);
@@ -182,6 +185,17 @@ namespace reserva_salas_csharp.Views
             labelObs.Size = new Size(109, 20);
             labelObs.TabIndex = 17;
             labelObs.Text = "Observações";
+            // 
+            // checkBoxHigienizacao
+            // 
+            checkBoxHigienizacao.AutoSize = true;
+            checkBoxHigienizacao.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            checkBoxHigienizacao.Location = new Point(283, 40);
+            checkBoxHigienizacao.Name = "checkBoxHigienizacao";
+            checkBoxHigienizacao.Size = new Size(104, 21);
+            checkBoxHigienizacao.TabIndex = 19;
+            checkBoxHigienizacao.Text = "Higienização";
+            checkBoxHigienizacao.UseVisualStyleBackColor = true;
             // 
             // richTextBoxObs
             // 
