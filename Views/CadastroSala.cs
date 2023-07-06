@@ -205,7 +205,6 @@ namespace reserva_salas_csharp.Views
             this.ShowInTaskbar = false;
             this.TopMost = true;
             this.Visible = false;
-            this.ShowDialog();
         }
      
     }

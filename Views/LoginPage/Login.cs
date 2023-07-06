@@ -252,6 +252,7 @@ namespace reserva_salas_csharp.Views
             this.button1.TabIndex = 10;
             this.button1.Text = "LOGIN";
             this.button1.UseVisualStyleBackColor = false;
+            this.AcceptButton = button1;
             this.button1.Click += new System.EventHandler((sender, e) => this.login_Click(this.textBox1.Text, this.textBox2.Text));
             // 
             // button2
