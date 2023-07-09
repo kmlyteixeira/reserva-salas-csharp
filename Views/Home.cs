@@ -55,6 +55,7 @@ namespace reserva_salas_csharp.Views
         private Label labelVerMais3;
         private Label labelNameTurno3;
         private Form formularioAnterior;
+        private Models.Usuario user;
 
         public Home(Models.Usuario usuario)
         {
@@ -124,7 +125,8 @@ namespace reserva_salas_csharp.Views
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSair).BeginInit();
             SuspendLayout();
-            this.monthConst = 6;
+            this.monthConst = 7;
+            this.user = usuario;
             formularioAnterior = this;
             // 
             // panel1
@@ -149,7 +151,7 @@ namespace reserva_salas_csharp.Views
             panel2.Controls.Add(buttonCalendar2);
             panel2.Location = new Point(22, 82);
             panel2.Name = "panel2";
-            panel2.Size = new Size(425, 386);
+            panel2.Size = new Size(425, 463);
             panel2.TabIndex = 0;
             panel2.Enabled = false;
             // 
@@ -770,6 +772,13 @@ namespace reserva_salas_csharp.Views
                     labelCalendar.Refresh();
                     break;
                 }
+
+                case 9:
+                {
+                    labelCalendar.Text = "setembro de 2023";
+                    labelCalendar.Refresh();
+                    break;
+                }
             }
         }
 
@@ -784,18 +793,23 @@ namespace reserva_salas_csharp.Views
             var agendamentoTurno2 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "2", data);
             var agendamentoTurno3 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "3", data);
 
-            if (agendamentoTurno1 != null)
+            var higienizacaoTurno1 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "1", data);
+            var higienizacaoTurno2 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "2", data);
+            var higienizacaoTurno3 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "3", data);
+
+            if (agendamentoTurno1 != null || higienizacaoTurno1 != null)
             {
-                agendamentoTurno1.Usuario = Usuario.GetUsuario(agendamentoTurno1.UsuarioId.ToString());
+                if (agendamentoTurno1 != null)
+                    agendamentoTurno1.Usuario = Usuario.GetUsuario(agendamentoTurno1.UsuarioId.ToString());
 
                 labelVerMais1.Visible = true;
                 labelTurno1.Visible = true;
                 labelNameTurno1.Visible = true;
 
-                labelNameTurno1.Text = agendamentoTurno1.Usuario.Nome;
+                labelNameTurno1.Text = agendamentoTurno1?.Usuario.Nome ?? "Higienização";
                 labelNameTurno1.Refresh();
 
-                labelTurno1.Text = agendamentoTurno1.Observacao;
+                labelTurno1.Text = agendamentoTurno1?.Observacao ?? higienizacaoTurno1?.Observacao;
                 labelTurno1.Refresh();
 
                 buttonTurnoAgendar.Text = "Cancelar";
@@ -817,18 +831,21 @@ namespace reserva_salas_csharp.Views
 
             }
 
-            if (agendamentoTurno2 != null)
+            if (agendamentoTurno2 != null || higienizacaoTurno2 != null)
             {
+                if (agendamentoTurno2 != null)
+                    agendamentoTurno2.Usuario = Usuario.GetUsuario(agendamentoTurno2.UsuarioId.ToString());
+
                 labelVerMais2.Visible = true;
                 labelNameTurno2.Visible = true;
 
                 labelVerMais2.Refresh();
 
-                labelNameTurno2.Text = agendamentoTurno2.Usuario.Nome;
+                labelNameTurno2.Text = agendamentoTurno2?.Usuario.Nome ?? "Higienização";
                 labelNameTurno2.Refresh();
 
-                labelTurno2.Text = agendamentoTurno2.Observacao;
-                labelTurno2.Refresh();
+                labelTurnoDesc2.Text = agendamentoTurno2?.Observacao ?? higienizacaoTurno2?.Observacao;
+                labelTurnoDesc2.Refresh();
 
                 buttonTurnoAgendar2.Text = "Cancelar";
                 buttonTurnoAgendar2.BackColor = Color.FromArgb(255,242,130);
@@ -848,15 +865,18 @@ namespace reserva_salas_csharp.Views
 
             if (agendamentoTurno3 != null)
             {
+                if (agendamentoTurno3 != null)
+                    agendamentoTurno3.Usuario = Usuario.GetUsuario(agendamentoTurno3.UsuarioId.ToString());
+
                 labelVerMais3.Visible = true;
-                labelTurno3.Visible = true;
+                labelTurnoDesc3.Visible = true;
                 labelNameTurno3.Visible = true;
 
-                labelNameTurno3.Text = agendamentoTurno3.Usuario.Nome;
+                labelNameTurno3.Text = agendamentoTurno3?.Usuario.Nome ?? "Higienização";
                 labelNameTurno3.Refresh();
 
-                labelTurno3.Text = agendamentoTurno3.Observacao;
-                labelTurno3.Refresh();
+                labelTurnoDesc3.Text = agendamentoTurno3?.Observacao ?? higienizacaoTurno3?.Observacao;
+                labelTurnoDesc3.Refresh();
 
                 buttonTurnoAgendar3.Text = "Cancelar";
                 buttonTurnoAgendar3.BackColor = Color.FromArgb(255, 242, 130);
@@ -892,7 +912,7 @@ namespace reserva_salas_csharp.Views
 
         private void novoAgendamentoToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            new CadastroAgendamento(formularioAnterior).Show();
+            new CadastroAgendamento(formularioAnterior, this.user).Show();
         }
 
         private void turnoToolStripMenuItem_Click(object? sender, EventArgs e)
@@ -917,7 +937,7 @@ namespace reserva_salas_csharp.Views
 
         private void button2_Click(object? sender, EventArgs e)
         {
-            new CadastroAgendamento(formularioAnterior).Show();
+            new CadastroAgendamento(formularioAnterior, user).Show();
         }
 
         private void label9_Click(object? sender, EventArgs e)

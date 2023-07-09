@@ -19,6 +19,16 @@ namespace reserva_salas_csharp.Models
             Database db = new Database();
             db.Salas.Add(this);
             db.SaveChanges();
+
+            SalaHasTurno salaHasTurnoManha = new SalaHasTurno(this.id, 1);
+            SalaHasTurno salaHasTurnoTarde = new SalaHasTurno(this.id, 2);
+            SalaHasTurno salaHasTurnoNoite = new SalaHasTurno(this.id, 3);
+
+            db.SalaHasTurnos.Add(salaHasTurnoManha);
+            db.SalaHasTurnos.Add(salaHasTurnoTarde);
+            db.SalaHasTurnos.Add(salaHasTurnoNoite);
+
+            db.SaveChanges();
         }
 
 

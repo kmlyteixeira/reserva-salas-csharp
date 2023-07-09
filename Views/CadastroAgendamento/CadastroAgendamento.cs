@@ -18,14 +18,16 @@ namespace reserva_salas_csharp.Views
         private Label titulo;
         private Label labelSalaIndisponivel;
         private CheckBox checkBoxHigienizacao;
+        private Models.Usuario usuario;
         
-        public CadastroAgendamento(Form formularioAnterior)
+        public CadastroAgendamento(Form formularioAnterior, Models.Usuario user)
         {
-            InitializeComponent(formularioAnterior);
+            InitializeComponent(formularioAnterior, user);
         }
 
-        public void InitializeComponent(Form formularioAnterior)
+        public void InitializeComponent(Form formularioAnterior, Models.Usuario user)
         {
+            this.usuario = user;
             panel1 = new Panel();
             comboBoxTurno = new ComboBox();
             labelTurno = new Label();
@@ -76,6 +78,7 @@ namespace reserva_salas_csharp.Views
             comboBoxTurno.DisplayMember = "Descricao";
             comboBoxTurno.ValueMember = "Id";
             comboBoxTurno.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTurno.SelectedIndexChanged += comboBoxSala_SelectedIndexChanged;
             // 
             // labelTurno
             // 
@@ -103,7 +106,7 @@ namespace reserva_salas_csharp.Views
             buttonSave.Text = "Salvar";
             buttonSave.Enabled = true;
             buttonSave.UseVisualStyleBackColor = false;
-            buttonSave.Click += (sender, e) => buttonSave_Click();
+            buttonSave.Click += (sender, e) => buttonSave_Click(formularioAnterior);
             // 
             // buttonCancel
             // 
@@ -149,6 +152,7 @@ namespace reserva_salas_csharp.Views
             dateTimePickerData.Name = "dateTimePickerData";
             dateTimePickerData.Size = new Size(294, 27);
             dateTimePickerData.TabIndex = 14;
+            dateTimePickerData.ValueChanged += comboBoxSala_SelectedIndexChanged;
             // 
             // labelSala
             // 
@@ -190,7 +194,10 @@ namespace reserva_salas_csharp.Views
             // 
             checkBoxHigienizacao.AutoSize = true;
             checkBoxHigienizacao.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxHigienizacao.Location = new Point(283, 40);
+            int margemDireita = 10;
+            int x = dateTimePickerData.Location.X + dateTimePickerData.Width + margemDireita;
+            int y = dateTimePickerData.Location.Y;
+            checkBoxHigienizacao.Location = new Point(x, y);
             checkBoxHigienizacao.Name = "checkBoxHigienizacao";
             checkBoxHigienizacao.Size = new Size(104, 21);
             checkBoxHigienizacao.TabIndex = 19;
@@ -209,15 +216,16 @@ namespace reserva_salas_csharp.Views
             // labelSalaIndisponivel
             // 
             labelSalaIndisponivel.AutoSize = true;
-            labelSalaIndisponivel.BackColor = Color.Red;
-            labelSalaIndisponivel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            labelSalaIndisponivel.ForeColor = Color.Transparent;
+            labelSalaIndisponivel.BackColor = SystemColors.Info;
+            labelSalaIndisponivel.ForeColor = SystemColors.InfoText;
+            labelSalaIndisponivel.Font = new Font("Segoe UI", 9);
+            labelSalaIndisponivel.Padding = new Padding(5);
             labelSalaIndisponivel.Location = new Point(309, 157);
             labelSalaIndisponivel.Name = "labelSalaIndisponivel";
             labelSalaIndisponivel.Size = new Size(133, 20);
             labelSalaIndisponivel.TabIndex = 14;
-            labelSalaIndisponivel.Text = "Sala indisponível!";
-            labelSalaIndisponivel.Visible = false;
+            labelSalaIndisponivel.Text = "Selecione uma sala!";
+            labelSalaIndisponivel.Visible = true;
             // 
             // Form1
             // 
@@ -244,9 +252,15 @@ namespace reserva_salas_csharp.Views
             string turnoId = comboBoxTurno.SelectedValue.ToString();
             DateTime dateTime = dateTimePickerData.Value;
             var agendamentos = Controllers.Agendamento.GetAgendamentosBySalaTurnoData(salaId, turnoId, dateTime);
-            if (agendamentos != null)
+            var higienizacoes = Controllers.Higienizacao.GetHigienizacoesBySalaTurnoData(salaId, turnoId, dateTime);
+            
+            if (agendamentos != null || higienizacoes != null)
             {
                 labelSalaIndisponivel.Visible = true;
+                labelSalaIndisponivel.Text = "Sala indisponível!";
+                labelSalaIndisponivel.BackColor = Color.Red;
+                labelSalaIndisponivel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+                labelSalaIndisponivel.ForeColor = Color.Transparent;
                 labelSalaIndisponivel.Refresh();
                 buttonSave.Enabled = false;
                 buttonSave.Refresh();
@@ -270,10 +284,29 @@ namespace reserva_salas_csharp.Views
             }
         }
 
-        private void buttonSave_Click()
+        private void buttonSave_Click(Form formularioAnterior)
         {
-            Controllers.Agendamento.CadastrarAgendamento(richTextBoxObs.Text, dateTimePickerData.Value.ToString(), Convert.ToInt32(comboBoxTurno.SelectedValue).ToString(), Convert.ToInt32(comboBoxSala.SelectedValue).ToString());
-            MessageBox.Show("Agendamento cadastrado com sucesso!");
+            if (checkBoxHigienizacao.Checked)
+            {
+                Controllers.Higienizacao.CriarHigienizazao(
+                    Convert.ToInt32(comboBoxSala.SelectedValue).ToString(),
+                    Convert.ToInt32(comboBoxTurno.SelectedValue).ToString(),
+                    Models.Funcionario.GetByIdfunc(2).Id.ToString(),
+                    richTextBoxObs.Text,
+                    dateTimePickerData.Value.ToString()
+                );
+                MessageBox.Show("Higienização cadastrada com sucesso!");
+            } else {
+                Controllers.Agendamento.CadastrarAgendamento(
+                    richTextBoxObs.Text, 
+                    dateTimePickerData.Value.ToString(), 
+                    usuario.Id.ToString(),
+                    Convert.ToInt32(comboBoxTurno.SelectedValue).ToString(), 
+                    Convert.ToInt32(comboBoxSala.SelectedValue).ToString()
+                );
+                MessageBox.Show("Agendamento cadastrado com sucesso!");
+            }
+            formularioAnterior.Activate();
             this.Close();
         }
     }

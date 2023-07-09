@@ -12,6 +12,7 @@ namespace reserva_salas_csharp.Models
         public virtual Usuario Usuario { get; set; }
         public int SalaHasTurnoId { get; set; }
         public virtual SalaHasTurno SalaHasTurno { get; set; }
+        public bool Ativo { get; set; } = true;
 
         public Agendamento() { }
 

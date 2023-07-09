@@ -2,50 +2,38 @@ using System;
 using reserva_salas_csharp.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace reserva_salas_csharp.Models {
-
-    public class Higienizacao {
-
+namespace reserva_salas_csharp.Models
+{
+    public class Higienizacao
+    {
         public int Id { get; set; }
         public string Observacao { get; set; }
-       
+        public DateTime Data { get; set; }
         public int idSala { get; set; }
-        public virtual Sala sala { get; set; }
-    
+        //public virtual Sala sala { get; set; }
         public int idFuncionario { get; set; }
-        public virtual Funcionario funcionario { get; set; }
+        //public virtual Funcionario funcionario { get; set; }
+        public int idTurno { get; set; }
+        //public virtual Turno turno { get; set; }
+        public bool Ativo { get; set; } = true;
 
-        public int idUsusario { get; set; }
-        public virtual Usuario usuario { get; set; }
-   
+        public Higienizacao() { }
 
-         public Higienizacao() {
-            
-        }
-
-
-        public Higienizacao(Sala Salaid, Funcionario Funcionarioid,Usuario Usuarioid, string observacao) {
-           this.Id = Id;
-           this.idSala = Salaid.id;
-           this.idFuncionario = Funcionarioid.Id;
-           this.idUsusario = Usuarioid.Id;
-           this.Observacao = observacao;
-   
-        }
-
-
-        public void cadastrarHigienizacao(int id_sala,int id_funcionario, string observacao)
+        public Higienizacao(Sala sala, Turno turno, Funcionario funcionario, string observacao, DateTime data)
         {
-                using var context = new Database();
-                var hizienizacao = new Higienizacao { idSala = id_sala, idFuncionario = id_funcionario , Observacao = observacao};
-                context.Higienizacao.Add(hizienizacao);
-                context.SaveChanges();
+            this.idSala = sala.id;
+            this.idTurno = turno.id;
+            this.idFuncionario = funcionario.Id;
+            this.Observacao = observacao;
+            this.Data = data;
+
+            Database db = new Database();
+            db.Higienizacao.Add(this);
+            db.SaveChanges();
         }
-
-
 
         public static void alterarHigienizacao(int id, Dictionary<string, string> novosCampos)
-{
+        {
             using var context = new Database();
             var higienizacao = context.Higienizacao.Find(id);
 
@@ -63,18 +51,15 @@ namespace reserva_salas_csharp.Models {
                         Console.WriteLine($"Campo inválido: {campo.Key}");
                     }
                 }
-
                 context.SaveChanges();
             }
             else
             {
-                Console.WriteLine("Hiienização no encontrada.");
+                Console.WriteLine("Higienização não encontrada.");
             }
         }
 
-
-
-       public static void excluirHigienizacao(int id)
+        public static void excluirHigienizacao(int id)
         {
             using var context = new Database();
             var higienizacao = context.Higienizacao.Find(id);
@@ -86,15 +71,14 @@ namespace reserva_salas_csharp.Models {
             }
             else
             {
-                Console.WriteLine("Higienização no encontrada.");
+                Console.WriteLine("Higienização não encontrada.");
             }
         }
 
-
         public static void GetByIdHigi(int id)
         {
-           using var context = new Database();
-                    var higienizacao = context.Higienizacao.Find(id);
+            using var context = new Database();
+            var higienizacao = context.Higienizacao.Find(id);
 
             if (higienizacao != null)
             {
@@ -103,46 +87,19 @@ namespace reserva_salas_csharp.Models {
                 Console.WriteLine($"Id_sala: {higienizacao.idSala}");
                 Console.WriteLine($"id_func: {higienizacao.idFuncionario}");
                 Console.WriteLine($"Observação: {higienizacao.Observacao}");
-            
+
             }
             else
             {
-                Console.WriteLine("Higienização no encontrada.");
+                Console.WriteLine("Higienização não encontrada.");
             }
         }
 
-        
-       
-
-        public static void GetAllHigienizacao()
+        public static IEnumerable<Higienizacao> GetAllHigienizacoes()
         {
-        
-
-    using var context = new Database();
-    var higienizacoes = context.Higienizacao.ToList();
-
-    if (higienizacoes.Count > 0)
-    {
-        Console.WriteLine("Lista de higienizações:");
-        foreach (var higienizacao in higienizacoes)
-        {
-             Console.WriteLine("Datos da higienização:");
-             Console.WriteLine($"ID: {higienizacao.Id}");
-             Console.WriteLine($"Id_sala: {higienizacao.idSala}");
-             Console.WriteLine($"id_func: {higienizacao.idFuncionario}");
-             Console.WriteLine($"Observação: {higienizacao.Observacao}");
-            
+            Database db = new Database();
+            return from h in db.Higienizacao
+                select h;
         }
     }
-    else
-    {
-        Console.WriteLine("No se encontraram higienizações.");
-    }
-
-
-        }
-
-    }
-
-
 }

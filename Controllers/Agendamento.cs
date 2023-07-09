@@ -2,9 +2,10 @@ namespace reserva_salas_csharp.Controllers
 {
     public class Agendamento
     {
-        public static Models.Agendamento CadastrarAgendamento(string observacao, string data, string usuarioId, string salaHasTurnoId)
+        public static Models.Agendamento CadastrarAgendamento(string observacao, string data, string usuarioId, string salaId, string turnoId)
         {
-            Models.Agendamento agendamento = new Models.Agendamento(observacao, DateTime.Parse(data), int.Parse(usuarioId), Models.SalaHasTurno.GetSalaHasTurnoById(int.Parse(salaHasTurnoId)));
+            var salaHasTurno = Models.SalaHasTurno.GetSalaHasTurnos(int.Parse(salaId)).Where(sht => sht.TurnoId == int.Parse(turnoId)).FirstOrDefault();
+            Models.Agendamento agendamento = new Models.Agendamento(observacao, DateTime.Parse(data), int.Parse(usuarioId), salaHasTurno);
             return agendamento;
         }
 
@@ -44,7 +45,7 @@ namespace reserva_salas_csharp.Controllers
         public static Models.Agendamento GetAgendamentosBySalaTurnoData(string salaId, string turnoId, DateTime data)
         {
             return Models.Agendamento.GetAllAgendamentos()
-                .Where(a => a.SalaHasTurno.SalaId == int.Parse(salaId) && a.SalaHasTurno.TurnoId == int.Parse(turnoId) && a.Data.Date == data.Date)
+                .Where(a => a.SalaHasTurno.SalaId == int.Parse(salaId) && a.SalaHasTurno.TurnoId == int.Parse(turnoId) && a.Data.Date == data.Date && a.Ativo == true)
                 .FirstOrDefault();
         }
     }
