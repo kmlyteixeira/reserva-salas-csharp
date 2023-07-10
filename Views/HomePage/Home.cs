@@ -57,6 +57,8 @@ namespace reserva_salas_csharp.Views
         private Label labelNameTurno3;
         private Form formularioAnterior;
         private Models.Usuario user;
+        private ToolStripMenuItem usuariosToolStripMenuItemListagem;
+        private ToolStripMenuItem usuariosToolStripMenuItemList;
 
         public Home(Models.Usuario usuario)
         {
@@ -101,6 +103,8 @@ namespace reserva_salas_csharp.Views
             novoAgendamentoToolStripMenuItem = new ToolStripMenuItem();
             meusAgendamentosToolStripMenuItem = new ToolStripMenuItem();
             todosAgendamentosToolStripMenuItem = new ToolStripMenuItem();
+            usuariosToolStripMenuItemListagem = new ToolStripMenuItem();
+            usuariosToolStripMenuItemList = new ToolStripMenuItem();
             pictureBoxSair = new PictureBox();
             labelSala = new Label();
             comboBoxSala = new ComboBox();
@@ -540,7 +544,7 @@ namespace reserva_salas_csharp.Views
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, funcionárioToolStripMenuItem, salaToolStripMenuItem, turnoToolStripMenuItem, agendamentoToolStripMenuItem });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItemList, funcionárioToolStripMenuItem, salaToolStripMenuItem, turnoToolStripMenuItem, agendamentoToolStripMenuItem });
             toolStripMenuItem1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
             toolStripMenuItem1.Image = Image.FromFile("Views/Resources/menu.png");
             toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
@@ -1118,7 +1122,7 @@ namespace reserva_salas_csharp.Views
 
         private void usuariosToolStripMenuItemListagem_Click(object? sender, EventArgs e)
         {
-            new RelatorioUsuarios(formularioAnterior).Show();
+            new RelatorioUsuarios(formularioAnterior, user).Show();
         }
 
         private void button2_Click(object? sender, EventArgs e)
