@@ -757,7 +757,10 @@ namespace reserva_salas_csharp.Views
                 DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
 
                 var agendamento = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "1", data);
-                if ((agendamento.UsuarioId != user.Id || agendamento == null) && user.TipoUsuarioId != 1)
+                if (agendamento != null){
+                    if (agendamento.UsuarioId != user.Id && user.TipoUsuarioId != 1)
+                        MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+                } else if (agendamento == null && user.TipoUsuarioId != 1)
                     MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
 
                 DialogResult dialogResult = MessageBox.Show("Deseja cancelar o agendamento?", "Cancelar Agendamento", MessageBoxButtons.YesNo);
@@ -789,7 +792,10 @@ namespace reserva_salas_csharp.Views
                 DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
 
                 var agendamento = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "2", data);
-                if ((agendamento.UsuarioId != user.Id || agendamento == null) && user.TipoUsuarioId != 1)
+                if (agendamento != null){
+                    if (agendamento.UsuarioId != user.Id && user.TipoUsuarioId != 1)
+                        MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+                } else if (agendamento == null && user.TipoUsuarioId != 1)
                     MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
 
                 DialogResult dialogResult = MessageBox.Show("Deseja cancelar o agendamento?", "Cancelar Agendamento", MessageBoxButtons.YesNo);
@@ -820,7 +826,10 @@ namespace reserva_salas_csharp.Views
                 DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
 
                 var agendamento = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "3", data);
-                if ((agendamento.UsuarioId != user.Id || agendamento == null) && user.TipoUsuarioId != 1)
+                if (agendamento != null){
+                    if (agendamento.UsuarioId != user.Id && user.TipoUsuarioId != 1)
+                        MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+                } else if (agendamento == null && user.TipoUsuarioId != 1)
                     MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
 
                 DialogResult dialogResult = MessageBox.Show("Deseja cancelar o agendamento?", "Cancelar Agendamento", MessageBoxButtons.YesNo);
