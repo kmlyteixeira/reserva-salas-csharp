@@ -547,14 +547,28 @@ namespace reserva_salas_csharp.Views
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(34, 24);
             // 
+            // usuariosToolStripMenuItemList
+            // 
+            usuariosToolStripMenuItemList.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, usuariosToolStripMenuItemListagem });
+            usuariosToolStripMenuItemList.Name = "usuariosToolStripMenuItemList";
+            usuariosToolStripMenuItemList.Size = new Size(224, 26);
+            usuariosToolStripMenuItemList.Text = "Usuários";
+            if (usuario.TipoUsuarioId == 2)
+                usuariosToolStripMenuItemList.Visible = false;
+            // 
             // usuariosToolStripMenuItem
             // 
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
             usuariosToolStripMenuItem.Size = new Size(224, 26);
-            usuariosToolStripMenuItem.Text = "Usuário";
+            usuariosToolStripMenuItem.Text = "Cadastrar Usuário";
             usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
-            if (usuario.TipoUsuarioId == 2)
-                usuariosToolStripMenuItem.Visible = false;
+            // 
+            // usuariosToolStripMenuItemListagem
+            // 
+            usuariosToolStripMenuItemListagem.Name = "usuariosToolStripMenuItemListagem";
+            usuariosToolStripMenuItemListagem.Size = new Size(224, 26);
+            usuariosToolStripMenuItemListagem.Text = "Listar Usuários";
+            usuariosToolStripMenuItemListagem.Click += usuariosToolStripMenuItemListagem_Click;
             // 
             // funcionárioToolStripMenuItem
             // 
@@ -1100,6 +1114,11 @@ namespace reserva_salas_csharp.Views
         private void usuariosToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             new CadastroUsuario(formularioAnterior).Show();
+        }
+
+        private void usuariosToolStripMenuItemListagem_Click(object? sender, EventArgs e)
+        {
+            new RelatorioUsuarios(formularioAnterior).Show();
         }
 
         private void button2_Click(object? sender, EventArgs e)

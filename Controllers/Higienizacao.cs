@@ -38,9 +38,9 @@ namespace reserva_salas_csharp.Controllers
             Models.Higienizacao.GetByIdHigi(id);
         }
 
-        public static void mostrarAllHigien()
+        public static IEnumerable<Models.Higienizacao> mostrarAllHigien()
         {
-            Models.Higienizacao.GetAllHigienizacoes();
+            return Models.Higienizacao.GetAllHigienizacoes();
         }
 
         public static Models.Higienizacao GetHigienizacoesBySalaTurnoData(string salaId, string turnoId, DateTime data)
