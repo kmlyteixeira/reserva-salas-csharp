@@ -12,6 +12,7 @@ namespace reserva_salas_csharp.Models
         public virtual Usuario Usuario { get; set; }
         public int SalaHasTurnoId { get; set; }
         public virtual SalaHasTurno SalaHasTurno { get; set; }
+        public bool Ativo { get; set; } = true;
 
         public Agendamento() { }
 
@@ -41,6 +42,17 @@ namespace reserva_salas_csharp.Models
             return from agendamento in db.Agendamentos.Include(a => a.SalaHasTurno) select agendamento;
         }
 
+        public static IEnumerable<Agendamento> GetRelatorioAgendamentos()
+        {
+            Database db = new Database();
+            return from agendamento in db.Agendamentos
+                .Include(a => a.SalaHasTurno)
+                .Include(a => a.SalaHasTurno.Sala)
+                .Include(a => a.SalaHasTurno.Turno)
+                .Include(a => a.Usuario) 
+                select agendamento;
+        }
+
         public static void DeleteAgendamento(int id)
         {
             Database db = new Database();
@@ -55,6 +67,15 @@ namespace reserva_salas_csharp.Models
             agendamento.Observacao = observacao;
             agendamento.UsuarioId = usuarioId;
             agendamento.SalaHasTurnoId = salaHasTurnoId;
+            db.Agendamentos.Update(agendamento);
+            db.SaveChanges();
+        }
+
+        public static void InativarAgendamento(int id)
+        {
+            Database db = new Database();
+            Agendamento agendamento = db.Agendamentos.Find(id);
+            agendamento.Ativo = false;
             db.Agendamentos.Update(agendamento);
             db.SaveChanges();
         }

@@ -19,6 +19,7 @@ namespace reserva_salas_csharp.Views
         private ToolStripMenuItem agendamentoToolStripMenuItem;
         private ToolStripMenuItem novoAgendamentoToolStripMenuItem;
         private ToolStripMenuItem meusAgendamentosToolStripMenuItem;
+        private ToolStripMenuItem todosAgendamentosToolStripMenuItem;
         private Label labelTurno3;
         private Label labelTurno;
         private Panel panel5;
@@ -55,6 +56,9 @@ namespace reserva_salas_csharp.Views
         private Label labelVerMais3;
         private Label labelNameTurno3;
         private Form formularioAnterior;
+        private Models.Usuario user;
+        private ToolStripMenuItem usuariosToolStripMenuItemListagem;
+        private ToolStripMenuItem usuariosToolStripMenuItemList;
 
         public Home(Models.Usuario usuario)
         {
@@ -98,6 +102,9 @@ namespace reserva_salas_csharp.Views
             agendamentoToolStripMenuItem = new ToolStripMenuItem();
             novoAgendamentoToolStripMenuItem = new ToolStripMenuItem();
             meusAgendamentosToolStripMenuItem = new ToolStripMenuItem();
+            todosAgendamentosToolStripMenuItem = new ToolStripMenuItem();
+            usuariosToolStripMenuItemListagem = new ToolStripMenuItem();
+            usuariosToolStripMenuItemList = new ToolStripMenuItem();
             pictureBoxSair = new PictureBox();
             labelSala = new Label();
             comboBoxSala = new ComboBox();
@@ -124,7 +131,8 @@ namespace reserva_salas_csharp.Views
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSair).BeginInit();
             SuspendLayout();
-            this.monthConst = 6;
+            this.monthConst = 7;
+            this.user = usuario;
             formularioAnterior = this;
             // 
             // panel1
@@ -149,7 +157,7 @@ namespace reserva_salas_csharp.Views
             panel2.Controls.Add(buttonCalendar2);
             panel2.Location = new Point(22, 82);
             panel2.Name = "panel2";
-            panel2.Size = new Size(425, 386);
+            panel2.Size = new Size(425, 463);
             panel2.TabIndex = 0;
             panel2.Enabled = false;
             // 
@@ -283,7 +291,7 @@ namespace reserva_salas_csharp.Views
             labelVerMais3.Size = new Size(47, 12);
             labelVerMais3.TabIndex = 13;
             labelVerMais3.Text = "Ver mais...";
-            labelVerMais3.Click += label9_Click;
+            labelVerMais3.Click += labelVerMais3_Click;
             labelVerMais3.Visible = false;
             // 
             // labelTurnoDesc3
@@ -323,6 +331,7 @@ namespace reserva_salas_csharp.Views
             buttonTurnoAgendar3.TabIndex = 7;
             buttonTurnoAgendar3.Text = "Agendar";
             buttonTurnoAgendar3.UseVisualStyleBackColor = false;
+            buttonTurnoAgendar3.Click += new System.EventHandler((sender, e) => this.buttonTurnoAgendar3_Click());
             // 
             // panel3
             // 
@@ -367,7 +376,7 @@ namespace reserva_salas_csharp.Views
             labelVerMais1.Size = new Size(47, 12);
             labelVerMais1.TabIndex = 13;
             labelVerMais1.Text = "Ver mais...";
-            labelVerMais1.Click += label9_Click;
+            labelVerMais1.Click += labelVerMais1_Click;
             labelVerMais1.Visible = false;
             // 
             // labelTurno1
@@ -407,6 +416,7 @@ namespace reserva_salas_csharp.Views
             buttonTurnoAgendar.TabIndex = 5;
             buttonTurnoAgendar.Text = "Agendar";
             buttonTurnoAgendar.UseVisualStyleBackColor = false;
+            buttonTurnoAgendar.Click += new System.EventHandler((sender, e) => this.buttonTurnoAgendar_Click());
             // 
             // panel4
             // 
@@ -454,7 +464,7 @@ namespace reserva_salas_csharp.Views
             labelVerMais2.Size = new Size(47, 12);
             labelVerMais2.TabIndex = 10;
             labelVerMais2.Text = "Ver mais...";
-            labelVerMais2.Click += label9_Click;
+            labelVerMais2.Click += labelVerMais2_Click;
             labelVerMais2.Visible = false;
             // 
             // labelTurnoDesc2
@@ -494,6 +504,7 @@ namespace reserva_salas_csharp.Views
             buttonTurnoAgendar2.TabIndex = 6;
             buttonTurnoAgendar2.Text = "Agendar";
             buttonTurnoAgendar2.UseVisualStyleBackColor = false;
+            buttonTurnoAgendar2.Click += new System.EventHandler((sender, e) => this.buttonTurnoAgendar2_Click());
             // 
             // buttonAddAgendamento
             // 
@@ -533,19 +544,35 @@ namespace reserva_salas_csharp.Views
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, funcionárioToolStripMenuItem, salaToolStripMenuItem, turnoToolStripMenuItem, agendamentoToolStripMenuItem });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItemList, funcionárioToolStripMenuItem, salaToolStripMenuItem, turnoToolStripMenuItem, agendamentoToolStripMenuItem });
             toolStripMenuItem1.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
             toolStripMenuItem1.Image = Image.FromFile("Views/Resources/menu.png");
             toolStripMenuItem1.ImageAlign = ContentAlignment.BottomCenter;
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(34, 24);
             // 
+            // usuariosToolStripMenuItemList
+            // 
+            usuariosToolStripMenuItemList.DropDownItems.AddRange(new ToolStripItem[] { usuariosToolStripMenuItem, usuariosToolStripMenuItemListagem });
+            usuariosToolStripMenuItemList.Name = "usuariosToolStripMenuItemList";
+            usuariosToolStripMenuItemList.Size = new Size(224, 26);
+            usuariosToolStripMenuItemList.Text = "Usuários";
+            if (usuario.TipoUsuarioId == 2)
+                usuariosToolStripMenuItemList.Visible = false;
+            // 
             // usuariosToolStripMenuItem
             // 
             usuariosToolStripMenuItem.Name = "usuariosToolStripMenuItem";
             usuariosToolStripMenuItem.Size = new Size(224, 26);
-            usuariosToolStripMenuItem.Text = "Usuário";
+            usuariosToolStripMenuItem.Text = "Cadastrar Usuário";
             usuariosToolStripMenuItem.Click += usuariosToolStripMenuItem_Click;
+            // 
+            // usuariosToolStripMenuItemListagem
+            // 
+            usuariosToolStripMenuItemListagem.Name = "usuariosToolStripMenuItemListagem";
+            usuariosToolStripMenuItemListagem.Size = new Size(224, 26);
+            usuariosToolStripMenuItemListagem.Text = "Listar Usuários";
+            usuariosToolStripMenuItemListagem.Click += usuariosToolStripMenuItemListagem_Click;
             // 
             // funcionárioToolStripMenuItem
             // 
@@ -553,6 +580,8 @@ namespace reserva_salas_csharp.Views
             funcionárioToolStripMenuItem.Size = new Size(224, 26);
             funcionárioToolStripMenuItem.Text = "Funcionário";
             funcionárioToolStripMenuItem.Click += funcionárioToolStripMenuItem_Click;
+            if (usuario.TipoUsuarioId == 2)
+                funcionárioToolStripMenuItem.Visible = false;
             // 
             // salaToolStripMenuItem
             // 
@@ -560,6 +589,8 @@ namespace reserva_salas_csharp.Views
             salaToolStripMenuItem.Size = new Size(224, 26);
             salaToolStripMenuItem.Text = "Sala";
             salaToolStripMenuItem.Click += salaToolStripMenuItem_Click;
+            if (usuario.TipoUsuarioId == 2)
+                salaToolStripMenuItem.Visible = false;
             // 
             // turnoToolStripMenuItem
             // 
@@ -567,10 +598,12 @@ namespace reserva_salas_csharp.Views
             turnoToolStripMenuItem.Size = new Size(224, 26);
             turnoToolStripMenuItem.Text = "Turno";
             turnoToolStripMenuItem.Click += turnoToolStripMenuItem_Click;
+            if (usuario.TipoUsuarioId == 2)
+                turnoToolStripMenuItem.Visible = false;
             // 
             // agendamentoToolStripMenuItem
             // 
-            agendamentoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { novoAgendamentoToolStripMenuItem, meusAgendamentosToolStripMenuItem });
+            agendamentoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { novoAgendamentoToolStripMenuItem, meusAgendamentosToolStripMenuItem, todosAgendamentosToolStripMenuItem });
             agendamentoToolStripMenuItem.Name = "agendamentoToolStripMenuItem";
             agendamentoToolStripMenuItem.Size = new Size(224, 26);
             agendamentoToolStripMenuItem.Text = "Agendamento";
@@ -587,7 +620,16 @@ namespace reserva_salas_csharp.Views
             meusAgendamentosToolStripMenuItem.Name = "meusAgendamentosToolStripMenuItem";
             meusAgendamentosToolStripMenuItem.Size = new Size(249, 26);
             meusAgendamentosToolStripMenuItem.Text = "Meus Agendamentos";
-            meusAgendamentosToolStripMenuItem.Click += meusAgendamentosToolStripMenuItem_Click;
+            meusAgendamentosToolStripMenuItem.Click += (sender, e) => this.meusAgendamentosToolStripMenuItem_Click(usuario);
+            // 
+            // todosAgendamentosToolStripMenuItem
+            // 
+            todosAgendamentosToolStripMenuItem.Name = "todosAgendamentosToolStripMenuItem";
+            todosAgendamentosToolStripMenuItem.Size = new Size(249, 26);
+            todosAgendamentosToolStripMenuItem.Text = "Todos os Agendamentos";
+            todosAgendamentosToolStripMenuItem.Click += (sender, e) => this.meusAgendamentosToolStripMenuItem_Click(null);
+            if (usuario.TipoUsuarioId == 2)
+                todosAgendamentosToolStripMenuItem.Visible = false;
             // 
             // pictureBoxSair
             // 
@@ -677,6 +719,148 @@ namespace reserva_salas_csharp.Views
             ((System.ComponentModel.ISupportInitialize)pictureBoxSair).EndInit();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void labelVerMais1_Click(object? sender, EventArgs e)
+        {
+            int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+
+            var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+            DateTime data = new DateTime(2023, monthConst, Convert.ToInt32(cell));
+
+            var agendamentoTurno1 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "1", data);
+            var higienizacaoTurno1 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "1", data);
+
+            new FormVerMais(formularioAnterior, agendamentoTurno1, higienizacaoTurno1).Show();
+        }
+
+        private void labelVerMais2_Click(object? sender, EventArgs e)
+        {
+            int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+
+            var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+            DateTime data = new DateTime(2023, monthConst, Convert.ToInt32(cell));
+
+            var agendamentoTurno2 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "2", data);
+            var higienizacaoTurno2 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "2", data);
+
+            new FormVerMais(formularioAnterior, agendamentoTurno2, higienizacaoTurno2).Show();
+        }
+
+        private void labelVerMais3_Click(object? sender, EventArgs e)
+        {
+            int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+            var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+            DateTime data = new DateTime(2023, monthConst, Convert.ToInt32(cell));
+
+            var agendamentoTurno3 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "3", data);
+            var higienizacaoTurno3 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "3", data);
+
+            new FormVerMais(formularioAnterior, agendamentoTurno3, higienizacaoTurno3).Show();
+        }
+
+
+        private void buttonTurnoAgendar_Click()
+        {
+            if (buttonTurnoAgendar.Text == "Agendar"){
+                int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+                var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+                DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
+
+                new CadastroAgendamento(formularioAnterior, user, data, 1, sala).Show();
+                dataGridViewCalendar_CellContentClickAsync(null, null);
+            } else if (buttonTurnoAgendar.Text == "Cancelar"){
+                int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+                var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+                DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
+
+                var agendamento = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "1", data);
+                if (agendamento != null){
+                    if (agendamento.UsuarioId != user.Id && user.TipoUsuarioId != 1)
+                        MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+                } else if (agendamento == null && user.TipoUsuarioId != 1)
+                    MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+
+                DialogResult dialogResult = MessageBox.Show("Deseja cancelar o agendamento?", "Cancelar Agendamento", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes){
+  
+                    if (agendamento != null)
+                        Agendamento.InativarAgendamento(sala, 1, data);
+                    else
+                        Higienizacao.InativarHigienizacao(sala, 1, data);
+
+                    dataGridViewCalendar_CellContentClickAsync(null, null);
+                    MessageBox.Show("Cancelamento realizado com sucesso!");
+                }
+            }
+        }
+
+        private void buttonTurnoAgendar2_Click()
+        {
+            if (buttonTurnoAgendar2.Text == "Agendar"){
+                int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+                var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+                DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
+
+                new CadastroAgendamento(formularioAnterior, user, data, 2, sala).Show();
+                dataGridViewCalendar_CellContentClickAsync(null, null);
+            } else if (buttonTurnoAgendar2.Text == "Cancelar"){
+                int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+                var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+                DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
+
+                var agendamento = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "2", data);
+                if (agendamento != null){
+                    if (agendamento.UsuarioId != user.Id && user.TipoUsuarioId != 1)
+                        MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+                } else if (agendamento == null && user.TipoUsuarioId != 1)
+                    MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+
+                DialogResult dialogResult = MessageBox.Show("Deseja cancelar o agendamento?", "Cancelar Agendamento", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes){
+                    if (agendamento != null)
+                        Agendamento.InativarAgendamento(sala, 2, data);
+                    else
+                        Higienizacao.InativarHigienizacao(sala, 2, data);
+
+                    dataGridViewCalendar_CellContentClickAsync(null, null);
+                    MessageBox.Show("Cancelamento realizado com sucesso!");
+                }
+            }
+        }
+
+        private void buttonTurnoAgendar3_Click()
+        {
+            if (buttonTurnoAgendar3.Text == "Agendar"){
+                int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+                var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+                DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
+
+                new CadastroAgendamento(formularioAnterior, user, data, 3, sala).Show();
+                dataGridViewCalendar_CellContentClickAsync(null, null);
+            } else if (buttonTurnoAgendar3.Text == "Cancelar"){
+                int sala = Convert.ToInt32(comboBoxSala.SelectedValue);
+                var cell = this.dataGridViewCalendar.CurrentCell.Value.ToString();
+                DateTime data = new(2023, monthConst, Convert.ToInt32(cell));
+
+                var agendamento = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "3", data);
+                if (agendamento != null){
+                    if (agendamento.UsuarioId != user.Id && user.TipoUsuarioId != 1)
+                        MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+                } else if (agendamento == null && user.TipoUsuarioId != 1)
+                    MessageBox.Show("Você não tem permissão para cancelar esse agendamento! Contate o administrador.");
+
+                DialogResult dialogResult = MessageBox.Show("Deseja cancelar o agendamento?", "Cancelar Agendamento", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes){
+                    if (agendamento != null)
+                        Agendamento.InativarAgendamento(sala, 3, data);
+                    else
+                        Higienizacao.InativarHigienizacao(sala, 3, data);
+
+                    dataGridViewCalendar_CellContentClickAsync(null, null);
+                    MessageBox.Show("Cancelamento realizado com sucesso!");
+                }
+            }
         }
 
         private void Form1_Activated(object? sender, EventArgs e)
@@ -770,6 +954,13 @@ namespace reserva_salas_csharp.Views
                     labelCalendar.Refresh();
                     break;
                 }
+
+                case 9:
+                {
+                    labelCalendar.Text = "setembro de 2023";
+                    labelCalendar.Refresh();
+                    break;
+                }
             }
         }
 
@@ -784,18 +975,23 @@ namespace reserva_salas_csharp.Views
             var agendamentoTurno2 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "2", data);
             var agendamentoTurno3 = Agendamento.GetAgendamentosBySalaTurnoData(sala.ToString(), "3", data);
 
-            if (agendamentoTurno1 != null)
+            var higienizacaoTurno1 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "1", data);
+            var higienizacaoTurno2 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "2", data);
+            var higienizacaoTurno3 = Higienizacao.GetHigienizacoesBySalaTurnoData(sala.ToString(), "3", data);
+
+            if (agendamentoTurno1 != null || higienizacaoTurno1 != null)
             {
-                agendamentoTurno1.Usuario = Usuario.GetUsuario(agendamentoTurno1.UsuarioId.ToString());
+                if (agendamentoTurno1 != null)
+                    agendamentoTurno1.Usuario = Usuario.GetUsuario(agendamentoTurno1.UsuarioId.ToString());
 
                 labelVerMais1.Visible = true;
                 labelTurno1.Visible = true;
                 labelNameTurno1.Visible = true;
 
-                labelNameTurno1.Text = agendamentoTurno1.Usuario.Nome;
+                labelNameTurno1.Text = agendamentoTurno1?.Usuario.Nome ?? "Higienização";
                 labelNameTurno1.Refresh();
 
-                labelTurno1.Text = agendamentoTurno1.Observacao;
+                labelTurno1.Text = agendamentoTurno1?.Observacao ?? higienizacaoTurno1?.Observacao;
                 labelTurno1.Refresh();
 
                 buttonTurnoAgendar.Text = "Cancelar";
@@ -817,18 +1013,21 @@ namespace reserva_salas_csharp.Views
 
             }
 
-            if (agendamentoTurno2 != null)
+            if (agendamentoTurno2 != null || higienizacaoTurno2 != null)
             {
+                if (agendamentoTurno2 != null)
+                    agendamentoTurno2.Usuario = Usuario.GetUsuario(agendamentoTurno2.UsuarioId.ToString());
+
                 labelVerMais2.Visible = true;
                 labelNameTurno2.Visible = true;
 
                 labelVerMais2.Refresh();
 
-                labelNameTurno2.Text = agendamentoTurno2.Usuario.Nome;
+                labelNameTurno2.Text = agendamentoTurno2?.Usuario.Nome ?? "Higienização";
                 labelNameTurno2.Refresh();
 
-                labelTurno2.Text = agendamentoTurno2.Observacao;
-                labelTurno2.Refresh();
+                labelTurnoDesc2.Text = agendamentoTurno2?.Observacao ?? higienizacaoTurno2?.Observacao;
+                labelTurnoDesc2.Refresh();
 
                 buttonTurnoAgendar2.Text = "Cancelar";
                 buttonTurnoAgendar2.BackColor = Color.FromArgb(255,242,130);
@@ -838,8 +1037,8 @@ namespace reserva_salas_csharp.Views
                 labelVerMais2.Visible = false;
                 labelNameTurno2.Visible = false;
 
-                labelNameTurno2.Text = "Turno disponível";
-                labelNameTurno2.Refresh();
+                labelTurnoDesc2.Text = "Turno disponível";
+                labelTurnoDesc2.Refresh();
 
                 buttonTurnoAgendar2.Text = "Agendar";
                 buttonTurnoAgendar2.BackColor = Color.FromArgb(167, 228, 141);
@@ -848,15 +1047,18 @@ namespace reserva_salas_csharp.Views
 
             if (agendamentoTurno3 != null)
             {
+                if (agendamentoTurno3 != null)
+                    agendamentoTurno3.Usuario = Usuario.GetUsuario(agendamentoTurno3.UsuarioId.ToString());
+
                 labelVerMais3.Visible = true;
-                labelTurno3.Visible = true;
+                labelTurnoDesc3.Visible = true;
                 labelNameTurno3.Visible = true;
 
-                labelNameTurno3.Text = agendamentoTurno3.Usuario.Nome;
+                labelNameTurno3.Text = agendamentoTurno3?.Usuario.Nome ?? "Higienização";
                 labelNameTurno3.Refresh();
 
-                labelTurno3.Text = agendamentoTurno3.Observacao;
-                labelTurno3.Refresh();
+                labelTurnoDesc3.Text = agendamentoTurno3?.Observacao ?? higienizacaoTurno3?.Observacao;
+                labelTurnoDesc3.Refresh();
 
                 buttonTurnoAgendar3.Text = "Cancelar";
                 buttonTurnoAgendar3.BackColor = Color.FromArgb(255, 242, 130);
@@ -866,8 +1068,8 @@ namespace reserva_salas_csharp.Views
                 labelVerMais3.Visible = false;
                 labelNameTurno3.Visible = false;
 
-                labelNameTurno3.Text = "Turno disponível";
-                labelNameTurno3.Refresh();
+                labelTurnoDesc3.Text = "Turno disponível";
+                labelTurnoDesc3.Refresh();
 
                 buttonTurnoAgendar3.Text = "Agendar";
                 buttonTurnoAgendar3.BackColor = Color.FromArgb(167, 228, 141);
@@ -885,14 +1087,17 @@ namespace reserva_salas_csharp.Views
             }
         }
 
-        private void meusAgendamentosToolStripMenuItem_Click(object? sender, EventArgs e)
+        private void meusAgendamentosToolStripMenuItem_Click(Models.Usuario? usuario)
         {
-            throw new NotImplementedException();
+            if (usuario == null)
+                new RelatorioAgendamentos(formularioAnterior, null).Show();
+            else
+                new RelatorioAgendamentos(formularioAnterior, usuario).Show();
         }
 
         private void novoAgendamentoToolStripMenuItem_Click(object? sender, EventArgs e)
         {
-            new CadastroAgendamento(formularioAnterior).Show();
+            new CadastroAgendamento(formularioAnterior, this.user, null, null, null).Show();
         }
 
         private void turnoToolStripMenuItem_Click(object? sender, EventArgs e)
@@ -915,14 +1120,14 @@ namespace reserva_salas_csharp.Views
             new CadastroUsuario(formularioAnterior).Show();
         }
 
-        private void button2_Click(object? sender, EventArgs e)
+        private void usuariosToolStripMenuItemListagem_Click(object? sender, EventArgs e)
         {
-            new CadastroAgendamento(formularioAnterior).Show();
+            new RelatorioUsuarios(formularioAnterior, user).Show();
         }
 
-        private void label9_Click(object? sender, EventArgs e)
+        private void button2_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            new CadastroAgendamento(formularioAnterior, user, null, null, null).Show();
         }
     }
 }

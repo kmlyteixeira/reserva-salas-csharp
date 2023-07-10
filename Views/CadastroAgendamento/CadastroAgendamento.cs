@@ -18,14 +18,23 @@ namespace reserva_salas_csharp.Views
         private Label titulo;
         private Label labelSalaIndisponivel;
         private CheckBox checkBoxHigienizacao;
+        private Models.Usuario usuario;
+        private ComboBox comboBoxFuncionario;
+        private DateTime? data;
+        private int? turno;
+        private int? sala;
         
-        public CadastroAgendamento(Form formularioAnterior)
+        public CadastroAgendamento(Form formularioAnterior, Models.Usuario user, DateTime? data, int? turno, int? sala)
         {
-            InitializeComponent(formularioAnterior);
+            this.data = data;
+            this.turno = turno;
+            this.sala = sala;
+            InitializeComponent(formularioAnterior, user);
         }
 
-        public void InitializeComponent(Form formularioAnterior)
+        public void InitializeComponent(Form formularioAnterior, Models.Usuario user)
         {
+            this.usuario = user;
             panel1 = new Panel();
             comboBoxTurno = new ComboBox();
             labelTurno = new Label();
@@ -40,6 +49,7 @@ namespace reserva_salas_csharp.Views
             richTextBoxObs = new RichTextBox();
             labelSalaIndisponivel = new Label();
             checkBoxHigienizacao = new CheckBox();
+            comboBoxFuncionario = new ComboBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,6 +64,7 @@ namespace reserva_salas_csharp.Views
             panel1.Controls.Add(labelSalaIndisponivel);
             panel1.Controls.Add(dateTimePickerData);
             panel1.Controls.Add(checkBoxHigienizacao);
+            panel1.Controls.Add(comboBoxFuncionario);
             panel1.Controls.Add(labelData);
             panel1.Controls.Add(buttonCancel);
             panel1.Controls.Add(buttonSave);
@@ -76,6 +87,12 @@ namespace reserva_salas_csharp.Views
             comboBoxTurno.DisplayMember = "Descricao";
             comboBoxTurno.ValueMember = "Id";
             comboBoxTurno.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTurno.SelectedIndexChanged += comboBoxSala_SelectedIndexChanged;
+            if (this.turno != null){
+                int index = comboBoxTurno.FindStringExact(this.turno.ToString());
+                comboBoxTurno.SelectedIndex = index;
+            }
+            
             // 
             // labelTurno
             // 
@@ -103,7 +120,7 @@ namespace reserva_salas_csharp.Views
             buttonSave.Text = "Salvar";
             buttonSave.Enabled = true;
             buttonSave.UseVisualStyleBackColor = false;
-            buttonSave.Click += (sender, e) => buttonSave_Click();
+            buttonSave.Click += (sender, e) => buttonSave_Click(formularioAnterior);
             // 
             // buttonCancel
             // 
@@ -149,6 +166,11 @@ namespace reserva_salas_csharp.Views
             dateTimePickerData.Name = "dateTimePickerData";
             dateTimePickerData.Size = new Size(294, 27);
             dateTimePickerData.TabIndex = 14;
+            if (this.data != null)
+                dateTimePickerData.Value = (DateTime)this.data;
+            else 
+                dateTimePickerData.Value = DateTime.Now;
+            dateTimePickerData.ValueChanged += comboBoxSala_SelectedIndexChanged;
             // 
             // labelSala
             // 
@@ -174,6 +196,10 @@ namespace reserva_salas_csharp.Views
             comboBoxSala.ValueMember = "Id";
             comboBoxSala.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSala.SelectedIndexChanged += comboBoxSala_SelectedIndexChanged;
+            if (this.sala != null){
+                int index = comboBoxSala.FindStringExact(this.sala.ToString());
+                comboBoxSala.SelectedIndex = index;
+            }
             // 
             // labelObs
             // 
@@ -190,12 +216,33 @@ namespace reserva_salas_csharp.Views
             // 
             checkBoxHigienizacao.AutoSize = true;
             checkBoxHigienizacao.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            checkBoxHigienizacao.Location = new Point(283, 40);
+            int margemDireita = 10;
+            int x = dateTimePickerData.Location.X + dateTimePickerData.Width + margemDireita;
+            int y = dateTimePickerData.Location.Y;
+            checkBoxHigienizacao.Location = new Point(x, y);
             checkBoxHigienizacao.Name = "checkBoxHigienizacao";
             checkBoxHigienizacao.Size = new Size(104, 21);
             checkBoxHigienizacao.TabIndex = 19;
             checkBoxHigienizacao.Text = "Higienização";
             checkBoxHigienizacao.UseVisualStyleBackColor = true;
+            checkBoxHigienizacao.CheckedChanged += checkBoxHigienizacao_CheckedChanged;
+            if (this.usuario.TipoUsuarioId != 1)
+                checkBoxHigienizacao.Visible = false;
+            //
+            // comboBox 
+            //
+            comboBoxFuncionario.FormattingEnabled = true;
+            comboBoxFuncionario.Location = new Point(12, 126);
+            comboBoxFuncionario.Font = new Font("Century Gothic", 7F, FontStyle.Regular, GraphicsUnit.Point);
+            comboBoxFuncionario.Name = "comboBoxFuncionario";
+            comboBoxFuncionario.Location = new Point(x, y + 25);
+            comboBoxFuncionario.Size = new Size(120, 8);
+            comboBoxFuncionario.TabIndex = 11;
+            comboBoxFuncionario.DataSource = Controllers.Funcionario.mostrarAllFunc().ToArray();
+            comboBoxFuncionario.DisplayMember = "Nome";
+            comboBoxFuncionario.ValueMember = "Id";
+            comboBoxFuncionario.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxFuncionario.Visible = checkBoxHigienizacao.Checked;
             // 
             // richTextBoxObs
             // 
@@ -209,15 +256,16 @@ namespace reserva_salas_csharp.Views
             // labelSalaIndisponivel
             // 
             labelSalaIndisponivel.AutoSize = true;
-            labelSalaIndisponivel.BackColor = Color.Red;
-            labelSalaIndisponivel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            labelSalaIndisponivel.ForeColor = Color.Transparent;
+            labelSalaIndisponivel.BackColor = SystemColors.Info;
+            labelSalaIndisponivel.ForeColor = SystemColors.InfoText;
+            labelSalaIndisponivel.Font = new Font("Segoe UI", 9);
+            labelSalaIndisponivel.Padding = new Padding(5);
             labelSalaIndisponivel.Location = new Point(309, 157);
             labelSalaIndisponivel.Name = "labelSalaIndisponivel";
             labelSalaIndisponivel.Size = new Size(133, 20);
             labelSalaIndisponivel.TabIndex = 14;
-            labelSalaIndisponivel.Text = "Sala indisponível!";
-            labelSalaIndisponivel.Visible = false;
+            labelSalaIndisponivel.Text = "Selecione uma sala!";
+            labelSalaIndisponivel.Visible = true;
             // 
             // Form1
             // 
@@ -238,15 +286,27 @@ namespace reserva_salas_csharp.Views
             PerformLayout();
         }
 
+        private void checkBoxHigienizacao_CheckedChanged(object? sender, EventArgs e)
+        {
+            comboBoxFuncionario.Visible = checkBoxHigienizacao.Checked;
+            comboBoxFuncionario.Refresh();
+        }
+
         private void comboBoxSala_SelectedIndexChanged(object sender, EventArgs e)
         {
             string salaId = comboBoxSala.SelectedValue.ToString();
             string turnoId = comboBoxTurno.SelectedValue.ToString();
             DateTime dateTime = dateTimePickerData.Value;
             var agendamentos = Controllers.Agendamento.GetAgendamentosBySalaTurnoData(salaId, turnoId, dateTime);
-            if (agendamentos != null)
+            var higienizacoes = Controllers.Higienizacao.GetHigienizacoesBySalaTurnoData(salaId, turnoId, dateTime);
+            
+            if (agendamentos != null || higienizacoes != null)
             {
                 labelSalaIndisponivel.Visible = true;
+                labelSalaIndisponivel.Text = "Sala indisponível!";
+                labelSalaIndisponivel.BackColor = Color.Red;
+                labelSalaIndisponivel.Font = new Font("Century Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
+                labelSalaIndisponivel.ForeColor = Color.Transparent;
                 labelSalaIndisponivel.Refresh();
                 buttonSave.Enabled = false;
                 buttonSave.Refresh();
@@ -270,10 +330,29 @@ namespace reserva_salas_csharp.Views
             }
         }
 
-        private void buttonSave_Click()
+        private void buttonSave_Click(Form formularioAnterior)
         {
-            Controllers.Agendamento.CadastrarAgendamento(richTextBoxObs.Text, dateTimePickerData.Value.ToString(), Convert.ToInt32(comboBoxTurno.SelectedValue).ToString(), Convert.ToInt32(comboBoxSala.SelectedValue).ToString());
-            MessageBox.Show("Agendamento cadastrado com sucesso!");
+            if (checkBoxHigienizacao.Checked)
+            {
+                Controllers.Higienizacao.CriarHigienizazao(
+                    Convert.ToInt32(comboBoxSala.SelectedValue).ToString(),
+                    Convert.ToInt32(comboBoxTurno.SelectedValue).ToString(),
+                    Models.Funcionario.GetByIdfunc(Convert.ToInt32(comboBoxFuncionario.SelectedValue)).Id.ToString(),
+                    richTextBoxObs.Text,
+                    dateTimePickerData.Value.ToString()
+                );
+                MessageBox.Show("Higienização cadastrada com sucesso!");
+            } else {
+                Controllers.Agendamento.CadastrarAgendamento(
+                    richTextBoxObs.Text, 
+                    dateTimePickerData.Value.ToString(), 
+                    usuario.Id.ToString(),
+                    Convert.ToInt32(comboBoxTurno.SelectedValue).ToString(), 
+                    Convert.ToInt32(comboBoxSala.SelectedValue).ToString()
+                );
+                MessageBox.Show("Agendamento cadastrado com sucesso!");
+            }
+            formularioAnterior.Activate();
             this.Close();
         }
     }

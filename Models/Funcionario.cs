@@ -1,44 +1,36 @@
 using System;
-using Microsoft.EntityFrameworkCore;    
+using Microsoft.EntityFrameworkCore;
 using reserva_salas_csharp.Repository;
 
-namespace reserva_salas_csharp.Models {
+namespace reserva_salas_csharp.Models
+{
 
 
-    public class Funcionario {
-        public int Id {get ; set;}
-        public string Nome {get ; set;}
-        public string Sobrenome {get ; set;}
-        public string Cpf {get ; set;}
-        public string DataNasc {get ; set;}
+    public class Funcionario
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Sobrenome { get; set; }
+        public string Cpf { get; set; }
+        public string DataNasc { get; set; }
 
-    
-        public Funcionario() {
-            
-        }
 
-       
+        public Funcionario() { }
 
-        public Funcionario(string nome,string sobrenome, string cpf,string dataNasc) {
-            this.Id = Id;
+        public Funcionario(string nome, string sobrenome, string cpf, string dataNasc)
+        {
             this.Nome = nome;
             this.Sobrenome = sobrenome;
-            this.Cpf = cpf; 
+            this.Cpf = cpf;
             this.DataNasc = dataNasc;
+
+            Database context = new Database();
+            context.funcionario.Add(this);
+            context.SaveChanges();
         }
-
-         public void cadastrarFuncionario(string nome,string sobrenome, string cpf,string dataNasc)
-        {
-                using var context = new Database();
-                var funcionario = new Funcionario { Nome = nome, Sobrenome = sobrenome , Cpf = cpf, DataNasc = dataNasc};
-                context.funcionario.Add(funcionario);
-                context.SaveChanges();
-        }
-
-
 
         public static void alterarFuncionario(int id, Dictionary<string, string> novosCampos)
-{
+        {
             using var context = new Database();
             var funcionario = context.funcionario.Find(id);
 
@@ -65,9 +57,7 @@ namespace reserva_salas_csharp.Models {
             }
         }
 
-
-
-       public static void excluirFuncionario(int id)
+        public static void excluirFuncionario(int id)
         {
             using var context = new Database();
             var funcionario = context.funcionario.Find(id);
@@ -83,32 +73,16 @@ namespace reserva_salas_csharp.Models {
             }
         }
 
-
-        public static int GetByIdfunc(int id)
+        public static Funcionario GetByIdfunc(int id)
         {
-            using (var context = new Database())
-            {
-                var funcionario = context.funcionario.Find(id);
-                if (funcionario != null)
-                {
-                    return funcionario.Id;
-                }
-            }
-        
-            return -1; // Retorna um valor indicando que o funcionário não foi encontrado
+            Database db = new Database();
+            return (from f in db.funcionario where f.Id == id select f).First();
         }
-
 
         public static IEnumerable<Funcionario> GetAllFuncionario()
         {
             Database db = new Database();
             return from fucionarios in db.funcionario select fucionarios;
         }
-
-   
-        
-
-        
     }
-
 }

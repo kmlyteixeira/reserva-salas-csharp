@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using reserva_salas_csharp.Repository;
 
@@ -10,9 +11,11 @@ using reserva_salas_csharp.Repository;
 namespace reservasalascsharp.Migrations
 {
     [DbContext(typeof(Database))]
-    partial class DatabaseModelSnapshot : ModelSnapshot
+    [Migration("20230709041143_alt_funcionarios2")]
+    partial class altfuncionarios2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +27,6 @@ namespace reservasalascsharp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
@@ -83,18 +83,12 @@ namespace reservasalascsharp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<DateTime>("Data")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Observacao")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int>("funcionarioId")
-                        .HasColumnType("int");
 
                     b.Property<int>("idFuncionario")
                         .HasColumnType("int");
@@ -105,19 +99,7 @@ namespace reservasalascsharp.Migrations
                     b.Property<int>("idTurno")
                         .HasColumnType("int");
 
-                    b.Property<int>("salaid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("turnoid")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("funcionarioId");
-
-                    b.HasIndex("salaid");
-
-                    b.HasIndex("turnoid");
 
                     b.ToTable("Higienizacao");
                 });
@@ -254,33 +236,6 @@ namespace reservasalascsharp.Migrations
                     b.Navigation("SalaHasTurno");
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("reserva_salas_csharp.Models.Higienizacao", b =>
-                {
-                    b.HasOne("reserva_salas_csharp.Models.Funcionario", "funcionario")
-                        .WithMany()
-                        .HasForeignKey("funcionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("reserva_salas_csharp.Models.Sala", "sala")
-                        .WithMany()
-                        .HasForeignKey("salaid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("reserva_salas_csharp.Models.Turno", "turno")
-                        .WithMany()
-                        .HasForeignKey("turnoid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("funcionario");
-
-                    b.Navigation("sala");
-
-                    b.Navigation("turno");
                 });
 
             modelBuilder.Entity("reserva_salas_csharp.Models.SalaHasTurno", b =>

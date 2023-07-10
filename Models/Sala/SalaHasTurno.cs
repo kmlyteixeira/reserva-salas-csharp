@@ -6,9 +6,9 @@ namespace reserva_salas_csharp.Models
     {
         public int Id { get; set; }
         public int SalaId { get; set; }
-        public Sala Sala { get; set; }
+        public virtual Sala Sala { get; set; }
         public int TurnoId { get; set; }
-        public Turno Turno { get; set; }
+        public virtual Turno Turno { get; set; }
 
         public SalaHasTurno() {}
 
@@ -16,10 +16,6 @@ namespace reserva_salas_csharp.Models
         {
             this.SalaId = salaId;
             this.TurnoId = turnoId;
-
-            Database db = new Database();
-            db.SalaHasTurnos.Add(this);
-            db.SaveChanges();
         }
 
         public void ExcluirTurno()

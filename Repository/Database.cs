@@ -23,7 +23,8 @@ namespace reserva_salas_csharp.Repository
         private IConfiguration Configuration { get; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = $"Server=sql10.freemysqlhosting.net;Port=3306;Database=sql10630348;Uid=sql10630348;Pwd=ZfeeYQ1wma;";
+            //string connectionString = $"Server=sql10.freemysqlhosting.net;Port=3306;Database=sql10630348;Uid=sql10630348;Pwd=ZfeeYQ1wma;";
+            string connectionString = $"Server=localhost;Port=3306;Database=dbreservasalas;Uid=root;Pwd=;";
             ServerVersion version = ServerVersion.AutoDetect(connectionString);
 
             optionsBuilder.UseMySql(connectionString, version);

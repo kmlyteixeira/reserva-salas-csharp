@@ -36,7 +36,7 @@ namespace reserva_salas_csharp.Models
         public static Usuario GetUsuarioById(int id)
         {
             Database db = new Database();
-            return (from u in db.Usuarios where u.Id == id select u).First();
+            return (from u in db.Usuarios where u.Id == id select u).FirstOrDefault();
         }
 
         public static Usuario GetUsuarioByUserName(string userName)

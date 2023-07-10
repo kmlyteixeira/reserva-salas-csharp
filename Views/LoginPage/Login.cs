@@ -195,12 +195,14 @@ namespace reserva_salas_csharp.Views
             // pictureBox3
             // 
             this.pictureBox3.Image = Image.FromFile("Views/Resources/padlock.png");
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Location = new System.Drawing.Point(25, 15);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(28, 26);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 8;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new EventHandler((sender, e) => this.ShowPassClick());
             // 
             // pictureBox2
             // 
@@ -234,9 +236,9 @@ namespace reserva_salas_csharp.Views
             // 
             this.textBox2.Location = new System.Drawing.Point(71, 19);
             this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '●';
             this.textBox2.Size = new System.Drawing.Size(351, 22);
             this.textBox2.TabIndex = 11;
+            this.textBox2.UseSystemPasswordChar = true;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // button1
@@ -325,6 +327,11 @@ namespace reserva_salas_csharp.Views
 
             this.Hide();
             new Home(usuario).Show();
+        }
+
+        private void ShowPassClick()
+        {
+            this.textBox2.UseSystemPasswordChar = !this.textBox2.UseSystemPasswordChar;
         }
     }
 }

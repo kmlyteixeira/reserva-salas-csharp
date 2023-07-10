@@ -4,19 +4,20 @@ namespace reserva_salas_csharp.Models
 {
     public enum UserType
     {
-        Admin,
-        User
+        Admin = 1,
+        User = 2
     }
+
 
     public class TipoUsuario
     {
         public int Id { get; set; }
-        public UserType Tipo { get; set; }
+        public int Tipo { get; set; }
         public string Descricao { get; set; }
 
         public TipoUsuario() { }
 
-        public TipoUsuario(UserType tipo, string descricao)
+        public TipoUsuario(int tipo, string descricao)
         {
             this.Tipo = tipo;
             this.Descricao = descricao;
