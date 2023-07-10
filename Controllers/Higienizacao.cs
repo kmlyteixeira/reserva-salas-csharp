@@ -49,5 +49,14 @@ namespace reserva_salas_csharp.Controllers
                 .Where(a => a.idSala == int.Parse(salaId) && a.idTurno == int.Parse(turnoId) && a.Data.Date == data.Date && a.Ativo == true)
                 .FirstOrDefault();
         }
+
+        public static void InativarHigienizacao(int salaId, int turnoId, DateTime data)
+        {
+            var higienizacao = Models.Higienizacao.GetAllHigienizacoes()
+                .Where(a => a.idSala == salaId && a.idTurno == turnoId && a.Data.Date == data.Date && a.Ativo == true)
+                .FirstOrDefault();
+
+            Models.Higienizacao.InativarHigienizacao(higienizacao.Id);
+        }
     }
 }

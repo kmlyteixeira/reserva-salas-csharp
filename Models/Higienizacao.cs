@@ -101,5 +101,13 @@ namespace reserva_salas_csharp.Models
             return from h in db.Higienizacao
                 select h;
         }
+
+        public static void InativarHigienizacao(int id)
+        {
+            Database context = new Database();
+            Higienizacao higienizacao = context.Higienizacao.Find(id);
+            higienizacao.Ativo = false;
+            context.SaveChanges();
+        }
     }
 }

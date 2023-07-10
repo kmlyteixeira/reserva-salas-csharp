@@ -33,15 +33,16 @@ namespace reserva_salas_csharp.Views
 
       this.titulo.Text = "Lista de Salas";
       this.titulo.Location = new Point(10, 10);
-      this.titulo.Size = new Size(280, 30);
+      this.titulo.AutoSize = true;
       this.titulo.TextAlign = ContentAlignment.MiddleCenter;
-      this.titulo.Font = new Font("Arial", 20, FontStyle.Bold);
+      this.titulo.Font = new Font("Century Gothic", 20, FontStyle.Bold);
 
       this.lista.Location = new Point(10, 50);
       this.lista.Size = new Size(590, 400);
       this.lista.View = View.Details;
       this.lista.FullRowSelect = true;
       this.lista.GridLines = true;
+      this.lista.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
       this.lista.Columns.Add("Id", 50);
       this.lista.Columns.Add("N° Sala", 100);
       this.lista.Columns.Add("N° Andar", 100);
@@ -57,10 +58,10 @@ namespace reserva_salas_csharp.Views
       btnSalvar.Name = "btnIncluir";
       btnSalvar.Size = new Size(90, 30);
       btnSalvar.TabIndex = 2;
-      btnSalvar.Text = "incluir";
+      btnSalvar.Text = "Incluir";
       btnSalvar.UseVisualStyleBackColor = false;
 
-      this.btnSalvar.Click += (sender, e) =>
+      btnSalvar.Click += (sender, e) =>
       {
         new CadastroSala(0, formularioAnterior);
         this.LoadList();
@@ -80,6 +81,17 @@ namespace reserva_salas_csharp.Views
       
       this.btnEditar.Click += (sender, e) =>
       {
+        if (this.lista.SelectedItems.Count == 0) 
+          {
+          MessageBox.Show(
+            "Selecione uma sala para editar",
+            "Editar Sala",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information
+          );
+          return;
+        }
+
         new CadastroSala(
           int.Parse(this.lista.SelectedItems[0].Text), formularioAnterior
         );

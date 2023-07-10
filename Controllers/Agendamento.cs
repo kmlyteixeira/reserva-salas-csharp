@@ -48,5 +48,19 @@ namespace reserva_salas_csharp.Controllers
                 .Where(a => a.SalaHasTurno.SalaId == int.Parse(salaId) && a.SalaHasTurno.TurnoId == int.Parse(turnoId) && a.Data.Date == data.Date && a.Ativo == true)
                 .FirstOrDefault();
         }
+
+        public static void InativarAgendamento(int salaId, int turnoId, DateTime data)
+        {
+            var agendamento = Models.Agendamento.GetAllAgendamentos()
+                .Where(a => a.SalaHasTurno.SalaId == salaId && a.SalaHasTurno.TurnoId == turnoId && a.Data.Date == data.Date && a.Ativo == true)
+                .FirstOrDefault();
+
+            Models.Agendamento.InativarAgendamento(agendamento.Id);
+        }
+
+        public static IEnumerable<Models.Agendamento> GetRelatorioAgendamentos()
+        {
+            return Models.Agendamento.GetRelatorioAgendamentos();
+        }
     }
 }

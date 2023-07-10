@@ -28,9 +28,9 @@ namespace reserva_salas_csharp.Controllers
             Models.Funcionario.excluirFuncionario(id);
         }
 
-        public static IEnumerable<Models.Usuario> mostrarAllFunc()
+        public static IEnumerable<Models.Funcionario> mostrarAllFunc()
         {
-            return (IEnumerable<Models.Usuario>)Models.Funcionario.GetAllFuncionario();
+            return Models.Funcionario.GetAllFuncionario();
         }
 
     }
